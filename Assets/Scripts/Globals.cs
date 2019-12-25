@@ -35,6 +35,12 @@ public class LoginResponseData
 {
 
 }
+[Serializable]
+public class ForgotPasswordResponseData
+{
+
+}
+
 
 [Serializable]
 public class OTPResponseData

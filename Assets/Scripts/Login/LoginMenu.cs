@@ -11,11 +11,14 @@ public class LoginMenu : MonoBehaviour
     public static StringEvent OTPSubmitEvent = new StringEvent();
     public static UserLoginEvent LoginButtonClickEvent = new UserLoginEvent();
     public static UnityEvent RegisterButtonClickEvent = new UnityEvent();
+    public static StringEvent ForgotPasswordSubmit = new StringEvent();
     public static UnityEvent FbButtonClickEvent = new UnityEvent();
     public static UnityEvent GoogleButtonClickEvent = new UnityEvent();
     public static UnityEvent ForgotPasswordButtonClickEvent = new UnityEvent();
+    public static UnityEvent InputFieldEditStart = new UnityEvent();
+    public static StringEvent BackFromPanelEvent = new StringEvent();
 
-    [SerializeField] private string registerEndPoint, regOTPEndPoint;
+    [SerializeField] private string registerEndPoint, regOTPEndPoint, forgotPasswordEndPoint, loginEndPoint;
 
     [SerializeField] private GameObject LoginPanel, RegisterPanel, ForgotPassordPanel, OtpPanel, LoadingScreen; 
 
@@ -25,6 +28,9 @@ public class LoginMenu : MonoBehaviour
         LoginMenu.OTPSubmitEvent.AddListener(OnSubmitOtp);
         LoginMenu.LoginButtonClickEvent.AddListener(OnLoginClicked);
         LoginMenu.RegisterButtonClickEvent.AddListener(RegisterButtonClicked);
+        LoginMenu.ForgotPasswordButtonClickEvent.AddListener(ForgotPasswordButtonClicked);
+        LoginMenu.ForgotPasswordSubmit.AddListener(OnForgotPasswordSubmit);
+        LoginMenu.BackFromPanelEvent.AddListener(BackFromPanel);
     }
 
 
@@ -37,6 +43,10 @@ public class LoginMenu : MonoBehaviour
         LoadingScreen.SetActive(string.Equals(LoadingScreen.name, panelName));
     }
 
+    void BackFromPanel(string panelName)
+    {
+        ActivatePanel(panelName);
+    }
     public void SuccessfullRegistered()
     {
         Globals.LoadLevel(Globals.MAIN_SCENE);
@@ -52,7 +62,7 @@ public class LoginMenu : MonoBehaviour
         form.AddField("password", userLoginData.Password); 
 
         Communications<LoginResponseData> regCommunication = new Communications<LoginResponseData>();
-        regCommunication.PostForm(registerEndPoint, form, LoginCallback);
+        regCommunication.PostForm(loginEndPoint, form, LoginCallback);
         */
 
         // for now no communication direct go to next
@@ -117,4 +127,31 @@ public class LoginMenu : MonoBehaviour
          
     }
     #endregion OTP
+
+    #region ForgotPassword
+
+    void ForgotPasswordButtonClicked()
+    {
+        ActivatePanel(ForgotPassordPanel.name);
+    }
+
+    void OnForgotPasswordSubmit(string email_id)
+    {/*
+        ActivatePanel(LoadingScreen.name);
+        WWWForm form = new WWWForm();
+        form.AddField("email", email_id);  
+
+        Communications<ForgotPasswordResponseData> regCommunication = new Communications<ForgotPasswordResponseData>();
+        regCommunication.PostForm(forgotPasswordEndPoint, form, ForgotpasswordCallback);
+        
+        */
+        // for now no communication direct go to next
+        ForgotpasswordCallback(null);
+    }
+
+    private void ForgotpasswordCallback(ForgotPasswordResponseData obj)
+    {
+        ActivatePanel(LoginPanel.name);
+    }
+    #endregion ForgotPassword
 }

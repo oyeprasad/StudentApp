@@ -10,13 +10,13 @@ public class Login : MonoBehaviour
 
     public void LoginClicked()
     {
-        if (!usernameInput.GetComponent<ValidateInput>().isValidInput)
+        if (string.IsNullOrEmpty(usernameInput.text) || !usernameInput.GetComponent<ValidateInput>().isValidInput)
         {
-            print("Username is not valid");
+            usernameInput.GetComponent<ValidateInput>().Validate(usernameInput.text);
         }
-        else if (!passwordInput.GetComponent<ValidateInput>().isValidInput)
+        else if (string.IsNullOrEmpty(passwordInput.text) || !passwordInput.GetComponent<ValidateInput>().isValidInput)
         {
-            print("Password is not valid");
+            passwordInput.GetComponent<ValidateInput>().Validate(passwordInput.text);
         }
         else
         {
@@ -28,7 +28,7 @@ public class Login : MonoBehaviour
     }
     public void ForgotPasswordClicked()
     {
-
+        LoginMenu.ForgotPasswordButtonClickEvent.Invoke();
     }
     public void RegiterClicked()
     {

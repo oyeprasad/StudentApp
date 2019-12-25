@@ -8,7 +8,25 @@ public class Register : MonoBehaviour
     [SerializeField] private InputField firstNameInput, lastNameInput, phoneInput, emailInput, gradeInput, passwordInput, confirmPasswordInput;
     [SerializeField] private Dropdown countryCodeDropDown;
     [SerializeField] private Text screenMessage;
-    
+
+    private void Start()
+    {
+        LoginMenu.InputFieldEditStart.AddListener(OnEditStart);
+    }
+
+    private void Update()
+    {
+        if (gameObject.activeInHierarchy && Input.GetKeyDown(KeyCode.Escape))
+        {
+            BackClicked();
+        }
+    }
+
+    public void BackClicked()
+    {
+        LoginMenu.BackFromPanelEvent.Invoke("Login");
+    }
+
 
     public void SubmitClicked()
     {
@@ -20,31 +38,38 @@ public class Register : MonoBehaviour
 
     bool ValidateInput()
     {
-        if (!firstNameInput.GetComponent<ValidateInput>())
+        if (string.IsNullOrEmpty(firstNameInput.text) || !firstNameInput.GetComponent<ValidateInput>().isValidInput)
         {
+            firstNameInput.GetComponent<ValidateInput>().Validate(firstNameInput.text);
             return false;
-        } else if (!lastNameInput.GetComponent<ValidateInput>())
+        } else if (string.IsNullOrEmpty(lastNameInput.text) || !lastNameInput.GetComponent<ValidateInput>().isValidInput)
         {
-            return false;
-        }
-        else if (!phoneInput.GetComponent<ValidateInput>())
-        {
+            lastNameInput.GetComponent<ValidateInput>().Validate(lastNameInput.text);
             return false;
         }
-        else if (!emailInput.GetComponent<ValidateInput>())
+        else if (string.IsNullOrEmpty(phoneInput.text) || !phoneInput.GetComponent<ValidateInput>().isValidInput)
         {
+            phoneInput.GetComponent<ValidateInput>().Validate(phoneInput.text);
             return false;
         }
-        else if (!gradeInput.GetComponent<ValidateInput>())
+        else if (string.IsNullOrEmpty(emailInput.text) || !emailInput.GetComponent<ValidateInput>().isValidInput)
         {
+            emailInput.GetComponent<ValidateInput>().Validate(emailInput.text);
             return false;
         }
-        else if (!passwordInput.GetComponent<ValidateInput>())
+        else if (string.IsNullOrEmpty(gradeInput.text) || !gradeInput.GetComponent<ValidateInput>().isValidInput)
         {
+            gradeInput.GetComponent<ValidateInput>().Validate(gradeInput.text);
             return false;
         }
-        else if (!confirmPasswordInput.GetComponent<ValidateInput>())
+        else if (string.IsNullOrEmpty(passwordInput.text) || !passwordInput.GetComponent<ValidateInput>().isValidInput)
         {
+            passwordInput.GetComponent<ValidateInput>().Validate(passwordInput.text);
+            return false;
+        }
+        else if (string.IsNullOrEmpty(confirmPasswordInput.text) || !confirmPasswordInput.GetComponent<ValidateInput>().isValidInput)
+        {
+            confirmPasswordInput.GetComponent<ValidateInput>().Validate(confirmPasswordInput.text);
             return false;
         }
         else if (!string.Equals(passwordInput.text, confirmPasswordInput.text))
@@ -73,4 +98,12 @@ public class Register : MonoBehaviour
 
         LoginMenu.userRegisterEvent.Invoke(_userData);
     }
+
+    void OnEditStart()
+    {
+        screenMessage.color = Color.green;
+        screenMessage.text = string.Empty;
+    }
+
+
 }

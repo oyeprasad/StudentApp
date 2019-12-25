@@ -22,15 +22,22 @@ public class ValidateInput : MonoBehaviour
         validationInfo.text = string.Empty;
         inputToValidate = GetComponent<InputField>();
         inputToValidate.onValueChanged.AddListener(OnValueChange);
-        inputToValidate.onEndEdit.AddListener(OnEndEdit);
+        inputToValidate.onEndEdit.AddListener(Validate);
+        LoginMenu.InputFieldEditStart.AddListener(OnEditStart);
     }
 
     private void OnValueChange(string arg0)
     {
+        LoginMenu.InputFieldEditStart.Invoke();
         validationInfo.text = string.Empty;
     }
 
-    private void OnEndEdit(string arg0)
+    void OnEditStart()
+    {
+        validationInfo.text = string.Empty;
+    }
+
+    public void Validate(string arg0)
     {
         if (arg0.Length <= 0)
         {
