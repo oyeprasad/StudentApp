@@ -10,7 +10,7 @@ public class Register : MonoBehaviour
     [SerializeField] private Text screenMessage;
     
 
-    void SubmitClicked()
+    public void SubmitClicked()
     {
         if (ValidateInput())
         {
@@ -60,6 +60,7 @@ public class Register : MonoBehaviour
 
     void RegisterUser()
     {
+        print("Register user");
         UserRegisterData _userData = new UserRegisterData();
 
         _userData.FirstName = firstNameInput.text;

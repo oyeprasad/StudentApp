@@ -63,9 +63,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Globals.cs" />
+    <Compile Include="Assets\Scripts\Login\Login.cs" />
     <Compile Include="Assets\Scripts\Login\LoginMenu.cs" />
+    <Compile Include="Assets\Scripts\Login\OTP.cs" />
     <Compile Include="Assets\Scripts\Login\Register.cs" />
     <Compile Include="Assets\Scripts\Login\ValidateInput.cs" />
+    <Compile Include="Assets\Scripts\Utility\Communications.cs" />
     <Compile Include="Assets\Scripts\Utility\UserDefineEvents.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/Work/Running Projects/Student/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
