@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\Login\ValidateInput.cs" />
     <Compile Include="Assets\Scripts\Utility\Communications.cs" />
     <Compile Include="Assets\Scripts\Utility\UserDefineEvents.cs" />
+    <None Include="Assets\Fonts\Poppins\OFL.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/Work/Running Projects/Student/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
