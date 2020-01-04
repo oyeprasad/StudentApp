@@ -5,9 +5,30 @@ using UnityEngine.UI;
 
 public class Login : MonoBehaviour
 {
+    [SerializeField] private Button LoginNextBtton;
+    [SerializeField] private Button BackButtonFP;
+     
 
     [SerializeField] private InputField usernameInput, passwordInput;
 
+    private void Start()
+    {
+        LoginNextBtton.onClick.AddListener(LoginNextClick);
+        BackButtonFP.onClick.AddListener(BackFromFPClicked);
+    }
+    void LoginNextClick()
+    {
+        if (ValidateUserName())
+        {
+            LoginMenu.LoginNextClickEvent.Invoke();
+        }
+        
+    }
+
+    bool ValidateUserName()
+    {
+        return true;
+    }
     public void LoginClicked()
     {
         if (string.IsNullOrEmpty(usernameInput.text) || !usernameInput.GetComponent<ValidateInput>().isValidInput)
@@ -42,4 +63,9 @@ public class Login : MonoBehaviour
     {
 
     }
+    void BackFromFPClicked()
+    {
+        LoginMenu.BackFromPanelEvent.Invoke("UsernamePanel");
+    }
+
 }

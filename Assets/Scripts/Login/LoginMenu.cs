@@ -18,9 +18,11 @@ public class LoginMenu : MonoBehaviour
     public static UnityEvent InputFieldEditStart = new UnityEvent();
     public static StringEvent BackFromPanelEvent = new StringEvent();
 
+    public static UnityEvent LoginNextClickEvent = new UnityEvent();
+
     [SerializeField] private string registerEndPoint, regOTPEndPoint, forgotPasswordEndPoint, loginEndPoint;
 
-    [SerializeField] private GameObject LoginPanel, RegisterPanel, ForgotPassordPanel, OtpPanel, LoadingScreen; 
+    [SerializeField] private GameObject LoginPanel, RegisterPanel, ForgotPassordPanel, OtpPanel, LoadingScreen, UsernamePanel, PasswordPanel; 
 
     private void Start()
     {
@@ -31,16 +33,25 @@ public class LoginMenu : MonoBehaviour
         LoginMenu.ForgotPasswordButtonClickEvent.AddListener(ForgotPasswordButtonClicked);
         LoginMenu.ForgotPasswordSubmit.AddListener(OnForgotPasswordSubmit);
         LoginMenu.BackFromPanelEvent.AddListener(BackFromPanel);
+
+        //Modified
+        LoginMenu.LoginNextClickEvent.AddListener(LoginNextClick);
     }
 
+    void LoginNextClick()
+    {
+        ActivatePanel(PasswordPanel.name);
+    }
 
     public void ActivatePanel(string panelName)
     {
-        LoginPanel.SetActive(string.Equals(LoginPanel.name, panelName));
+        print("Activate panel "+panelName);
+        //LoginPanel.SetActive(string.Equals(LoginPanel.name, panelName));
         RegisterPanel.SetActive(string.Equals(RegisterPanel.name, panelName));
         ForgotPassordPanel.SetActive(string.Equals(ForgotPassordPanel.name, panelName));
         OtpPanel.SetActive(string.Equals(OtpPanel.name, panelName));
         LoadingScreen.SetActive(string.Equals(LoadingScreen.name, panelName));
+        PasswordPanel.SetActive(string.Equals(PasswordPanel.name, panelName));
     }
 
     void BackFromPanel(string panelName)
@@ -53,6 +64,9 @@ public class LoginMenu : MonoBehaviour
     }
 
     #region Login
+
+
+
     private void OnLoginClicked(UserLoginData userLoginData)
     {
         /*
