@@ -8,13 +8,13 @@ using UnityEngine.SceneManagement;
 [Serializable]
 public class UserRegisterData
 {
-    public string FirstName = string.Empty;
-    public string LastName = string.Empty;
+    public string FullName = string.Empty;
+    public string Username = string.Empty;
     public string CountryCode = string.Empty;
     public string PhoneNumber = string.Empty;
     public string Email = string.Empty;
     public string Password = string.Empty;
-    public string ConfirmPassword =string.Empty;
+    public string Grade =string.Empty;
 } //
 
 [Serializable]
@@ -54,6 +54,7 @@ public class Globals : MonoBehaviour
     public const string HOME_SCENE = "Home";
 
     public static string USERNAME = "";
+    public static UserRegisterData USERDATA = new UserRegisterData();
 
     public static bool ValidateEmail(string emailString)
     {

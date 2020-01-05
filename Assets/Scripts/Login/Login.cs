@@ -14,14 +14,15 @@ public class Login : MonoBehaviour
 
     // static events
     public static StringEvent PasswordClickEvent = new StringEvent();
-    public static StringEvent OTPSubmitEvent = new StringEvent();
+    public static StringEvent OTPSubmitEvent = new StringEvent(); //
+    public static StringEvent GradeClickEvent = new StringEvent();
 
     [SerializeField] private InputField usernameInput, EmailFPInput, RegFullname, RegEmail, RegPhomenumber, ChooseUsernameInput;
     [SerializeField] private Dropdown RegPhoneCode;
 
-    [SerializeField] private GameObject LoginPanel, PasswordPanel, ForgotPassowrdPanel, WhoAreYouPanel, VerificationPanel, SignUpPanel, ChooseUserNamePanel, LoaderPanel;
-
-    private string username, passwordId = "1", emailid, fullname, phonecode, phonenumber; 
+    [SerializeField] private GameObject LoginPanel, PasswordPanel, ForgotPassowrdPanel, WhoAreYouPanel, VerificationPanel, SignUpPanel, ChooseUserNamePanel, GradePanel,LoaderPanel;
+    [SerializeField] private LoginPopup loginPopup;
+    private string username, passwordId = "1", emailid, fullname, phonecode, phonenumber, grade; 
 
     private List<GameObject> navigationPanelsList = new List<GameObject>();
     private OTPInitiator oTPInitiator = OTPInitiator.ForgotPassword;
@@ -30,6 +31,7 @@ public class Login : MonoBehaviour
     {
         Login.PasswordClickEvent.AddListener(PasswordButtonClicked);
         Login.OTPSubmitEvent.AddListener(OTPSubmit);
+        Login.GradeClickEvent.AddListener(GradeSubmit);
     }
 
 
@@ -74,8 +76,12 @@ public class Login : MonoBehaviour
     {
         if (string.Equals(usertype ,"student"))
         {
+            ClearInpuFields();
             navigationPanelsList.Add(WhoAreYouPanel); 
             ActivatePanel(SignUpPanel.name);
+
+            loginPopup.gameObject.SetActive(true);
+            loginPopup.SetPopup("DISCLAIMER"+"\n\n"+"Dear Student, please have your parent or and adult help you to create an account", null);
         }
     }
 
@@ -87,11 +93,22 @@ public class Login : MonoBehaviour
     public void PasswordSubmit()
     {
         // perform login here with username and password available
-        Globals.USERNAME = username;
 
-        ClearInpuFields();
-        navigationPanelsList.Clear(); 
-        Globals.LoadLevel(Globals.HOME_SCENE);
+        if (oTPInitiator == OTPInitiator.ForgotPassword)
+        {
+            Globals.USERNAME = username;
+            ClearInpuFields();
+            navigationPanelsList.Clear();
+             
+            Globals.LoadLevel(Globals.HOME_SCENE);
+        }
+        else if (oTPInitiator == OTPInitiator.Registration)
+        {
+            navigationPanelsList.Clear();
+            ClearInpuFields();
+            ActivatePanel(GradePanel.name);
+        }
+
     }
     public void ForgotPasswordSubmit()
     {
@@ -163,6 +180,23 @@ public class Login : MonoBehaviour
         }
     }
 
+    private void GradeSubmit(string gradeNo)
+    {
+        if (GradeIsAvailable(gradeNo))
+        {
+            grade = gradeNo;
+            navigationPanelsList.Clear();
+            ClearInpuFields();
+            ActivatePanel(LoginPanel.name);
+            Globals.LoadLevel(Globals.HOME_SCENE);
+        }
+        else
+        {
+            loginPopup.gameObject.SetActive(true);
+            loginPopup.SetPopup("COMING SOON! TRY ANOTHER GRADE!", null);
+        }
+    }
+    
 
     public void LoginClicked()
     {
@@ -199,6 +233,8 @@ public class Login : MonoBehaviour
         VerificationPanel.SetActive(string.Equals(VerificationPanel.name, panelName));
         SignUpPanel.SetActive(string.Equals(SignUpPanel.name, panelName));
         ChooseUserNamePanel.SetActive(string.Equals(ChooseUserNamePanel.name, panelName));
+        GradePanel.SetActive(string.Equals(GradePanel.name, panelName));
+        LoaderPanel.SetActive(string.Equals(LoaderPanel.name, panelName)); 
     }
 
 
@@ -217,7 +253,10 @@ public class Login : MonoBehaviour
     {
         return true;
     }
-
+    bool GradeIsAvailable(string _gradeNo)
+    {
+        return false;
+    }
     void ClearInpuFields()
     {
         usernameInput.text = string.Empty;
@@ -227,5 +266,10 @@ public class Login : MonoBehaviour
         RegPhomenumber.text = string.Empty;
         ChooseUsernameInput.text = string.Empty;
         RegPhoneCode.RefreshShownValue();
+
+        if (loginPopup.gameObject.activeInHierarchy)
+        {
+            loginPopup.gameObject.SetActive(false);
+        }
     }
 }

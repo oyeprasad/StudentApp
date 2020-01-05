@@ -23,4 +23,12 @@ public class PassswordButtons : MonoBehaviour
         highlight.position = transform.position;
         Login.PasswordClickEvent.Invoke(id);
     }
+
+    private void OnDisable()
+    {
+        if (id == "1")
+        {
+            highlight.position = transform.position;
+        }
+    }
 }
