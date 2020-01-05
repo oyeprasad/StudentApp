@@ -51,7 +51,9 @@ public class Globals : MonoBehaviour
 {
     public const string BASE_URL = "mybaseurl";
     public const string LOGIN_SCENE = "Login";
-    public const string MAIN_SCENE = "Main";
+    public const string HOME_SCENE = "Home";
+
+    public static string USERNAME = "";
 
     public static bool ValidateEmail(string emailString)
     {

@@ -19,16 +19,20 @@ public class ValidateInput : MonoBehaviour
     [SerializeField] Text validationInfo;
     private void Start()
     {
-        validationInfo.text = string.Empty;
         inputToValidate = GetComponent<InputField>();
         inputToValidate.onValueChanged.AddListener(OnValueChange);
         inputToValidate.onEndEdit.AddListener(Validate);
-        LoginMenu.InputFieldEditStart.AddListener(OnEditStart);
+       // LoginMenu.InputFieldEditStart.AddListener(OnEditStart);
+    }
+
+    private void OnEnable()
+    {
+        validationInfo.text = string.Empty;
     }
 
     private void OnValueChange(string arg0)
     {
-        LoginMenu.InputFieldEditStart.Invoke();
+        //LoginMenu.InputFieldEditStart.Invoke();
         validationInfo.text = string.Empty;
     }
 
@@ -39,6 +43,7 @@ public class ValidateInput : MonoBehaviour
 
     public void Validate(string arg0)
     {
+        print("Validate");
         if (arg0.Length <= 0)
         {
             validationInfo.text = blankErrorMessage;

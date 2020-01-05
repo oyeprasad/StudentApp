@@ -1,42 +1,62 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+ 
 public class OTP : MonoBehaviour
 {
-    [SerializeField] private InputField otpInput;
-    [SerializeField] private Text screenMessage; 
+    public IntEvent OnValueChangeEvent = new IntEvent();
+    [SerializeField] private List<InputField> allInpufields;
+    [SerializeField] private Text message;
+
+
 
     private void Start()
     {
-        LoginMenu.InputFieldEditStart.AddListener(StartEditToInput);
+        OnValueChangeEvent.AddListener(OnValueChange);
     }
-
-    public void Submit()
+    void OnValueChange(int index)
     {
-        if (string.IsNullOrEmpty(otpInput.text) || !otpInput.GetComponent<ValidateInput>().isValidInput)
+        message.text = string.Empty;
+        if ((index + 1) < allInpufields.Count)
         {
-            otpInput.GetComponent<ValidateInput>().Validate(otpInput.text);
+            EventSystem.current.SetSelectedGameObject(allInpufields[index + 1].gameObject, null);
+        }
+        else
+        {
+            // Do nothing
         }
     }
-
-    void StartEditToInput()
+    public void OnSubmit()
     {
-        screenMessage.text = string.Empty;
-    }
-
-    private void Update()
-    {
-        if (gameObject.activeInHierarchy && Input.GetKeyDown(KeyCode.Escape))
+        string otpInput = string.Empty;
+        bool isValid = true;
+        for (int i = 0; i < allInpufields.Count; i++)
         {
-            BackClicked();
+            if (string.IsNullOrEmpty(allInpufields[i].text))
+            {
+                message.color = Color.red;
+                message.text = "OTP is invalid";
+                isValid = false;
+                break;
+            }
+            otpInput += allInpufields[i].text;
         }
+
+        if (isValid)
+        {
+            print("Username is assigned");
+            message.text = string.Empty;
+            Login.OTPSubmitEvent.Invoke("Amit");
+        }
+         
     }
 
-    public void BackClicked()
+    public void Resend()
     {
-        LoginMenu.BackFromPanelEvent.Invoke("Login");
+        message.color = Color.green;
+        message.text = "Code is sent successfully";
     }
-
+     
 }
