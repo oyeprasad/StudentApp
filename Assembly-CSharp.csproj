@@ -64,6 +64,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Globals.cs" />
     <Compile Include="Assets\Scripts\Home\HomeUIManager.cs" />
+    <Compile Include="Assets\Scripts\Input\InputfieldFocused.cs" />
+    <Compile Include="Assets\Scripts\Input\InputfieldSlideScreen.cs" />
     <Compile Include="Assets\Scripts\Loader\Loader.cs" />
     <Compile Include="Assets\Scripts\Login\GradeButtons.cs" />
     <Compile Include="Assets\Scripts\Login\Login.cs" />

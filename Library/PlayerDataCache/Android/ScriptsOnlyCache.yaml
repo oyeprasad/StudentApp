@@ -1,10 +1,14 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - GradeButtons
     - HomeUIManager
+    - InputfieldFocused
+    - InputfieldSlideScreen
     - Loader
     - Login
     - LoginMenu
+    - LoginPopup
     - OTP
     - OTPInput
     - PassswordButtons
@@ -53,15 +57,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9862}
     - Class: 114
-      Script: {instanceID: 10236}
+      Script: {instanceID: 10240}
     - Class: 114
-      Script: {instanceID: 10354}
+      Script: {instanceID: 10358}
     - Class: 114
-      Script: {instanceID: 10582}
+      Script: {instanceID: 10586}
     - Class: 114
-      Script: {instanceID: 11022}
+      Script: {instanceID: 11026}
     - Class: 114
-      Script: {instanceID: 11368}
+      Script: {instanceID: 11372}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -106,37 +110,45 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9862}
     - Class: 114
-      Script: {instanceID: 9984}
+      Script: {instanceID: 9912}
     - Class: 114
-      Script: {instanceID: 10150}
+      Script: {instanceID: 9986}
     - Class: 114
-      Script: {instanceID: 10236}
+      Script: {instanceID: 10152}
     - Class: 114
-      Script: {instanceID: 10282}
+      Script: {instanceID: 10184}
     - Class: 114
-      Script: {instanceID: 10404}
+      Script: {instanceID: 10240}
     - Class: 114
-      Script: {instanceID: 10498}
+      Script: {instanceID: 10286}
     - Class: 114
-      Script: {instanceID: 10568}
+      Script: {instanceID: 10408}
     - Class: 114
-      Script: {instanceID: 10582}
+      Script: {instanceID: 10502}
     - Class: 114
-      Script: {instanceID: 10762}
+      Script: {instanceID: 10572}
     - Class: 114
-      Script: {instanceID: 11022}
+      Script: {instanceID: 10586}
     - Class: 114
-      Script: {instanceID: 11192}
+      Script: {instanceID: 10766}
     - Class: 114
-      Script: {instanceID: 11356}
+      Script: {instanceID: 11026}
     - Class: 114
-      Script: {instanceID: 11358}
+      Script: {instanceID: 11196}
     - Class: 114
-      Script: {instanceID: 11368}
+      Script: {instanceID: 11360}
     - Class: 114
-      Script: {instanceID: 11382}
+      Script: {instanceID: 11362}
     - Class: 114
-      Script: {instanceID: 11434}
+      Script: {instanceID: 11372}
+    - Class: 114
+      Script: {instanceID: 11386}
+    - Class: 114
+      Script: {instanceID: 11438}
+    - Class: 114
+      Script: {instanceID: 35420}
+    - Class: 114
+      Script: {instanceID: 35444}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -240,6 +252,12 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
+      Hash: c73a71f1d1430fe0ecc8f2f569f1092e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: LoginPopup
+  - hash:
+      serializedVersion: 2
       Hash: 7ab0e790220bdca831fdd886b339039d
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -324,6 +342,12 @@ ScriptsOnlyBuild:
     className: UserDefineEvents
   - hash:
       serializedVersion: 2
+      Hash: bff77c6a69271bc22db14d1c24c53d8b
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GradeButtons
+  - hash:
+      serializedVersion: 2
       Hash: cc4274b586df3c02688bac01b88bd16c
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -390,7 +414,7 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
-      Hash: 5d928f01d10dc791aeeb335f37ddc673
+      Hash: 91837999cac9792a01f71dde402b89ef
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Login
@@ -628,8 +652,20 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PassswordButtons
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: InputfieldFocused
+  - hash:
+      serializedVersion: 2
+      Hash: abfc8b2164f9cbf763392a575f8f1938
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: InputfieldSlideScreen
   platform: 13
   scenePathNames:
   - Assets/Scenes/Login.unity
   - Assets/Scenes/Home.unity
-  playerPath: E:/Work/Running Projects/Student/Build/Android/Student.apk
+  playerPath: E:/Work/Running Projects/Student/Build/Android/Whizee.apk
