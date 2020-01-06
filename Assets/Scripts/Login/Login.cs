@@ -22,6 +22,8 @@ public class Login : MonoBehaviour
 
     [SerializeField] private GameObject LoginPanel, PasswordPanel, ForgotPassowrdPanel, WhoAreYouPanel, VerificationPanel, SignUpPanel, ChooseUserNamePanel, GradePanel,LoaderPanel;
     [SerializeField] private LoginPopup loginPopup;
+    [SerializeField] private FBManager fbManager;
+
     private string username, passwordId = "1", emailid, fullname, phonecode, phonenumber, grade; 
 
     private List<GameObject> navigationPanelsList = new List<GameObject>();
@@ -204,9 +206,13 @@ public class Login : MonoBehaviour
         ActivatePanel(LoginPanel.name);
     }
 
+    private void AfterFBDatarecieved(FBUserData data)
+    {
+    }
+
     public void FbLoginClicked()
     {
-
+        fbManager.FBLogin(AfterFBDatarecieved);
     }
     public void GoogleLoginClicked()
     {

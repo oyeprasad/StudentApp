@@ -62,6 +62,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\ConsoleBase.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\LogView.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\MenuBase.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\AccessTokenMenu.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\AppEvents.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\AppLinks.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\AppRequests.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\DialogShare.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\GraphRequest.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\MainMenu.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\Pay.cs" />
+    <Compile Include="Assets\Scripts\FBScripts\FBManager.cs" />
     <Compile Include="Assets\Scripts\Globals.cs" />
     <Compile Include="Assets\Scripts\Home\HomeUIManager.cs" />
     <Compile Include="Assets\Scripts\Input\InputfieldFocused.cs" />
@@ -77,6 +89,7 @@
     <Compile Include="Assets\Scripts\Login\ValidateInput.cs" />
     <Compile Include="Assets\Scripts\Utility\Communications.cs" />
     <Compile Include="Assets\Scripts\Utility\UserDefineEvents.cs" />
+    <None Include="Assets\FacebookSDK\link.xml" />
     <None Include="Assets\Fonts\Poppins\OFL.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/Work/Running Projects/Student/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
@@ -275,6 +288,18 @@
     </Reference>
     <Reference Include="UnityEngine.XRModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.16f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Unity">
+      <HintPath>E:/Work/Running Projects/Student/Assets/FacebookSDK/Plugins/Facebook.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="FacebookNamedPipeClient">
+      <HintPath>E:/Work/Running Projects/Student/Assets/FacebookSDK/Plugins/Gameroom/FacebookNamedPipeClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Unity.Gameroom">
+      <HintPath>E:/Work/Running Projects/Student/Assets/FacebookSDK/Plugins/Gameroom/Facebook.Unity.Gameroom.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Unity.Settings">
+      <HintPath>E:/Work/Running Projects/Student/Assets/FacebookSDK/Plugins/Settings/Facebook.Unity.Settings.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.16f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

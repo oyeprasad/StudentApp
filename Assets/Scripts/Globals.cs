@@ -5,6 +5,17 @@ using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
 
+
+[Serializable]
+public class FBUserData
+{
+    public string first_name = string.Empty;
+    public string last_name = string.Empty;
+    public string email = string.Empty;
+    public string id = string.Empty;
+    public Sprite profilepic = default;
+}
+
 [Serializable]
 public class UserRegisterData
 {
