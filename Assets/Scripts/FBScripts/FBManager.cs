@@ -8,8 +8,8 @@ using UnityEngine.UI;
 
 public class FBManager : MonoBehaviour
 {
-    private FBUserData userfbdata = new FBUserData();
-    [SerializeField] private Image profilepic; 
+    private FBUserData userfbdata = new FBUserData(); 
+
 
     #region Monobehaviour
     void Awake()
@@ -53,13 +53,12 @@ public class FBManager : MonoBehaviour
     #region FBLogin 
 
     System.Action<FBUserData> AfterLoginCallback;
-    public void FBLogin(System.Action<FBUserData> _afterLoginCallback)
+    public void FBLogin()
     {
-        AfterLoginCallback = _afterLoginCallback;
         List<string> permissions = new List<string>() { "public_profile", "email" };
         FB.LogInWithReadPermissions(permissions, FBLoginCallback);
     }
-
+    private AccessToken token;
     private void FBLoginCallback(ILoginResult result)
     {
         if (result.Cancelled)
@@ -71,8 +70,10 @@ public class FBManager : MonoBehaviour
 
             if (FB.IsLoggedIn)
             {
+                token = AccessToken.CurrentAccessToken;
+                Login.FBLoginEvent.Invoke(token.TokenString);
                 // FB.API("/me?fields=first_name,last_name,email", HttpMethod.GET, FbDataCallback);
-                FB.API("/me?fields=first_name,last_name,email", HttpMethod.GET, FbDataCallback, new Dictionary<string, string>() { });
+                //   FB.API("/me?fields=first_name,last_name,email", HttpMethod.GET, FbDataCallback, new Dictionary<string, string>() { });
             }
 
         }
@@ -92,13 +93,7 @@ public class FBManager : MonoBehaviour
          
         if (result.Error == null && result.Texture != null)
         {
-            userfbdata.profilepic = Sprite.Create(result.Texture, new Rect(0, 0, 128, 128), Vector2.zero);
-            print(userfbdata.first_name);
-            print(userfbdata.last_name);
-            print(userfbdata.id);
-            print(userfbdata.email);
-            profilepic.sprite = userfbdata.profilepic;
-
+            userfbdata.profilepic = Sprite.Create(result.Texture, new Rect(0, 0, 128, 128), Vector2.zero); 
 
             AfterLoginCallback(userfbdata);
        

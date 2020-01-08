@@ -8,7 +8,7 @@ public class GradeButtons : MonoBehaviour
 { 
     private Button ClickButton;
 
-    [SerializeField] private string grade;
+    [SerializeField] private int grade;
 
     private void Start()
     {

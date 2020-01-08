@@ -9,8 +9,14 @@ public class HomeUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        print("Globals.USERNAME "+ Globals.USERNAME);
-        UserWelcomeText.text = string.Format("{0}, {1}", "Hello", Globals.USERNAME.ToUpper());
+        if (Globals.LoginType == 0)
+        {
+            UserWelcomeText.text = string.Format("{0}, {1}", "Hello", Globals.UserLoginDetails.username.ToUpper());
+        }
+        else if (Globals.LoginType == 1)
+        {
+            UserWelcomeText.text = string.Format("{0}, {1}", "Hello", Globals.fBLoginResponseData.name.ToUpper());
+        }
     }
      
 }
