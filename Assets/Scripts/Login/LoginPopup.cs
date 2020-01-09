@@ -17,6 +17,7 @@ public class LoginPopup : MonoBehaviour
     }
     public void SetPopup(string msg, Action callback)
     {
+        gameObject.SetActive(true);
         Message.text = msg;
         ActionOnClick = callback;
     }

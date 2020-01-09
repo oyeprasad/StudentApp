@@ -20,25 +20,35 @@ public class Login : MonoBehaviour
     public static IntEvent GradeClickEvent = new IntEvent();
     public static StringEvent FBLoginEvent = new StringEvent();
 
-     
+     // References of Input fields taken from inspector
     [SerializeField] private InputField usernameInput, EmailFPInput, RegFullname, RegEmail, RegPhomenumber, ChooseUsernameInput;
     [SerializeField] private Dropdown RegPhoneCode;
 
-     
+    // References of the Different panels taken from Inspector 
     [SerializeField] private GameObject LoginPanel, PasswordPanel, ForgotPassowrdPanel, WhoAreYouPanel, VerificationPanel, SignUpPanel, ChooseUserNamePanel, GradePanel,LoaderPanel;
+
+    // Reference ofloginPopup and FB manager
     [SerializeField] private LoginPopup loginPopup;
     [SerializeField] private FBManager fbManager;
 
-     
+    // References of the screen messages that apears on different screens 
     [SerializeField] private Text LoginScreenMessage, PasswordScreenMessage, RegisScreenMessage, VerificationScreenMessage, ForgotPasswordScreenMessage, GradeScreenMessage;
 
+    //Reference of Webrequest Panel
     [SerializeField] private WebRequests WebRequestObject;
 
-    private string username, passwordId = "1", emailid, fullname, phonecode, phonenumber;
+    // User Basic info that intered or populated 
+    private string username, passwordId = "1112121", emailid, fullname, phonecode, phonenumber;
     private int user_id = 0, grade;
 
+
+    //List of panels that user visits seuentially 
     private List<GameObject> navigationPanelsList = new List<GameObject>();
+
+    // Purpose of the OTP 
     private OTPInitiator oTPInitiator = OTPInitiator.Login;
+
+
     #region MonoBehaviourMethods
     void Start()
     {
@@ -46,6 +56,7 @@ public class Login : MonoBehaviour
         Login.OTPSubmitEvent.AddListener(OTPSubmit);
         Login.GradeClickEvent.AddListener(GradeSubmit);
         Login.FBLoginEvent.AddListener(OnFBLogin);
+        WebRequestObject = WebRequests.Instance;
     }
 
 
@@ -89,11 +100,13 @@ public class Login : MonoBehaviour
 
     public void ResendOtpClicked()
     {
+        LoaderPanel.SetActive(true);
         WebRequestObject.ProcessResendOTP(user_id, ResendOTPCallback);
     }
 
     private void ResendOTPCallback(ResponseData<UserData> obj)
     {
+        LoaderPanel.SetActive(false);
         if (obj != null)
         {
             if (obj.status)
@@ -118,12 +131,14 @@ public class Login : MonoBehaviour
     {
         if (string.Equals(usertype ,"student"))
         {
-            ClearInpuFields();
-            navigationPanelsList.Add(WhoAreYouPanel); 
-            ActivatePanel(SignUpPanel.name);
+            loginPopup.SetPopup("DISCLAIMER" + "\n\n" + "Dear Student, please have your parent or and adult help you to create an account", () => {
+                ClearInpuFields();
+                navigationPanelsList.Add(WhoAreYouPanel);
+                ActivatePanel(SignUpPanel.name);
+            }); 
 
-            loginPopup.gameObject.SetActive(true);
-            loginPopup.SetPopup("DISCLAIMER"+"\n\n"+"Dear Student, please have your parent or and adult help you to create an account", null);
+          //  loginPopup.gameObject.SetActive(true);
+            //loginPopup.SetPopup("DISCLAIMER"+"\n\n"+"Dear Student, please have your parent or and adult help you to create an account", null);
         }
     }
 
@@ -137,17 +152,15 @@ public class Login : MonoBehaviour
         // perform login here with username and password available 
         if (oTPInitiator == OTPInitiator.Login)
         {
+
             LoaderPanel.SetActive(true);
             WebRequestObject.ProcessLogin(username, passwordId, LoginCallback);
         }
         if (oTPInitiator == OTPInitiator.ForgotPassword)
-        {
-            print("Passowrd submit1");
-            Globals.USERNAME = username;
-            ClearInpuFields();
-            navigationPanelsList.Clear();
-             
-            Globals.LoadLevel(Globals.HOME_SCENE);
+        { 
+            LoaderPanel.SetActive(true);
+            WebRequestObject.ForgotPasswordNewPasswordSubmit(user_id, passwordId, passwordId, PasswordSubmitCallback);
+
         }
         else if (oTPInitiator == OTPInitiator.Registration)
         {
@@ -156,6 +169,30 @@ public class Login : MonoBehaviour
             ActivatePanel(GradePanel.name); 
         }
 
+    }
+
+    private void PasswordSubmitCallback(ResponseData<UserData> obj)
+    {
+        LoaderPanel.SetActive(false);
+        if (oTPInitiator == OTPInitiator.ForgotPassword)
+        {
+            if (obj != null)
+            {
+                if (obj.status)
+                { 
+                    ClearInpuFields();
+                    navigationPanelsList.Clear();
+                    loginPopup.SetPopup(obj.message, () => Globals.LoadLevel(Globals.HOME_SCENE));
+                }
+                else
+                {
+                    PasswordScreenMessage.text = obj.message; 
+                }
+            } else
+            {
+                PasswordScreenMessage.text = "Some error! Please try after some time.";
+            }
+        }
     }
 
     private void LoginCallback(ResponseData<UserData> obj)
@@ -191,7 +228,7 @@ public class Login : MonoBehaviour
         else if (EmailFPInput.GetComponent<ValidateInput>().isValidInput)
         {
             emailid = EmailFPInput.text;
-
+            LoaderPanel.SetActive(true);
             WebRequestObject.ProcessForgotPassword(emailid, ForgotPasswordSubmitCallback);
 
 
@@ -200,6 +237,7 @@ public class Login : MonoBehaviour
 
     private void ForgotPasswordSubmitCallback(ResponseData<UserData> obj)
     {
+        LoaderPanel.SetActive(false);
         if (obj == null)
         {
             ForgotPasswordScreenMessage.text = "Some error! Please try after some time.";
@@ -211,6 +249,8 @@ public class Login : MonoBehaviour
                 navigationPanelsList.Add(ForgotPassowrdPanel);
                 ClearInpuFields();
                 oTPInitiator = OTPInitiator.ForgotPassword;
+                user_id = obj.data.user_id;
+
                 ActivatePanel(VerificationPanel.name);
             }
             else
@@ -227,11 +267,13 @@ public class Login : MonoBehaviour
         LoaderPanel.SetActive(true);
          
         if (oTPInitiator == OTPInitiator.ForgotPassword) {
+            print("user_id "+ user_id);
+            print("otp_intered " + otp_intered);
 
             WebRequestObject.ProcessForgotPasswordOTP(user_id, otp_intered, ForgotPassOTPCallback);
 
             navigationPanelsList.Add(VerificationPanel);
-            ActivatePanel(PasswordPanel.name);
+            
         }
          else if (oTPInitiator == OTPInitiator.Registration) {
             WebRequestObject.ProcessOTP(user_id, otp_intered, OTPSubmitCallback);
@@ -241,6 +283,7 @@ public class Login : MonoBehaviour
 
     private void ForgotPassOTPCallback(ResponseData<UserData> obj)
     {
+        LoaderPanel.SetActive(false);
         if (obj != null)
         {
             if (obj.status)
@@ -328,7 +371,20 @@ public class Login : MonoBehaviour
             }
             else
             {
-                RegisScreenMessage.text = response.message;
+                if (response.data.otp_verified == 0)
+                {
+                    user_id = response.data.user_id;
+                    navigationPanelsList.Add(SignUpPanel);
+                    ClearInpuFields();
+
+                    loginPopup.SetPopup(response.message, () => {
+                        WebRequestObject.ProcessResendOTP(user_id, (ResponseData<UserData> data) => print("OTP RESEND"));    
+                        ActivatePanel(VerificationPanel.name); });
+                }
+                else
+                {
+                    RegisScreenMessage.text = response.message;
+                }
             }
         }
     }
@@ -378,7 +434,9 @@ public class Login : MonoBehaviour
                 navigationPanelsList.Clear();
                 ClearInpuFields();
                 ActivatePanel(LoginPanel.name);
-                Globals.LoadLevel(Globals.HOME_SCENE);
+                loginPopup.SetPopup(obj.message, () => Globals.LoadLevel(Globals.HOME_SCENE));
+                
+
             }
             else
             {
@@ -413,6 +471,7 @@ public class Login : MonoBehaviour
     public void PasswordButtonClicked(string _passwordId)
     {
         passwordId = _passwordId;
+        print("You choosen password "+ passwordId);
     }
     #endregion ButtonClickEvents
 
@@ -490,17 +549,24 @@ public class Login : MonoBehaviour
     }
     void ClearInpuFields()
     {
+        // Clear All input fields
         usernameInput.text = string.Empty;
         EmailFPInput.text = string.Empty;
         RegFullname.text = string.Empty;
         RegEmail.text = string.Empty;
         RegPhomenumber.text = string.Empty;
         ChooseUsernameInput.text = string.Empty;
+
+        //Clear Dropdown for phone code
         RegPhoneCode.RefreshShownValue();
 
+        // Clear all ScrrenMessages;
         LoginScreenMessage.text = "";
         PasswordScreenMessage.text = "";
         RegisScreenMessage.text = "";
+        VerificationScreenMessage.text = "";
+        ForgotPasswordScreenMessage.text = "";
+        GradeScreenMessage.text = "";
 
         if (loginPopup.gameObject.activeInHierarchy)
         {

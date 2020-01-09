@@ -46,7 +46,7 @@ public class OTP : MonoBehaviour
 
         if (isValid)
         {
-            print("Username is assigned");
+ 
 
             message.text = string.Empty;
             Login.OTPSubmitEvent.Invoke(otpInput);

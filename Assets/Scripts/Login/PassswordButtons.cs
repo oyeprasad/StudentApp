@@ -26,7 +26,7 @@ public class PassswordButtons : MonoBehaviour
 
     private void OnDisable()
     {
-        if (id == "1")
+        if (id == "1112121")
         {
             highlight.position = transform.position;
         }

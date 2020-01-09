@@ -58,6 +58,7 @@ public class UserData
     public string email = string.Empty;
     public string username = string.Empty;
     public string grade = string.Empty;
+    public int otp_verified = 0;
     public int status = 0;
     public string user_type_id = string.Empty;
     public string access_token = string.Empty;

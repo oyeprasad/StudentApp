@@ -32,7 +32,10 @@ public class Communications : MonoBehaviour
     {
          
         using (UnityWebRequest www =  UnityWebRequest.Post(url, form))
-        { 
+        {
+            if (method == WebRequestMethod.PUT)
+                www.method = "PUT";
+
             yield return www.SendWebRequest();
             while (!www.isDone)
                 yield return null;
@@ -47,6 +50,7 @@ public class Communications : MonoBehaviour
             {
                 print(www.downloadHandler.text);
                 ResponseData<UserData> data = JsonUtility.FromJson<ResponseData<UserData>>(www.downloadHandler.text);
+
                 _callback(data);
             }
         } 
