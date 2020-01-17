@@ -144,6 +144,7 @@ public class Login : MonoBehaviour
 
     public void ForgotPasswordClick()
     {
+        oTPInitiator = OTPInitiator.ForgotPassword;
         navigationPanelsList.Add(LoginPanel); 
         ActivatePanel(ForgotPassowrdPanel.name);    
     }
@@ -182,7 +183,10 @@ public class Login : MonoBehaviour
                 { 
                     ClearInpuFields();
                     navigationPanelsList.Clear();
-                    loginPopup.SetPopup(obj.message, () => Globals.LoadLevel(Globals.HOME_SCENE));
+					loginPopup.SetPopup(obj.message, () =>
+						{
+							ActivatePanel(LoginPanel.name);
+						});
                 }
                 else
                 {
@@ -246,6 +250,7 @@ public class Login : MonoBehaviour
         {
             if (obj.status)
             {
+				
                 navigationPanelsList.Add(ForgotPassowrdPanel);
                 ClearInpuFields();
                 oTPInitiator = OTPInitiator.ForgotPassword;
@@ -311,9 +316,14 @@ public class Login : MonoBehaviour
                 navigationPanelsList.Add(VerificationPanel);
 
                 if (oTPInitiator == OTPInitiator.ForgotPassword)
+                {
                     ActivatePanel(PasswordPanel.name);
+                }
                 else if (oTPInitiator == OTPInitiator.Registration)
+                {
+
                     ActivatePanel(ChooseUserNamePanel.name);
+                }
             }
             else
             {
@@ -347,6 +357,7 @@ public class Login : MonoBehaviour
             phonecode = RegPhoneCode.value.ToString();
             phonenumber = RegPhomenumber.text;
 
+            oTPInitiator = OTPInitiator.Registration;
             LoaderPanel.gameObject.SetActive(true);
             WebRequestObject.ProcessSignUp(fullname, phonecode, phonenumber, emailid, RegisterCallback); 
         }
@@ -451,6 +462,7 @@ public class Login : MonoBehaviour
 
     public void LoginClicked()
     {
+        oTPInitiator = OTPInitiator.Login;
         navigationPanelsList.Clear();
         ActivatePanel(LoginPanel.name);
     }

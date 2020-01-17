@@ -18,6 +18,9 @@ public class WebRequests : MonoBehaviour
     [SerializeField] private string ForgotPassNewPassEndPoint = "";
     [SerializeField] private string LogoutEndPoint = "";
 
+
+    [SerializeField] public string categoryEndPoint = ""; //
+    [SerializeField] public string subCategoryEndPoint = "";
     Action<ResponseData<UserData>> callback;
 
     private void Awake()
@@ -120,12 +123,11 @@ public class WebRequests : MonoBehaviour
     #region VerifyForgotPasswordOTP
     public void ProcessForgotPasswordOTP(int user_id, string otp, Action<ResponseData<UserData>> _callback)
     {
-        {
-            WWWForm form = new WWWForm();
-            form.AddField("user_id", user_id);
-            form.AddField("otp", otp);
-            communications.PostForm(VerifyForgotPasswordEndPoint, form, _callback);
-        }
+        WWWForm form = new WWWForm();
+		print("user id "+user_id);
+        form.AddField("user_id", user_id);
+        form.AddField("otp", otp);
+        communications.PostForm(VerifyForgotPasswordEndPoint, form, _callback);
     }
     #endregion VerifyForgotPasswordOTP
 
@@ -154,5 +156,14 @@ public class WebRequests : MonoBehaviour
 
     }
     #endregion Logout
+
+
+
+    //=============================================================================================================
+
+    public void ProcessCategoryRequest(int _gradeNo)
+    {
+
+    }
 
 }

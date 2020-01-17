@@ -65,6 +65,7 @@ public class UserData
     public string profile_pic = string.Empty;
 }
 
+
 [Serializable]
 public class UserDetail
 {

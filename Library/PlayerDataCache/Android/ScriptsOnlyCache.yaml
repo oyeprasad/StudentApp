@@ -16,8 +16,6 @@ ScriptsOnlyBuild:
     - PassswordButtons
     - ValidateInput
     - WebRequests
-    Facebook.Unity.Editor.dll:
-    - Facebook.Unity.Editor.FacebookSettingsEditor
     Facebook.Unity.Settings.dll:
     - Facebook.Unity.Settings.FacebookSettings
     UnityEditor.TestRunner.dll:
@@ -58,21 +56,21 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9768}
+      Script: {instanceID: 9770}
     - Class: 114
-      Script: {instanceID: 9940}
+      Script: {instanceID: 9942}
     - Class: 114
-      Script: {instanceID: 9980}
+      Script: {instanceID: 9982}
     - Class: 114
-      Script: {instanceID: 10432}
+      Script: {instanceID: 10434}
     - Class: 114
-      Script: {instanceID: 10560}
+      Script: {instanceID: 10562}
     - Class: 114
-      Script: {instanceID: 10814}
+      Script: {instanceID: 10816}
     - Class: 114
-      Script: {instanceID: 11276}
+      Script: {instanceID: 11278}
     - Class: 114
-      Script: {instanceID: 11642}
+      Script: {instanceID: 11644}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -107,61 +105,61 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9768}
-    - Class: 114
-      Script: {instanceID: 9940}
+      Script: {instanceID: 9770}
     - Class: 114
       Script: {instanceID: 9942}
     - Class: 114
-      Script: {instanceID: 9980}
+      Script: {instanceID: 9944}
     - Class: 114
-      Script: {instanceID: 10038}
+      Script: {instanceID: 9982}
     - Class: 114
-      Script: {instanceID: 10122}
+      Script: {instanceID: 10040}
     - Class: 114
-      Script: {instanceID: 10314}
+      Script: {instanceID: 10124}
     - Class: 114
-      Script: {instanceID: 10320}
+      Script: {instanceID: 10316}
     - Class: 114
-      Script: {instanceID: 10342}
+      Script: {instanceID: 10322}
     - Class: 114
-      Script: {instanceID: 10374}
+      Script: {instanceID: 10344}
     - Class: 114
-      Script: {instanceID: 10432}
+      Script: {instanceID: 10376}
     - Class: 114
-      Script: {instanceID: 10484}
+      Script: {instanceID: 10434}
     - Class: 114
-      Script: {instanceID: 10618}
+      Script: {instanceID: 10486}
     - Class: 114
-      Script: {instanceID: 10720}
+      Script: {instanceID: 10620}
     - Class: 114
-      Script: {instanceID: 10800}
+      Script: {instanceID: 10722}
     - Class: 114
-      Script: {instanceID: 10814}
+      Script: {instanceID: 10802}
     - Class: 114
-      Script: {instanceID: 10862}
+      Script: {instanceID: 10816}
     - Class: 114
-      Script: {instanceID: 11004}
+      Script: {instanceID: 10864}
     - Class: 114
-      Script: {instanceID: 11268}
+      Script: {instanceID: 11006}
     - Class: 114
-      Script: {instanceID: 11276}
+      Script: {instanceID: 11270}
     - Class: 114
-      Script: {instanceID: 11454}
+      Script: {instanceID: 11278}
     - Class: 114
-      Script: {instanceID: 11570}
+      Script: {instanceID: 11456}
     - Class: 114
-      Script: {instanceID: 11630}
+      Script: {instanceID: 11572}
     - Class: 114
       Script: {instanceID: 11632}
     - Class: 114
-      Script: {instanceID: 11642}
+      Script: {instanceID: 11634}
     - Class: 114
-      Script: {instanceID: 11658}
+      Script: {instanceID: 11644}
     - Class: 114
-      Script: {instanceID: 11674}
+      Script: {instanceID: 11660}
     - Class: 114
-      Script: {instanceID: 11714}
+      Script: {instanceID: 11676}
+    - Class: 114
+      Script: {instanceID: 11716}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -877,4 +875,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Login.unity
   - Assets/Scenes/Home.unity
-  playerPath: E:/Work/Running Projects/Student/Build/Android/Whizee.apk
+  playerPath: E:/Work/Running Projects/Student/Build/Android/Whizee_V_01.apk

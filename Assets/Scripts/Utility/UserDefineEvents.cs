@@ -15,3 +15,11 @@ public class IntEvent : UnityEvent<int>
 {
 
 } 
+public class BooleanEvent : UnityEvent<bool>
+{
+
+}
+public class IntStringEvent : UnityEvent<int, string>
+{
+
+} 

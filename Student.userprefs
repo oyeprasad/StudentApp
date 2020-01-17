@@ -1,0 +1,17 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Home\HomeSceneManager.cs">
+    <Files>
+      <File FileName="Assets\Scripts\Tutorial\Tutorial.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Login\Login.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Utility\WebRequests.cs" Line="129" Column="39" />
+      <File FileName="Assets\Scripts\Globals.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Login\OTP.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Home\HomeSceneManager.cs" Line="7" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
