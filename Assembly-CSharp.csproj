@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\Home\UI\SubCategoryItem.cs" />
      <Compile Include="Assets\Scripts\Home\UI\SubCategoryManager.cs" />
      <Compile Include="Assets\Scripts\Home\Video\VideoPanelController.cs" />
+     <Compile Include="Assets\Scripts\Home\Video\VideoPlayer.cs" />
      <Compile Include="Assets\Scripts\Input\InputfieldFocused.cs" />
      <Compile Include="Assets\Scripts\Input\InputfieldSlideScreen.cs" />
      <Compile Include="Assets\Scripts\Input\ScrollSnapRect.cs" />
@@ -74,10 +75,10 @@
      <Compile Include="Assets\Scripts\Login\GradeButtons.cs" />
      <Compile Include="Assets\Scripts\Login\Login.cs" />
      <Compile Include="Assets\Scripts\Login\LoginMenu.cs" />
-     <Compile Include="Assets\Scripts\Login\LoginPopup.cs" />
      <Compile Include="Assets\Scripts\Login\OTP.cs" />
      <Compile Include="Assets\Scripts\Login\OTPInput.cs" />
      <Compile Include="Assets\Scripts\Login\PassswordButtons.cs" />
+     <Compile Include="Assets\Scripts\Login\Popup.cs" />
      <Compile Include="Assets\Scripts\Login\ValidateInput.cs" />
      <Compile Include="Assets\Scripts\SwipeDetector.cs" />
      <Compile Include="Assets\Scripts\Tutorial\Tutorial.cs" />

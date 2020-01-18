@@ -45,13 +45,13 @@ public class SubCategoryManager : MonoBehaviour
     {
         ClearPreviousData();
         HomeMainUIController.EventShowHideLoader.Invoke(true);
-        title.text = _title;
+        title.text = _title.ToUpper();
         StartCoroutine(GetSubCategory(_catId, SubCategoryCallback));
     }
 
     IEnumerator GetSubCategory(int _catId, Action<SubCategoryResponseData> callback)
     {
-        yield return null;
+         
         string endpoint = WebRequests.Instance.subCategoryEndPoint;
         print("request for cat id "+_catId);
         using (UnityWebRequest webRequest = UnityWebRequest.Get(Globals.BASE_URL + endpoint+_catId))

@@ -21,6 +21,7 @@ public class WebRequests : MonoBehaviour
 
     [SerializeField] public string categoryEndPoint = ""; //
     [SerializeField] public string subCategoryEndPoint = "";
+    [SerializeField] public string getVideoEndPoint = "";
     Action<ResponseData<UserData>> callback;
 
     private void Awake()

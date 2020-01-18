@@ -13194,6 +13194,7 @@ MonoBehaviour:
   LogoutEndPoint: 
   categoryEndPoint: categories?grade_id=
   subCategoryEndPoint: sub-categories?category_id=
+  getVideoEndPoint: videos?sub_category_id=
 --- !u!4 &1353888658
 Transform:
   m_ObjectHideFlags: 0

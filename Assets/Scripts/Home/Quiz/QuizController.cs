@@ -16,4 +16,12 @@ public class QuizController : MonoBehaviour
 
     }
 
+
+    //-----------------------
+    public void PopulateQuizzes(int videoId)
+    {
+
+        
+    }
+
 }

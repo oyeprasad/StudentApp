@@ -28,7 +28,7 @@ public class Login : MonoBehaviour
     [SerializeField] private GameObject LoginPanel, PasswordPanel, ForgotPassowrdPanel, WhoAreYouPanel, VerificationPanel, SignUpPanel, ChooseUserNamePanel, GradePanel,LoaderPanel;
 
     // Reference ofloginPopup and FB manager
-    [SerializeField] private LoginPopup loginPopup;
+    [SerializeField] private Popup loginPopup;
     [SerializeField] private FBManager fbManager;
 
     // References of the screen messages that apears on different screens 

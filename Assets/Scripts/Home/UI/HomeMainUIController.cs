@@ -11,6 +11,7 @@ public class HomeMainUIController : MonoBehaviour
     // Reference to all panels, as gameobject
     public GameObject HomePanelObject, ProfilePanel, CategoryPanel, SubCategoryPanel, VideoPanel, QuizPanel;
     public GameObject LoaderObject;
+    public Popup popup;
 
     //Public events
     public static UnityEvent EventBackClicked = new UnityEvent();
@@ -19,6 +20,9 @@ public class HomeMainUIController : MonoBehaviour
 
     public static BooleanEvent EventShowHideLoader = new BooleanEvent();
     public static IntStringEvent EventCategoryItemClicked = new IntStringEvent();
+    public static IntStringEvent SubCatClicked = new IntStringEvent(); 
+    public static StringActionEvent ShowPopup = new StringActionEvent();
+    public static IntEvent EventQuizzesClicked = new IntEvent();
 
 
     void Start()
@@ -28,6 +32,9 @@ public class HomeMainUIController : MonoBehaviour
         HomeMainUIController.EventProfileClicked.AddListener(ProfileClicked);
         HomeMainUIController.EventShowHideLoader.AddListener(ShowHideLoader);
         HomeMainUIController.EventCategoryItemClicked.AddListener(CategoryItemClicked);
+        HomeMainUIController.SubCatClicked.AddListener(OnSubCatClicked);
+        HomeMainUIController.ShowPopup.AddListener(OnShowPopup);
+        HomeMainUIController.EventQuizzesClicked.AddListener(QuizzesClicked);
     }
 
     // Click Events
@@ -65,6 +72,19 @@ public class HomeMainUIController : MonoBehaviour
         ActivatePanel(SubCategoryPanel.name);
         SubCategoryPanel.GetComponent<SubCategoryManager>().Populate(catno, title);
     }
+    void OnSubCatClicked(int subCatId, string subCatName)
+    {
+        navigationPanelsList.Add(SubCategoryPanel);
+        ActivatePanel(VideoPanel.name);
+        VideoPanel.GetComponent<VideoPanelController>().PopulatePanel(subCatId, subCatName);
+    }
+
+    void QuizzesClicked(int videoId)
+    {
+        navigationPanelsList.Add(VideoPanel);
+        ActivatePanel(QuizPanel.name);
+        QuizPanel.GetComponent<QuizController>().PopulateQuizzes(videoId);
+    }
 
     #endregion ClickButtonsEvents
 
@@ -82,9 +102,15 @@ public class HomeMainUIController : MonoBehaviour
     }
 
     #region OtherEvents
-void ShowHideLoader(bool toShow)
-{
-    LoaderObject.SetActive(toShow);
-}
+    void ShowHideLoader(bool toShow)
+    {
+        LoaderObject.SetActive(toShow);
+    }
+
+    void OnShowPopup(string message, System.Action onClickOk)
+    {
+       popup.gameObject.SetActive(true);
+       popup.SetPopup(message, onClickOk); 
+    }
     #endregion OtherEvents
 }

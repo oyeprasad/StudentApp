@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoginPopup : MonoBehaviour
+public class Popup : MonoBehaviour
 {
     [SerializeField] private Text Message;
     [SerializeField] private Button OKbtn;

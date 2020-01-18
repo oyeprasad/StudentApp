@@ -23,3 +23,7 @@ public class IntStringEvent : UnityEvent<int, string>
 {
 
 } 
+public class StringActionEvent : UnityEvent<string, System.Action>
+{
+    
+}

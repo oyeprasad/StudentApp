@@ -11,6 +11,7 @@ public class SubCategoryItem : MonoBehaviour
 
     private Button clickButton;
     [SerializeField] private int subCatId = 0;
+    [SerializeField] private string subCatItemName = "";
 
 
     void Start()
@@ -21,9 +22,10 @@ public class SubCategoryItem : MonoBehaviour
 
     public void Populate(int _subCatId, string _tilte, string iconUrl, Sprite BGSprite)
     {
-        titleText.text = _tilte;
+        titleText.text = _tilte.ToUpper();
         BGImage.sprite = BGSprite;
         subCatId = _subCatId;
+        subCatItemName = _tilte;
         StartCoroutine(SetIconUrl(iconUrl));
     }  
 
@@ -47,7 +49,7 @@ public class SubCategoryItem : MonoBehaviour
 
     void OnClicked()
     {
-        
+        HomeMainUIController.SubCatClicked.Invoke(subCatId, subCatItemName);
     }
    
 }
