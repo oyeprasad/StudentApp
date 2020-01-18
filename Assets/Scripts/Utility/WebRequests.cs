@@ -16,12 +16,15 @@ public class WebRequests : MonoBehaviour
     [SerializeField] private string StudentDetailsEndPoint = "";
     [SerializeField] private string FBLoginEndPoint = "";
     [SerializeField] private string ForgotPassNewPassEndPoint = "";
-    [SerializeField] private string LogoutEndPoint = "";
+    [SerializeField] public string LogoutEndPoint = "";
+    [SerializeField] public string ChangePasswordEndPoint = ""; 
 
 
     [SerializeField] public string categoryEndPoint = ""; //
     [SerializeField] public string subCategoryEndPoint = "";
     [SerializeField] public string getVideoEndPoint = "";
+    [SerializeField] public string editProfileEndPoint = "";
+
     Action<ResponseData<UserData>> callback;
 
     private void Awake()

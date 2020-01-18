@@ -13191,10 +13191,12 @@ MonoBehaviour:
   StudentDetailsEndPoint: student-details
   FBLoginEndPoint: auth/fb
   ForgotPassNewPassEndPoint: reset-password
-  LogoutEndPoint: 
+  LogoutEndPoint: student-logout
+  ChangePasswordEndPoint: student-change-password
   categoryEndPoint: categories?grade_id=
   subCategoryEndPoint: sub-categories?category_id=
   getVideoEndPoint: videos?sub_category_id=
+  editProfileEndPoint: student-edit-profile
 --- !u!4 &1353888658
 Transform:
   m_ObjectHideFlags: 0

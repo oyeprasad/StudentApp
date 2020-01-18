@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\Home\UI\HomeMainUIController.cs" />
      <Compile Include="Assets\Scripts\Home\UI\HomePanel.cs" />
      <Compile Include="Assets\Scripts\Home\UI\HomeSceneManager.cs" />
+     <Compile Include="Assets\Scripts\Home\UI\ProfileController.cs" />
      <Compile Include="Assets\Scripts\Home\UI\SubCategoryItem.cs" />
      <Compile Include="Assets\Scripts\Home\UI\SubCategoryManager.cs" />
      <Compile Include="Assets\Scripts\Home\Video\VideoPanelController.cs" />
