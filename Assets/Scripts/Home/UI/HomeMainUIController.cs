@@ -9,9 +9,12 @@ public class HomeMainUIController : MonoBehaviour
     private List<GameObject> navigationPanelsList = new List<GameObject>();
 
     // Reference to all panels, as gameobject
-    public GameObject HomePanelObject, ProfilePanel, CategoryPanel, SubCategoryPanel, VideoPanel, QuizPanel;
+    public GameObject HomePanelObject, ProfilePanel, CategoryPanel, SubCategoryPanel, 
+                      VideoPanel, QuizPanel, ChangePasswordPanel, HelpPanel, AboutUsPanel, TermsConditionsPanel;
     public GameObject LoaderObject;
+    public GameObject SidePanel; 
     public Popup popup;
+    public ConfirmationPopup confirmationPopup;
 
     //Public events
     public static UnityEvent EventBackClicked = new UnityEvent();
@@ -23,8 +26,9 @@ public class HomeMainUIController : MonoBehaviour
     public static IntStringEvent SubCatClicked = new IntStringEvent(); 
     public static StringActionEvent ShowPopup = new StringActionEvent();
     public static IntEvent EventQuizzesClicked = new IntEvent();
+    public static StringEvent EventPassowrdClicked = new StringEvent();
 
-
+    private string newPassowrdToChange = "1112121"; 
     void Start()
     {
         HomeMainUIController.EventBackClicked.AddListener(OnBackClicked);
@@ -35,6 +39,7 @@ public class HomeMainUIController : MonoBehaviour
         HomeMainUIController.SubCatClicked.AddListener(OnSubCatClicked);
         HomeMainUIController.ShowPopup.AddListener(OnShowPopup);
         HomeMainUIController.EventQuizzesClicked.AddListener(QuizzesClicked);
+        HomeMainUIController.EventPassowrdClicked.AddListener(PasswordButtonClicked);
     }
 
     // Click Events
@@ -86,6 +91,10 @@ public class HomeMainUIController : MonoBehaviour
         QuizPanel.GetComponent<QuizController>().PopulateQuizzes(videoId);
     }
 
+    void PasswordButtonClicked(string newPassword)
+    {
+        newPassowrdToChange = newPassword;
+    }
     #endregion ClickButtonsEvents
 
     public void ActivatePanel(string panelName)
@@ -99,7 +108,67 @@ public class HomeMainUIController : MonoBehaviour
         SubCategoryPanel.SetActive(string.Equals(SubCategoryPanel.name, panelName));
         VideoPanel.SetActive(string.Equals(VideoPanel.name, panelName));
         QuizPanel.SetActive(string.Equals(QuizPanel.name, panelName));
+        ChangePasswordPanel.SetActive(string.Equals(ChangePasswordPanel.name, panelName));
+        HelpPanel.SetActive(string.Equals(HelpPanel.name, panelName));
+        AboutUsPanel.SetActive(string.Equals(AboutUsPanel.name, panelName));
+        TermsConditionsPanel.SetActive(string.Equals(TermsConditionsPanel.name, panelName));
     }
+#region  MenuButtons
+    public void MenuButtonClicked()
+    {
+        SidePanel.SetActive(true);
+    }
+    public void MenuCrossClicked()
+    {
+        SidePanel.SetActive(false);
+    }
+    public void MenuHomeClicked()
+    {
+        navigationPanelsList.Clear();
+        ActivatePanel(HomePanelObject.name);
+        SidePanel.SetActive(false);
+    }
+    public void MenuMyAccountClicked()
+    {
+        navigationPanelsList.Add(HomePanelObject);
+        ActivatePanel(ProfilePanel.name);
+        SidePanel.SetActive(false);
+    }
+     public void MenuChangePasswordClicked()
+    {
+        navigationPanelsList.Add(HomePanelObject);
+        ActivatePanel(ChangePasswordPanel.name);
+        SidePanel.SetActive(false);
+    }
+    public void MenuHelpClicked()
+    {
+        navigationPanelsList.Add(HomePanelObject);
+        ActivatePanel(HelpPanel.name);
+        SidePanel.SetActive(false);
+    }
+    public void MenuAboutClicked()
+    {
+        navigationPanelsList.Add(HomePanelObject);
+        ActivatePanel(AboutUsPanel.name);
+        SidePanel.SetActive(false);
+    }
+    public void MenuTermsConditionClicked()
+    { 
+        navigationPanelsList.Add(HomePanelObject);
+        ActivatePanel(TermsConditionsPanel.name);
+        SidePanel.SetActive(false);
+
+    }
+    public void MenuLogoutClicked()
+    {
+        SidePanel.SetActive(false);
+        confirmationPopup.gameObject.SetActive(true);
+        confirmationPopup.SetUpPanel("LOGOUT", "Are you sure that you want to logout", 
+                                    () => {print("Logout Yes Clicked");confirmationPopup.gameObject.SetActive(false); }, 
+                                    () => {print("Logout No Clicked");confirmationPopup.gameObject.SetActive(false); });
+    }
+#endregion MenuButtons
+
 
     #region OtherEvents
     void ShowHideLoader(bool toShow)
@@ -111,6 +180,11 @@ public class HomeMainUIController : MonoBehaviour
     {
        popup.gameObject.SetActive(true);
        popup.SetPopup(message, onClickOk); 
+    }
+
+    public void ChangePasswordSubmit()
+    {
+        print("Request for change password to "+newPassowrdToChange);
     }
     #endregion OtherEvents
 }

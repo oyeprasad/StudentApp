@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\Home\Quiz\QuizController.cs" />
      <Compile Include="Assets\Scripts\Home\UI\CategoryItem.cs" />
      <Compile Include="Assets\Scripts\Home\UI\CategoryManager.cs" />
+     <Compile Include="Assets\Scripts\Home\UI\ConfirmationPopup.cs" />
      <Compile Include="Assets\Scripts\Home\UI\HomeMainUIController.cs" />
      <Compile Include="Assets\Scripts\Home\UI\HomePanel.cs" />
      <Compile Include="Assets\Scripts\Home\UI\HomeSceneManager.cs" />
@@ -72,6 +73,7 @@
      <Compile Include="Assets\Scripts\Input\InputfieldSlideScreen.cs" />
      <Compile Include="Assets\Scripts\Input\ScrollSnapRect.cs" />
      <Compile Include="Assets\Scripts\Loader\Loader.cs" />
+     <Compile Include="Assets\Scripts\Login\ChangePassswordButtons.cs" />
      <Compile Include="Assets\Scripts\Login\GradeButtons.cs" />
      <Compile Include="Assets\Scripts\Login\Login.cs" />
      <Compile Include="Assets\Scripts\Login\LoginMenu.cs" />
