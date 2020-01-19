@@ -5,6 +5,13 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.Networking;
 
+
+public enum QueryType
+{
+    Video,
+    Quizzes
+}
+
 [System.Serializable] public class LogoutResponse:ResponseBase
 {
     List<string> data = new List<string>();
@@ -24,6 +31,7 @@ public class HomeMainUIController : MonoBehaviour
     //Public events
     public static UnityEvent EventBackClicked = new UnityEvent();
     public static UnityEvent EventVideoClicked = new UnityEvent();
+    public static UnityEvent EventQuizzesClickedFromHome = new UnityEvent();
     public static UnityEvent EventProfileClicked = new UnityEvent();
 
     public static BooleanEvent EventShowHideLoader = new BooleanEvent();
@@ -34,11 +42,17 @@ public class HomeMainUIController : MonoBehaviour
     public static StringEvent EventPassowrdClicked = new StringEvent();
     public static UnityEvent EventMyProfileEditClicked = new UnityEvent();
     public static UnityEvent EventMyProfileSaveClicked = new UnityEvent();
+    public static StringEvent EventSubmitHelp = new StringEvent();
+    // End Events\\\
+
+
+    public static QueryType queryType; 
     private string newPassowrdToChange = "1112121"; 
     void Start()
     {
         HomeMainUIController.EventBackClicked.AddListener(OnBackClicked);
         HomeMainUIController.EventVideoClicked.AddListener(VideoClicked);
+        HomeMainUIController.EventQuizzesClickedFromHome.AddListener(QuizzesClickedFromHome);
         HomeMainUIController.EventProfileClicked.AddListener(ProfileClicked);
         HomeMainUIController.EventShowHideLoader.AddListener(ShowHideLoader);
         HomeMainUIController.EventCategoryItemClicked.AddListener(CategoryItemClicked);
@@ -48,6 +62,14 @@ public class HomeMainUIController : MonoBehaviour
         HomeMainUIController.EventPassowrdClicked.AddListener(PasswordButtonClicked);
         HomeMainUIController.EventMyProfileEditClicked.AddListener(MyProfileEditClicked);
         HomeMainUIController.EventMyProfileSaveClicked.AddListener(MyProfileSaveClicked);
+        HomeMainUIController.EventSubmitHelp.AddListener(OnHelpSubmit);
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnBackClicked();
+        }
     }
 
     // Click Events
@@ -59,6 +81,12 @@ public class HomeMainUIController : MonoBehaviour
             string targt = navigationPanelsList[navigationPanelsList.Count - 1].name;
             navigationPanelsList.RemoveAt(navigationPanelsList.Count - 1);
             ActivatePanel(targt);
+        } 
+        else
+        {
+            confirmationPopup.gameObject.SetActive(true);
+            confirmationPopup.SetUpPanel("EXIT", "Are you sure you want to exit.", () => Application.Quit(), () => confirmationPopup.gameObject.SetActive(false));
+       
         }
     }
 
@@ -74,6 +102,14 @@ public class HomeMainUIController : MonoBehaviour
     }
     void VideoClicked()
     {
+        queryType = QueryType.Video;
+        navigationPanelsList.Add(HomePanelObject);
+        ActivatePanel(CategoryPanel.name); 
+        CategoryPanel.GetComponent<CategoryManager>().PopulateCategoryPanel(Globals.UserLoginDetails.grade);   
+    }
+    void QuizzesClickedFromHome()
+    {
+        queryType = QueryType.Quizzes;
         navigationPanelsList.Add(HomePanelObject);
         ActivatePanel(CategoryPanel.name); 
         CategoryPanel.GetComponent<CategoryManager>().PopulateCategoryPanel(Globals.UserLoginDetails.grade);   
@@ -88,8 +124,16 @@ public class HomeMainUIController : MonoBehaviour
     void OnSubCatClicked(int subCatId, string subCatName)
     {
         navigationPanelsList.Add(SubCategoryPanel);
-        ActivatePanel(VideoPanel.name);
-        VideoPanel.GetComponent<VideoPanelController>().PopulatePanel(subCatId, subCatName);
+        if(queryType == QueryType.Video)
+        {
+            navigationPanelsList.Add(VideoPanel);
+            ActivatePanel(VideoPanel.name);
+            VideoPanel.GetComponent<VideoPanelController>().PopulatePanel(subCatId, subCatName);
+        } else if(queryType == QueryType.Quizzes)
+        {
+            navigationPanelsList.Add(SubCategoryPanel);
+            ActivatePanel(QuizPanel.name);
+        }
     }
 
     void QuizzesClicked(int videoId)
@@ -114,6 +158,11 @@ public class HomeMainUIController : MonoBehaviour
         navigationPanelsList.Clear();
         navigationPanelsList.Add(HomePanelObject);
         ActivatePanel(ProfilePanel.name);
+    }
+    void OnHelpSubmit(string helpText)
+    {
+        popup.gameObject.SetActive(true);
+        popup.SetPopup("Thank you for your request, We will get back to you shortly.", () => popup.gameObject.SetActive(false));
     }
     #endregion ClickButtonsEvents
 

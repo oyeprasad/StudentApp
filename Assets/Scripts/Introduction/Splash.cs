@@ -11,18 +11,22 @@ public class Splash : MonoBehaviour
     {
         if(IsNetworkConnected())
         {
+            print("Tutorial "+PlayerPrefs.GetString(Globals.PLAYERKEY_TUTORIALSTATUS));
             if(PlayerPrefs.GetString(Globals.PLAYERKEY_TUTORIALSTATUS,"NODATA") == "NODATA")
             {
+                print("Tutorila not shown before");
                 PlayerPrefs.SetString(Globals.PLAYERKEY_TUTORIALSTATUS, "SHOWN");
                 Globals.LoadLevel(Globals.INTRO_SCENE);
             } 
-            if(PlayerPrefs.GetInt(Globals.PLAYERKEY_LOGINSTATUS) == Globals.LOGGED_IN)
+            else if(PlayerPrefs.GetInt(Globals.PLAYERKEY_LOGINSTATUS) == Globals.LOGGED_IN)
             {
+                print("User already");
                 Globals.LoadUserData();
                 Globals.LoadLevel(Globals.HOME_SCENE);
             }  
             else
             {
+                print("User not logged in");
                 Globals.LoadLevel(Globals.LOGIN_SCENE);
             }
 

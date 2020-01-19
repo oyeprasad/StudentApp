@@ -103,10 +103,13 @@ public class Globals : MonoBehaviour
 
     public static void SaveUserData(UserData userdata)
     {
+        print("Save user data");
+        PlayerPrefs.SetInt(Globals.PLAYERKEY_LOGINSTATUS, Globals.LOGGED_IN);
         PlayerPrefs.SetString(Globals.PLAYERKEY_USERDATA, JsonUtility.ToJson(userdata));
     }
     public static void LoadUserData()
     {
+        print("Loaduserdata "+PlayerPrefs.GetString(Globals.PLAYERKEY_USERDATA));
         UserLoginDetails = JsonUtility.FromJson<UserData>(PlayerPrefs.GetString(Globals.PLAYERKEY_USERDATA));
     }
 }

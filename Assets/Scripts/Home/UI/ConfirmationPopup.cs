@@ -17,6 +17,13 @@ public class ConfirmationPopup : MonoBehaviour
       yesButton.onClick.AddListener(() => ActionOnYes.Invoke());
       noButton.onClick.AddListener(() => ActionOnNo.Invoke()); 
      }
+      private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            this.gameObject.SetActive(false);
+        }
+    }
     // Update is called once per frame
      public void SetUpPanel(string _header, string _body, System.Action OnYes, System.Action OnNo)
      {

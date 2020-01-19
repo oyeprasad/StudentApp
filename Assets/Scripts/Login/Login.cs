@@ -29,6 +29,7 @@ public class Login : MonoBehaviour
 
     // Reference ofloginPopup and FB manager
     [SerializeField] private Popup loginPopup;
+    [SerializeField] private ConfirmationPopup confirmationPopup;
     [SerializeField] private FBManager fbManager;
 
     // References of the screen messages that apears on different screens 
@@ -550,6 +551,12 @@ public class Login : MonoBehaviour
             navigationPanelsList.RemoveAt(navigationPanelsList.Count - 1) ;
             ActivatePanel(targt);
         } 
+        else
+        {
+            print("Ask whether want to exit");
+            confirmationPopup.gameObject.SetActive(true);
+            confirmationPopup.SetUpPanel("EXIT", "Are you sure you want to exit.", () => Application.Quit(), () => confirmationPopup.gameObject.SetActive(false));
+        }
         ClearInpuFields();
     }
     bool ValidateUserName(string username)

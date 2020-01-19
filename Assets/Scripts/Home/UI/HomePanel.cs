@@ -24,9 +24,29 @@ public class HomePanel : MonoBehaviour
     {
         HomeMainUIController.EventVideoClicked.Invoke();
     }
+    public void QuizzesClicked()
+    {
+        HomeMainUIController.EventQuizzesClickedFromHome.Invoke();
+    }
     public void ProfileClicked()
     {
         HomeMainUIController.EventProfileClicked.Invoke();
+    }
+    public void GamesClicked()
+    {
+        HomeMainUIController.ShowPopup.Invoke("COMING SOON!", () => print("No action on worksheet clicked"));
+    }
+    public void WorkSheetClicked()
+    {
+        HomeMainUIController.ShowPopup.Invoke("COMING SOON!", () => print("No action on worksheet clicked"));
+    }
+    public void PrizesClicked()
+    {
+        HomeMainUIController.ShowPopup.Invoke("COMING SOON!", () => print("No action on worksheet clicked"));
+    }
+    public void MessagesClicked()
+    {
+        HomeMainUIController.ShowPopup.Invoke("COMING SOON!", () => print("No action on worksheet clicked"));
     }
     public void BackClicked()
     {

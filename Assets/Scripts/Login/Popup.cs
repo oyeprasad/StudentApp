@@ -15,6 +15,13 @@ public class Popup : MonoBehaviour
     {
         OKbtn.onClick.AddListener(OnOKClicked);
     }
+     private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            this.gameObject.SetActive(false);
+        }
+    }
     public void SetPopup(string msg, Action callback)
     {
         gameObject.SetActive(true);
