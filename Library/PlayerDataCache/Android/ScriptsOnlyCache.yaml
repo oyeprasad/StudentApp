@@ -37,7 +37,6 @@ ScriptsOnlyBuild:
     - Facebook.Unity.Settings.FacebookSettings
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
-    - UnityEditor.TestTools.TestRunner.TestListCacheData
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
@@ -116,39 +115,39 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10660}
     - Class: 114
-      Script: {instanceID: 10750}
+      Script: {instanceID: 10688}
     - Class: 114
-      Script: {instanceID: 10830}
+      Script: {instanceID: 10752}
     - Class: 114
-      Script: {instanceID: 10838}
+      Script: {instanceID: 10832}
     - Class: 114
-      Script: {instanceID: 10848}
+      Script: {instanceID: 10840}
     - Class: 114
-      Script: {instanceID: 10868}
+      Script: {instanceID: 10850}
     - Class: 114
-      Script: {instanceID: 10998}
+      Script: {instanceID: 10870}
     - Class: 114
-      Script: {instanceID: 11042}
+      Script: {instanceID: 11000}
     - Class: 114
-      Script: {instanceID: 11310}
+      Script: {instanceID: 11044}
     - Class: 114
-      Script: {instanceID: 11316}
+      Script: {instanceID: 11312}
     - Class: 114
-      Script: {instanceID: 11350}
+      Script: {instanceID: 11318}
     - Class: 114
-      Script: {instanceID: 11672}
+      Script: {instanceID: 11352}
     - Class: 114
-      Script: {instanceID: 11684}
+      Script: {instanceID: 11674}
     - Class: 114
       Script: {instanceID: 11686}
     - Class: 114
-      Script: {instanceID: 11700}
+      Script: {instanceID: 11688}
     - Class: 114
-      Script: {instanceID: 11704}
+      Script: {instanceID: 11702}
     - Class: 114
-      Script: {instanceID: 11724}
+      Script: {instanceID: 11706}
     - Class: 114
-      Script: {instanceID: 105756}
+      Script: {instanceID: 11726}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -195,13 +194,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10450}
     - Class: 114
-      Script: {instanceID: 10848}
+      Script: {instanceID: 10850}
     - Class: 114
-      Script: {instanceID: 10896}
+      Script: {instanceID: 10898}
     - Class: 114
-      Script: {instanceID: 11316}
+      Script: {instanceID: 11318}
     - Class: 114
-      Script: {instanceID: 11686}
+      Script: {instanceID: 11688}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -264,33 +263,33 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10660}
     - Class: 114
-      Script: {instanceID: 10748}
+      Script: {instanceID: 10750}
     - Class: 114
-      Script: {instanceID: 10830}
+      Script: {instanceID: 10832}
     - Class: 114
-      Script: {instanceID: 10848}
+      Script: {instanceID: 10850}
     - Class: 114
-      Script: {instanceID: 10898}
+      Script: {instanceID: 10900}
     - Class: 114
-      Script: {instanceID: 11042}
+      Script: {instanceID: 11044}
     - Class: 114
-      Script: {instanceID: 11316}
+      Script: {instanceID: 11318}
     - Class: 114
-      Script: {instanceID: 11496}
+      Script: {instanceID: 11498}
     - Class: 114
-      Script: {instanceID: 11612}
-    - Class: 114
-      Script: {instanceID: 11672}
+      Script: {instanceID: 11614}
     - Class: 114
       Script: {instanceID: 11674}
     - Class: 114
-      Script: {instanceID: 11686}
+      Script: {instanceID: 11676}
     - Class: 114
-      Script: {instanceID: 11704}
+      Script: {instanceID: 11688}
     - Class: 114
-      Script: {instanceID: 11720}
+      Script: {instanceID: 11706}
     - Class: 114
-      Script: {instanceID: 11760}
+      Script: {instanceID: 11722}
+    - Class: 114
+      Script: {instanceID: 11762}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -337,13 +336,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10336}
     - Class: 114
-      Script: {instanceID: 10848}
+      Script: {instanceID: 10850}
     - Class: 114
-      Script: {instanceID: 11306}
+      Script: {instanceID: 11308}
     - Class: 114
-      Script: {instanceID: 11316}
+      Script: {instanceID: 11318}
     - Class: 114
-      Script: {instanceID: 11720}
+      Script: {instanceID: 11722}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -853,6 +852,12 @@ ScriptsOnlyBuild:
     className: SignalTrack
   - hash:
       serializedVersion: 2
+      Hash: 6c75433ce4609e5e86ce7ed4f2fd11e9
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: HelpPanel
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -1181,16 +1186,10 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PassswordButtons
-  - hash:
-      serializedVersion: 2
-      Hash: 02e98341ac6e6bda5e73f522cd023497
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: HelpPanel
   platform: 13
   scenePathNames:
   - Assets/Scenes/Splash.unity
   - Assets/Scenes/Introduction.unity
   - Assets/Scenes/Login.unity
   - Assets/Scenes/Home.unity
-  playerPath: E:/Work/Running Projects/Student/Build/Android/Whizee_V_01.apk
+  playerPath: E:/Work/Running Projects/Student/Build/Android/Whizee_V01_C02_BI.apk
