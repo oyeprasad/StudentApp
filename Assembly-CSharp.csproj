@@ -73,6 +73,9 @@
      <Compile Include="Assets\Scripts\Input\InputfieldFocused.cs" />
      <Compile Include="Assets\Scripts\Input\InputfieldSlideScreen.cs" />
      <Compile Include="Assets\Scripts\Input\ScrollSnapRect.cs" />
+     <Compile Include="Assets\Scripts\Introduction\Splash.cs" />
+     <Compile Include="Assets\Scripts\Introduction\SwipeDetector.cs" />
+     <Compile Include="Assets\Scripts\Introduction\SwipeManager.cs" />
      <Compile Include="Assets\Scripts\Loader\Loader.cs" />
      <Compile Include="Assets\Scripts\Login\ChangePassswordButtons.cs" />
      <Compile Include="Assets\Scripts\Login\GradeButtons.cs" />
@@ -83,7 +86,6 @@
      <Compile Include="Assets\Scripts\Login\PassswordButtons.cs" />
      <Compile Include="Assets\Scripts\Login\Popup.cs" />
      <Compile Include="Assets\Scripts\Login\ValidateInput.cs" />
-     <Compile Include="Assets\Scripts\SwipeDetector.cs" />
      <Compile Include="Assets\Scripts\Tutorial\Tutorial.cs" />
      <Compile Include="Assets\Scripts\Utility\Communications.cs" />
      <Compile Include="Assets\Scripts\Utility\UserDefineEvents.cs" />

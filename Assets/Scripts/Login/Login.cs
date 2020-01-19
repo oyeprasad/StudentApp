@@ -213,6 +213,7 @@ public class Login : MonoBehaviour
                 ClearInpuFields();
                 navigationPanelsList.Clear();
                 Globals.UserLoginDetails = obj.data; 
+                Globals.SaveUserData(obj.data);
                 Globals.LoadLevel(Globals.HOME_SCENE);
             }
             else
@@ -441,6 +442,7 @@ public class Login : MonoBehaviour
             {
                 print(">>>\n"+JsonUtility.ToJson(obj));
                 Globals.UserLoginDetails = obj.data;
+                Globals.SaveUserData(obj.data);
                 Globals.USERNAME = obj.data.username;
                 navigationPanelsList.Clear();
                 ClearInpuFields();

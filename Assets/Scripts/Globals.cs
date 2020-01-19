@@ -75,8 +75,15 @@ public class Globals : MonoBehaviour
 {
     public const string BASE_URL = "http://3.6.46.214/whizee/whizee-backend/api/";
     public const string LOGIN_SCENE = "Login";
-    public const string HOME_SCENE = "Home";
+    public const string HOME_SCENE = "Home"; 
+    public const string INTRO_SCENE = "Introduction";
 
+    public const string PLAYERKEY_TUTORIALSTATUS = "tutorial";
+    
+    public const string PLAYERKEY_LOGINSTATUS = "isloggedin";
+    public const string PLAYERKEY_USERDATA = "userdata";
+    public const int LOGGED_IN = 1;
+    public const int LOGGED_OUT = 2;
     public static string USERNAME = "";
 
     public static int LoginType = 0; // 0 for normal login, 1 for fb login, 2 for ggogle login
@@ -92,6 +99,15 @@ public class Globals : MonoBehaviour
     public static void LoadLevel(string levelName)
     {
         SceneManager.LoadScene(levelName);
+    }
+
+    public static void SaveUserData(UserData userdata)
+    {
+        PlayerPrefs.SetString(Globals.PLAYERKEY_USERDATA, JsonUtility.ToJson(userdata));
+    }
+    public static void LoadUserData()
+    {
+        UserLoginDetails = JsonUtility.FromJson<UserData>(PlayerPrefs.GetString(Globals.PLAYERKEY_USERDATA));
     }
 }
 

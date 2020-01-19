@@ -243,6 +243,7 @@ public class HomeMainUIController : MonoBehaviour
         HomeMainUIController.EventShowHideLoader.Invoke(false);
         if(response.status)
         {
+            PlayerPrefs.SetInt(Globals.PLAYERKEY_LOGINSTATUS, Globals.LOGGED_OUT);
             Globals.LoadLevel(Globals.LOGIN_SCENE);
         } 
         else
