@@ -37,6 +37,7 @@ ScriptsOnlyBuild:
     - Facebook.Unity.Settings.FacebookSettings
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
+    - UnityEditor.TestTools.TestRunner.TestListCacheData
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
@@ -828,7 +829,7 @@ ScriptsOnlyBuild:
     className: ScrollRect
   - hash:
       serializedVersion: 2
-      Hash: 98c6ccc52d624f06bdb7979ace5caeb2
+      Hash: 5b4e37faaf5de4dba6258f02f986140e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: HomeMainUIController
@@ -1192,4 +1193,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/Introduction.unity
   - Assets/Scenes/Login.unity
   - Assets/Scenes/Home.unity
-  playerPath: E:/Work/Running Projects/Student/Build/Android/Whizee_V01_C02_BI.apk
+  playerPath: E:/Work/Running Projects/Student/Build/Android/Whizee_V01_C02.apk

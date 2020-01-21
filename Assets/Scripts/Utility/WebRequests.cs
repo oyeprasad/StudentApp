@@ -102,6 +102,7 @@ public class WebRequests : MonoBehaviour
     {
         print("password "+ password);
         print("confirm_password " + confirm_password);
+        print("user_id " + user_id);
         WWWForm form = new WWWForm();
         form.AddField("user_id", user_id);
         form.AddField("password", password);

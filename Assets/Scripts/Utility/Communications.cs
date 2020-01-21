@@ -7,9 +7,9 @@ using System.Text;
 
 public enum WebRequestMethod
 {
-GET,
-POST,
-PUT
+    GET,
+    POST,
+    PUT
 }
 
 public class Communications : MonoBehaviour
@@ -20,12 +20,10 @@ public class Communications : MonoBehaviour
     public void PostForm(string endpoint, WWWForm form, System.Action<ResponseData<UserData>> callback, WebRequestMethod method = WebRequestMethod.POST)
     { 
         routine = StartCoroutine(Communicate(Path.Combine(Globals.BASE_URL, endpoint), form, callback, method)); 
-        
     }
     public void PostForm(string endpoint, WWWForm form, System.Action<ResponseData<FBLoginResponseData>> callback, WebRequestMethod method = WebRequestMethod.POST)
     {
         routine = StartCoroutine(Communicate(Path.Combine(Globals.BASE_URL, endpoint), form, callback, method));
-
     }
 
     IEnumerator Communicate(string url, WWWForm form, System.Action<ResponseData<UserData>> _callback, WebRequestMethod method)

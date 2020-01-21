@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class ChangePassswordButtons : MonoBehaviour
 {
-    private Button ClickButton;
+    private Button ClickButton; 
 
     [SerializeField] private string id;
     [SerializeField] private Transform highlight;
