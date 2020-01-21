@@ -253,6 +253,8 @@ MonoBehaviour:
   subCategoryEndPoint: sub-categories?category_id=
   getVideoEndPoint: videos?sub_category_id=
   editProfileEndPoint: student-edit-profile
+  getQueOfVideoEndPoint: quizes?video_id=
+  getQueOfSubCatEndPoint: quizes_subcat?sub_category_id=
 --- !u!4 &159580448
 Transform:
   m_ObjectHideFlags: 0

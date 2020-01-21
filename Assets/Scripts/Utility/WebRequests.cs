@@ -24,12 +24,14 @@ public class WebRequests : MonoBehaviour
     [SerializeField] public string subCategoryEndPoint = "";
     [SerializeField] public string getVideoEndPoint = "";
     [SerializeField] public string editProfileEndPoint = "";
+    [SerializeField] public string getQueOfVideoEndPoint = "";
+    [SerializeField] public string getQueOfSubCatEndPoint = "";
 
     Action<ResponseData<UserData>> callback;
 
     private void Awake()
     {
-        if (Instance == null)
+        if (Instance == null)       
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);

@@ -147,6 +147,7 @@ public class HomeMainUIController : MonoBehaviour
         {
             navigationPanelsList.Add(SubCategoryPanel);
             ActivatePanel(QuizPanel.name);
+            QuizPanel.GetComponent<QuizController>().PopulateQuizzesOnSubCat(subCatId);
         }
     }
 
@@ -154,7 +155,7 @@ public class HomeMainUIController : MonoBehaviour
     {
         navigationPanelsList.Add(VideoPanel);
         ActivatePanel(QuizPanel.name);
-        QuizPanel.GetComponent<QuizController>().PopulateQuizzes(videoId);
+        QuizPanel.GetComponent<QuizController>().PopulateQuizzesOnVideo(videoId);
     }
 
     void PasswordButtonClicked(string _password)
