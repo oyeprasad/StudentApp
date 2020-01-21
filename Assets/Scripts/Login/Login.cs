@@ -500,6 +500,7 @@ public class Login : MonoBehaviour
     private void FBLoginCallback(ResponseData<FBLoginResponseData> obj)
     {
         LoaderPanel.SetActive(false);
+         
         if (obj != null)
         {
             if (obj.status)
