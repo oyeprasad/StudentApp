@@ -494,7 +494,7 @@ public class Login : MonoBehaviour
     void OnFBLogin(string token)
     {
         LoaderPanel.SetActive(true);
-        WebRequestObject.ProcessFBLogin("Bearer " + token, FBLoginCallback);
+        WebRequestObject.ProcessFBLogin(token, FBLoginCallback  );
     }
 
     private void FBLoginCallback(ResponseData<FBLoginResponseData> obj)

@@ -142,9 +142,9 @@ public class WebRequests : MonoBehaviour
     {
         print(accessToken);
         WWWForm form = new WWWForm(); 
-        form.AddField("accessToken", accessToken);
-        communications.PostForm(FBLoginEndPoint, form, _callback);
+        communications.GetFBForm(FBLoginEndPoint, "?accessToken="+accessToken, _callback);
     }
+   
     #endregion FBLogin
 
 

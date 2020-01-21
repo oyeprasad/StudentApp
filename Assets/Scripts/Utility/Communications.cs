@@ -26,6 +26,11 @@ public class Communications : MonoBehaviour
         routine = StartCoroutine(Communicate(Path.Combine(Globals.BASE_URL, endpoint), form, callback, method));
     }
 
+    public void GetFBForm(string endpoint, string predesessor, System.Action<ResponseData<FBLoginResponseData>> callback)
+    {
+        StartCoroutine(CommunicateGet(Globals.BASE_URL+endpoint+predesessor, callback));
+    }
+
     IEnumerator Communicate(string url, WWWForm form, System.Action<ResponseData<UserData>> _callback, WebRequestMethod method)
     {
          
@@ -76,6 +81,27 @@ public class Communications : MonoBehaviour
                 ResponseData<FBLoginResponseData> data = JsonUtility.FromJson<ResponseData<FBLoginResponseData>>(www.downloadHandler.text);
                 _callback(data);
             }
+        }
+    }
+
+    IEnumerator CommunicateGet(string finalUrl, System.Action<ResponseData<FBLoginResponseData>> response)
+    {
+        string endpoint = WebRequests.Instance.categoryEndPoint;
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(finalUrl))
+        {
+            yield return webRequest.SendWebRequest();
+            while(!webRequest.isDone)
+                yield return webRequest;
+            if (webRequest.isNetworkError)
+            {
+              response(null);  
+            }
+            else
+            {
+                print(webRequest.downloadHandler.text);
+                response(JsonUtility.FromJson<ResponseData<FBLoginResponseData>> (webRequest.downloadHandler.text));
+            } 
         }
     }
 
