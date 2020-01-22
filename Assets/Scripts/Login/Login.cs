@@ -152,6 +152,7 @@ public class Login : MonoBehaviour
     public void PasswordSubmit()
     {
         // perform login here with username and password available 
+        print("oTPInitiator "+oTPInitiator);
         if (oTPInitiator == OTPInitiator.Login)
         {
 
@@ -182,6 +183,7 @@ public class Login : MonoBehaviour
             {
                 if (obj.status)
                 { 
+                    oTPInitiator = OTPInitiator.Login;
                     ClearInpuFields();
                     navigationPanelsList.Clear();
 					loginPopup.SetPopup(obj.message, () =>
@@ -235,9 +237,7 @@ public class Login : MonoBehaviour
         {
             emailid = EmailFPInput.text;
             LoaderPanel.SetActive(true);
-            WebRequestObject.ProcessForgotPassword(emailid, ForgotPasswordSubmitCallback);
-
-
+            WebRequestObject.ProcessForgotPassword(emailid, ForgotPasswordSubmitCallback);  
         }
     }
 
@@ -254,8 +254,7 @@ public class Login : MonoBehaviour
             {
 				
                 navigationPanelsList.Add(ForgotPassowrdPanel);
-                ClearInpuFields();
-                oTPInitiator = OTPInitiator.ForgotPassword;
+                ClearInpuFields(); 
                 user_id = obj.data.user_id;
 
                 ActivatePanel(VerificationPanel.name);
@@ -296,8 +295,7 @@ public class Login : MonoBehaviour
             if (obj.status)
             {
                 ClearInpuFields();
-                navigationPanelsList.Add(VerificationPanel);
-                oTPInitiator = OTPInitiator.ForgotPassword;
+                navigationPanelsList.Add(VerificationPanel); 
                 ActivatePanel(PasswordPanel.name);
             }
             else
@@ -530,8 +528,12 @@ public class Login : MonoBehaviour
         {
             return;
         }
+ 
 
-        LoginPanel.SetActive(string.Equals(LoginPanel.name, panelName));
+        if(string.Equals(LoginPanel.name, panelName)){
+            LoginPanel.SetActive(true);            
+            oTPInitiator = OTPInitiator.Login;
+        }
         PasswordPanel.SetActive(string.Equals(PasswordPanel.name, panelName));
         ForgotPassowrdPanel.SetActive(string.Equals(ForgotPassowrdPanel.name, panelName));
         WhoAreYouPanel.SetActive(string.Equals(WhoAreYouPanel.name, panelName));

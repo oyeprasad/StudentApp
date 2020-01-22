@@ -350,7 +350,16 @@ public class HomeMainUIController : MonoBehaviour
         } 
         else
         {
-            popup.SetPopup(response.message, () => print("logout error"));
+            if(response.code == 401)
+            {
+                popup.SetPopup("Session Expired! Please login again.", () =>  {
+                    PlayerPrefs.SetInt(Globals.PLAYERKEY_LOGINSTATUS, Globals.LOGGED_OUT);
+                    Globals.LoadLevel(Globals.LOGIN_SCENE);
+                });
+            }
+            else{
+                popup.SetPopup(response.message, () => print("logout error"));
+            }
         }
     }
     #endregion Logout

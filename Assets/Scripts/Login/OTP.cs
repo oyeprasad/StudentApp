@@ -18,15 +18,33 @@ public class OTP : MonoBehaviour
     }
     void OnValueChange(int index)
     {
-        message.text = string.Empty;
-        if ((index + 1) < allInpufields.Count)
+        print("On value change "+index);
+        print("All input field " +allInpufields.Count);
+        StartCoroutine(SetInputFocus(index));
+        //message.text = string.Empty;
+       
+    }
+
+    IEnumerator SetInputFocus(int _index)
+    {
+        yield return new WaitForEndOfFrame();
+         if ((_index + 1) < allInpufields.Count)
         {
-            EventSystem.current.SetSelectedGameObject(allInpufields[index + 1].gameObject, null);
+            print("In the if statement");
+
+            print(allInpufields[_index + 1]);
+            print("Now check this");
+            //EventSystem.current.SetSelectedGameObject(allInpufields[_index + 1].gameObject, null);
+ 
+            //allInpufields[_index + 1].ActivateInputField();
+            allInpufields[_index + 1].Select(); 
+            print("Select input doen");
         }
         else
         {
-            // Do nothing
+            print("Into else");
         }
+
     }
     public void OnSubmit()
     {

@@ -42,19 +42,23 @@ public class ProfileController : MonoBehaviour
              editUsername.gameObject.GetComponent<ValidateInput>().Validate(editUsername.text);
 
          } 
-         else  if(!editFullname.gameObject.GetComponent<ValidateInput>().isValidInput)
+          if(!editFullname.gameObject.GetComponent<ValidateInput>().isValidInput)
          {
              editFullname.gameObject.GetComponent<ValidateInput>().Validate(editFullname.text);
 
          }
-         else  if(!editEmail.gameObject.GetComponent<ValidateInput>().isValidInput)
+         if(!editEmail.gameObject.GetComponent<ValidateInput>().isValidInput)
          {
              editEmail.gameObject.GetComponent<ValidateInput>().Validate(editEmail.text);
          }
-         else  if(!editPhone.gameObject.GetComponent<ValidateInput>().isValidInput)
+          if(!editPhone.gameObject.GetComponent<ValidateInput>().isValidInput)
          {
              editPhone.gameObject.GetComponent<ValidateInput>().Validate(editPhone.text);
-         } else
+         } 
+         if(editUsername.gameObject.GetComponent<ValidateInput>().isValidInput && 
+            editFullname.gameObject.GetComponent<ValidateInput>().isValidInput &&
+            editEmail.gameObject.GetComponent<ValidateInput>().isValidInput &&
+            editPhone.gameObject.GetComponent<ValidateInput>().isValidInput)
          {
             StartCoroutine(SubmitEditProfile());
          }

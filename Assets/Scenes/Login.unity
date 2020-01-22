@@ -13714,6 +13714,8 @@ MonoBehaviour:
   subCategoryEndPoint: sub-categories?category_id=
   getVideoEndPoint: videos?sub_category_id=
   editProfileEndPoint: student-edit-profile
+  getQueOfVideoEndPoint: 
+  getQueOfSubCatEndPoint: 
 --- !u!4 &1353888658
 Transform:
   m_ObjectHideFlags: 0

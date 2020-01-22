@@ -74,6 +74,9 @@ public class WebRequests : MonoBehaviour
     #region Login
     public void ProcessLogin(string username, string password, Action<ResponseData<UserData>> _callback)
     {
+        print("Process Login");
+        print("username "+username);
+        print("password "+password);
         WWWForm form = new WWWForm();
 
         form.AddField("username", username);
