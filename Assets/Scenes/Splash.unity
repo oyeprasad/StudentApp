@@ -255,6 +255,7 @@ MonoBehaviour:
   editProfileEndPoint: student-edit-profile
   getQueOfVideoEndPoint: quizes?video_id=
   getQueOfSubCatEndPoint: quizes_subcat?sub_category_id=
+  sendMessageEndPoint: send-message
 --- !u!4 &159580448
 Transform:
   m_ObjectHideFlags: 0

@@ -12,6 +12,16 @@ public class HelpPanel : MonoBehaviour
 
     public void OnSubmit()
     {
-        HomeMainUIController.EventSubmitHelp.Invoke(HelpInputText.text);
+        if(string.IsNullOrEmpty(HelpInputText.text))
+        {
+            HomeMainUIController.ShowPopup.Invoke("Please describe your problem.", () => print(""));
+        } 
+        else
+        {
+            HomeMainUIController.EventSubmitHelp.Invoke(HelpInputText.text);
+            HelpInputText.text = "";
+        }
     }
+
+   
 }

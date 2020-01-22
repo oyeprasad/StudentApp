@@ -26,6 +26,7 @@ public class WebRequests : MonoBehaviour
     [SerializeField] public string editProfileEndPoint = "";
     [SerializeField] public string getQueOfVideoEndPoint = "";
     [SerializeField] public string getQueOfSubCatEndPoint = "";
+    [SerializeField] public string sendMessageEndPoint = "";
 
     Action<ResponseData<UserData>> callback;
 

@@ -191,7 +191,7 @@ public class HomeMainUIController : MonoBehaviour
     void OnHelpSubmit(string helpText)
     {
         popup.gameObject.SetActive(true);
-        popup.SetPopup("Thank you for your request, We will get back to you shortly.", () => popup.gameObject.SetActive(false));
+        StartCoroutine( HelpSubmitApi(helpText));    
     }
     #endregion ClickButtonsEvents
 
@@ -410,5 +410,41 @@ public class HomeMainUIController : MonoBehaviour
         } 
      }
 
+    IEnumerator HelpSubmitApi(string _message)
+    { 
+         WWWForm form = new WWWForm();
+
+        form.AddField("user_id", Globals.UserLoginDetails.user_id);
+        form.AddField("message", _message); 
+
+        print("Uer Id for asking Help "+Globals.UserLoginDetails.user_id);
+         using (UnityWebRequest www =  UnityWebRequest.Post(Globals.BASE_URL + WebRequests.Instance.sendMessageEndPoint, form))
+        {
+            HomeMainUIController.EventShowHideLoader.Invoke(true); 
+
+            www.SetRequestHeader("Accept", "application/json");//
+            www.SetRequestHeader("Authorization", "Bearer "+Globals.UserLoginDetails.access_token);
+
+            yield return www.SendWebRequest();
+            while (!www.isDone)
+                yield return null;
+
+            HomeMainUIController.EventShowHideLoader.Invoke(false);
+            if (www.isNetworkError || www.isHttpError)
+            {  
+                popup.gameObject.SetActive(true);
+                popup.SetPopup("Some error, Try again later.", () => popup.gameObject.SetActive(false));
+            }
+            else
+            {
+                print(www.downloadHandler.text); 
+                ResponseBase response = JsonUtility.FromJson<ResponseBase>(www.downloadHandler.text);
+                popup.SetPopup(response.message, () => {
+                                                        popup.gameObject.SetActive(false);
+                                                        
+                                                        });
+            }
+        }  
+    }
     #endregion ChangePassword
 }
