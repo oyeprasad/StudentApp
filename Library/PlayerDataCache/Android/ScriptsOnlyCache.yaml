@@ -1027,7 +1027,7 @@ ScriptsOnlyBuild:
     className: BeforeAfterTestCommandState
   - hash:
       serializedVersion: 2
-      Hash: fa0f0751a09069f9baf7a56d1e558776
+      Hash: e305738696afd89c2c6d7261acb7c821
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: QuizController
@@ -1159,7 +1159,7 @@ ScriptsOnlyBuild:
     className: SignalEmitter
   - hash:
       serializedVersion: 2
-      Hash: f9aeea991bbfded133da08fbb88c0277
+      Hash: 9cfab347ea73172270a924824812aed8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: WebRequests
@@ -1193,4 +1193,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/Introduction.unity
   - Assets/Scenes/Login.unity
   - Assets/Scenes/Home.unity
-  playerPath: E:/Work/Running Projects/Student/Build/Android/Whizee_V01_C04_1.apk
+  playerPath: E:/Work/Running Projects/Student/Build/Android/Whizee_V01_C05.apk

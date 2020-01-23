@@ -132,15 +132,28 @@ public class Login : MonoBehaviour
     {
         if (string.Equals(usertype ,"student"))
         {
-            loginPopup.SetPopup("DISCLAIMER" + "\n\n" + "Dear Student, please have your parent or and adult help you to create an account", () => {
+            loginPopup.SetPopup("DISCLAIMER" + "\n\n" + "Dear Student, please have your parent or an adult help you to create an account!", () => {
                 ClearInpuFields();
                 navigationPanelsList.Add(WhoAreYouPanel);
                 ActivatePanel(SignUpPanel.name);
             }); 
 
-          //  loginPopup.gameObject.SetActive(true);
-            //loginPopup.SetPopup("DISCLAIMER"+"\n\n"+"Dear Student, please have your parent or and adult help you to create an account", null);
-        }
+          }
+          else if (string.Equals(usertype, "parent"))
+          {
+              loginPopup.SetPopup("Under construction.", () => { 
+                });
+          }
+          else if (string.Equals(usertype, "teacher"))
+          {
+              loginPopup.SetPopup("Under construction.", () => { 
+                });
+          }
+          else if (string.Equals(usertype, "schoolleader"))
+          {
+              loginPopup.SetPopup("Under construction.", () => { 
+                });
+          }
     }
 
     public void ForgotPasswordClick()
@@ -336,6 +349,10 @@ public class Login : MonoBehaviour
         }
     }
 
+    public void OnValueChangeRegPhone()
+    {
+        
+    }
     public void SignUpSubmit()
     { 
         if (string.IsNullOrEmpty(RegFullname.text) || !RegFullname.GetComponent<ValidateInput>().isValidInput)
@@ -474,11 +491,14 @@ public class Login : MonoBehaviour
 
     public void FbLoginClicked()
     {
-        fbManager.FBLogin();
+         loginPopup.SetPopup("Under construction.", () => { 
+            }); 
+        //fbManager.FBLogin();
     }
     public void GoogleLoginClicked()
     {
-
+        loginPopup.SetPopup("Under construction.", () => { 
+            });
     }
 
     public void PasswordButtonClicked(string _passwordId)

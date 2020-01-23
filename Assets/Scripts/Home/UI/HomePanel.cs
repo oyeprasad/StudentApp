@@ -12,11 +12,11 @@ public class HomePanel : MonoBehaviour
        
         if (Globals.LoginType == 0)
         {
-            userWelcomeText.text = string.Format("{0}, {1}", "Hello", Globals.UserLoginDetails.username.ToUpper());
+            userWelcomeText.text = string.Format("{0}, {1}", "HELLO", Globals.UserLoginDetails.username.ToUpper());
         }
         else if (Globals.LoginType == 1)
         {
-            userWelcomeText.text = string.Format("{0}, {1}", "Hello", Globals.fBLoginResponseData.name.ToUpper());
+            userWelcomeText.text = string.Format("{0}, {1}", "HELLO", Globals.fBLoginResponseData.name.ToUpper());
         }
     }
 
