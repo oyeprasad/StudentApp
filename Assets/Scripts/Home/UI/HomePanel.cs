@@ -5,10 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 public class HomePanel : MonoBehaviour
 {
-    [SerializeField] private Text userWelcomeText;
+    [SerializeField] private Text userWelcomeText; 
+    [SerializeField] private Image profilePic;
+
+
 
     void Start()
     {
+ 
        
         if (Globals.LoginType == 0)
         {
@@ -18,6 +22,14 @@ public class HomePanel : MonoBehaviour
         {
             userWelcomeText.text = string.Format("{0}, {1}", "HELLO", Globals.fBLoginResponseData.name.ToUpper());
         }
+
+        HomeMainUIController.EventProfilePicChoose.AddListener(ProfilePicChoosen);
+    }
+
+    void ProfilePicChoosen(Sprite img, float _aspectRatio)
+    {    
+        profilePic.sprite = img;
+        profilePic.GetComponent<AspectRatioFitter>().aspectRatio = _aspectRatio;
     }
 
     public void VideoClicked()

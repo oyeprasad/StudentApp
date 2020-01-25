@@ -17,8 +17,7 @@ public enum PasswordPanelState
     PASSWORD,
     OLDPASSWORD,
     NEWPASSOWRD,
-    CONFIRMNEWPASSWORD
-
+    CONFIRMNEWPASSWORD 
 }
 
 [System.Serializable] public class LogoutResponse:ResponseBase
@@ -32,6 +31,7 @@ public enum PasswordPanelState
 public class HomeMainUIController : MonoBehaviour
 {  
     private List<GameObject> navigationPanelsList = new List<GameObject>();
+    private Sprite UserImage;
 
     // Reference to all panels, as gameobject
     public GameObject HomePanelObject, ProfilePanel, ProfilePanelEdit,CategoryPanel, SubCategoryPanel, 
@@ -57,6 +57,10 @@ public class HomeMainUIController : MonoBehaviour
     public static UnityEvent EventMyProfileSaveClicked = new UnityEvent();
     public static StringEvent EventSubmitHelp = new StringEvent();
     public static StringEvent EventPasswordPanelHide = new StringEvent();
+
+    public static SpriteFloatEvent EventProfilePicChoose = new SpriteFloatEvent();
+
+     
     // End Events\\\
 
 
@@ -82,6 +86,7 @@ public class HomeMainUIController : MonoBehaviour
         HomeMainUIController.EventMyProfileSaveClicked.AddListener(MyProfileSaveClicked);
         HomeMainUIController.EventSubmitHelp.AddListener(OnHelpSubmit);
         HomeMainUIController.EventPasswordPanelHide.AddListener(OnPasswordPanelHide);
+        HomeMainUIController.EventProfilePicChoose.AddListener(OnProfilePicSelected);
     }
     private void Update()
     {
@@ -338,6 +343,10 @@ void OnPasswordPanelHide(string panelName)
 
     }
 
+    void OnProfilePicSelected(Sprite image, float aspetRatio)
+    {
+        
+    }
 
     #endregion OtherEvents
 
