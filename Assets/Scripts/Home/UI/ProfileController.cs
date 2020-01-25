@@ -16,19 +16,19 @@ public class ProfileController : MonoBehaviour
     [SerializeField] private InputField editUsername, editFullname, editEmail, editPhone;
     [SerializeField] private Dropdown editPhoencode, editGradeCode;
 
+    [SerializeField] private List<string> phoneCodeList = new List<string>();
 
 
     public void PopulatePanel()
     {
+       string[] PhoneNumberArray = Globals.UserLoginDetails.phone.Split(' ');
+ 
        username.text = editUsername.text = Globals.UserLoginDetails.username.ToUpper(); 
        fullname.text = editFullname.text = Globals.UserLoginDetails.name.ToUpper();
        email.text = editEmail.text = Globals.UserLoginDetails.email;
-       phone.text = editPhone.text = Globals.UserLoginDetails.phone; 
-       
-       Dropdown.OptionData option = new Dropdown.OptionData();
-       option.text = Globals.UserLoginDetails.grade;
-       print("Selected grade "+ gradeCode.options.IndexOf(option));
-       gradeCode.SetValueWithoutNotify(gradeCode.options.IndexOf(option));
+       phone.text = editPhone.text = PhoneNumberArray[1]; 
+
+       editPhoencode.value = phoencode.value = phoneCodeList.IndexOf(PhoneNumberArray[0]); 
     }
 
      public void EditButtonClicked()

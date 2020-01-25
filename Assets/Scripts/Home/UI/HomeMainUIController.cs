@@ -56,12 +56,16 @@ public class HomeMainUIController : MonoBehaviour
     public static UnityEvent EventMyProfileEditClicked = new UnityEvent();
     public static UnityEvent EventMyProfileSaveClicked = new UnityEvent();
     public static StringEvent EventSubmitHelp = new StringEvent();
+    public static StringEvent EventPasswordPanelHide = new StringEvent();
     // End Events\\\
 
 
     public static QueryType queryType; 
     private string newPassowrdToChange = "1112121"; 
     private PasswordPanelState passwordPanelState = PasswordPanelState.PASSWORD;
+
+
+     
     void Start()
     {
         HomeMainUIController.EventBackClicked.AddListener(OnBackClicked);
@@ -77,6 +81,7 @@ public class HomeMainUIController : MonoBehaviour
         HomeMainUIController.EventMyProfileEditClicked.AddListener(MyProfileEditClicked);
         HomeMainUIController.EventMyProfileSaveClicked.AddListener(MyProfileSaveClicked);
         HomeMainUIController.EventSubmitHelp.AddListener(OnHelpSubmit);
+        HomeMainUIController.EventPasswordPanelHide.AddListener(OnPasswordPanelHide);
     }
     private void Update()
     {
@@ -106,8 +111,7 @@ public class HomeMainUIController : MonoBehaviour
 
     void ProfileClicked()
     {
-        navigationPanelsList.Add(HomePanelObject);
-        ActivatePanel(ProfilePanel.name);
+        MenuMyAccountClicked();
     }
 
     void OnLogoutClicked()
@@ -161,8 +165,7 @@ public class HomeMainUIController : MonoBehaviour
     void PasswordButtonClicked(string _password)
     {
         if(passwordPanelState == PasswordPanelState.OLDPASSWORD)
-        {
-            print("OldPassword Choosen");
+        { 
             oldPasswordChoosen = _password;
         }
         else if(passwordPanelState == PasswordPanelState.NEWPASSOWRD)
@@ -195,6 +198,24 @@ public class HomeMainUIController : MonoBehaviour
     }
     #endregion ClickButtonsEvents
 
+
+//====
+void OnPasswordPanelHide(string panelName)
+{
+    if(panelName == "confirmpassword")
+    {
+        passwordPanelState = PasswordPanelState.CONFIRMNEWPASSWORD;
+    }
+    else if(panelName == "newpassword")
+    {
+        passwordPanelState = PasswordPanelState.NEWPASSOWRD;
+
+    } else if(panelName == "oldpassword")
+    {
+        passwordPanelState = PasswordPanelState.OLDPASSWORD;
+    }
+}
+//=======
     public void ActivatePanel(string panelName)
     {
         if (string.IsNullOrEmpty(panelName))
@@ -266,7 +287,7 @@ public class HomeMainUIController : MonoBehaviour
     {
         SidePanel.SetActive(false);
         confirmationPopup.gameObject.SetActive(true);
-        confirmationPopup.SetUpPanel("LOGOUT", "Are you sure that you want to logout", 
+        confirmationPopup.SetUpPanel("LOGOUT", "Are you sure do you want to logout?", 
                                     () => {print("Logout Yes Clicked");confirmationPopup.gameObject.SetActive(false);StartCoroutine(Logout(OnLogoutComplete)); }, 
                                     () => {print("Logout No Clicked");confirmationPopup.gameObject.SetActive(false); });
     }
@@ -291,19 +312,27 @@ public class HomeMainUIController : MonoBehaviour
         if(passwordPanelState == PasswordPanelState.OLDPASSWORD)
         {
             navigationPanelsList.Add(ChangePasswordPanel);
-            passwordPanelState = PasswordPanelState.NEWPASSOWRD;
+            //passwordPanelState = PasswordPanelState.NEWPASSOWRD;
             ActivatePanel(NewPasswordPanel.name);
         } 
         else if(passwordPanelState == PasswordPanelState.NEWPASSOWRD)
         {
             navigationPanelsList.Add(NewPasswordPanel);
-            passwordPanelState = PasswordPanelState.CONFIRMNEWPASSWORD;
+            //passwordPanelState = PasswordPanelState.CONFIRMNEWPASSWORD;
             ActivatePanel(ConfirmNewPassPanel.name);
         } 
         else if(passwordPanelState == PasswordPanelState.CONFIRMNEWPASSWORD)
         {
-            passwordPanelState = PasswordPanelState.PASSWORD;
-            StartCoroutine(ProcessChanegPassword());
+            //Check whether new password and confirm new password is same
+            if(newPasswordChoosen.Equals(confirmNewPasswordChoosen))
+            {
+               // passwordPanelState = PasswordPanelState.PASSWORD;
+                StartCoroutine(ProcessChanegPassword());
+            } else{
+                popup.gameObject.SetActive(true);
+                popup.SetPopup("New password and Confirm password do not match", () => print("password does not match"));
+            }
+
             // change users password
         }
 
@@ -358,6 +387,7 @@ public class HomeMainUIController : MonoBehaviour
                 });
             }
             else{
+                popup.gameObject.SetActive(true);
                 popup.SetPopup(response.message, () => print("logout error"));
             }
         }

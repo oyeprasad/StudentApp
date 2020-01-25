@@ -4327,7 +4327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &279426412
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4494,7 +4494,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 125, y: 0}
-  m_SizeDelta: {x: 80, y: 50}
+  m_SizeDelta: {x: 115.7, y: 80}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &290713529
 MonoBehaviour:
@@ -4544,7 +4544,25 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
+    - m_Text: +91
+      m_Image: {fileID: 0}
     - m_Text: +01
+      m_Image: {fileID: 0}
+    - m_Text: +02
+      m_Image: {fileID: 0}
+    - m_Text: +03
+      m_Image: {fileID: 0}
+    - m_Text: +04
+      m_Image: {fileID: 0}
+    - m_Text: +05
+      m_Image: {fileID: 0}
+    - m_Text: +06
+      m_Image: {fileID: 0}
+    - m_Text: +07
+      m_Image: {fileID: 0}
+    - m_Text: +08
+      m_Image: {fileID: 0}
+    - m_Text: +09
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5781,6 +5799,7 @@ GameObject:
   - component: {fileID: 355700897}
   - component: {fileID: 355700899}
   - component: {fileID: 355700898}
+  - component: {fileID: 355700900}
   m_Layer: 5
   m_Name: NewPasswordChoosePanel
   m_TagString: Untagged
@@ -5846,6 +5865,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355700896}
   m_CullTransparentMesh: 0
+--- !u!114 &355700900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355700896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a1e5f97cb42864fa61edcb7d8bd0c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelName: newpassword
 --- !u!1 &360757156
 GameObject:
   m_ObjectHideFlags: 0
@@ -9271,8 +9303,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -21.3, y: -0.5999985}
+  m_SizeDelta: {x: 42.5, y: 17.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &511259877
 MonoBehaviour:
@@ -9305,7 +9337,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: +01
+  m_Text: +91
 --- !u!222 &511259878
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11961,8 +11993,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 125, y: 0}
-  m_SizeDelta: {x: -350, y: 100}
+  m_AnchoredPosition: {x: 95, y: 0}
+  m_SizeDelta: {x: -290, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &668404311
 MonoBehaviour:
@@ -13509,6 +13541,7 @@ GameObject:
   - component: {fileID: 754480134}
   - component: {fileID: 754480136}
   - component: {fileID: 754480135}
+  - component: {fileID: 754480137}
   m_Layer: 5
   m_Name: ConfirmNewPasswordPanel
   m_TagString: Untagged
@@ -13574,6 +13607,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 754480133}
   m_CullTransparentMesh: 0
+--- !u!114 &754480137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754480133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a1e5f97cb42864fa61edcb7d8bd0c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelName: confirmpassword
 --- !u!1 &754593051
 GameObject:
   m_ObjectHideFlags: 0
@@ -14181,8 +14227,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 75, y: 0}
-  m_SizeDelta: {x: -250, y: 120}
+  m_AnchoredPosition: {x: 94.999985, y: 0}
+  m_SizeDelta: {x: -290.00003, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &780661334
 MonoBehaviour:
@@ -15233,7 +15279,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -15247,7 +15293,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 449688502}
   m_TextComponent: {fileID: 2135940594}
   m_Placeholder: {fileID: 1809659491}
@@ -19307,6 +19353,8 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
+    - m_Text: +91
+      m_Image: {fileID: 0}
     - m_Text: +01
       m_Image: {fileID: 0}
     - m_Text: +02
@@ -19315,7 +19363,15 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: +04
       m_Image: {fileID: 0}
-    - m_Text: +91
+    - m_Text: +05
+      m_Image: {fileID: 0}
+    - m_Text: +06
+      m_Image: {fileID: 0}
+    - m_Text: +07
+      m_Image: {fileID: 0}
+    - m_Text: +08
+      m_Image: {fileID: 0}
+    - m_Text: +09
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -20191,6 +20247,7 @@ GameObject:
   - component: {fileID: 1137659514}
   - component: {fileID: 1137659516}
   - component: {fileID: 1137659515}
+  - component: {fileID: 1137659517}
   m_Layer: 5
   m_Name: ChangePasswordPanel
   m_TagString: Untagged
@@ -20256,6 +20313,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137659513}
   m_CullTransparentMesh: 0
+--- !u!114 &1137659517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137659513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a1e5f97cb42864fa61edcb7d8bd0c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelName: oldpassword
 --- !u!1 &1138333597
 GameObject:
   m_ObjectHideFlags: 0
@@ -20372,7 +20442,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -20386,7 +20456,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1141322627}
   m_Template: {fileID: 1972730502}
   m_CaptionText: {fileID: 1749653786}
@@ -22167,7 +22237,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1222775462
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22520,6 +22590,17 @@ MonoBehaviour:
   editPhone: {fileID: 668404309}
   editPhoencode: {fileID: 1087643879}
   editGradeCode: {fileID: 1141322625}
+  phoneCodeList:
+  - +91
+  - +01
+  - +02
+  - +03
+  - +04
+  - +05
+  - +06
+  - +07
+  - +08
+  - +09
 --- !u!114 &1242523871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36154,7 +36235,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: +01
+  m_Text: +91
 --- !u!222 &1962310641
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -38005,6 +38086,17 @@ MonoBehaviour:
   editPhone: {fileID: 307928100}
   editPhoencode: {fileID: 1945950065}
   editGradeCode: {fileID: 696849390}
+  phoneCodeList:
+  - +91
+  - +01
+  - +02
+  - +03
+  - +04
+  - +05
+  - +06
+  - +07
+  - +08
+  - +09
 --- !u!114 &2059836633
 MonoBehaviour:
   m_ObjectHideFlags: 0

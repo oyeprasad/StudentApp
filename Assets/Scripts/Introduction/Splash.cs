@@ -8,7 +8,7 @@ public class Splash : MonoBehaviour
     
     [SerializeField] private GameObject popup;
     void Awake()
-    {
+    { 
         if(IsNetworkConnected())
         {
             print("Tutorial "+PlayerPrefs.GetString(Globals.PLAYERKEY_TUTORIALSTATUS));

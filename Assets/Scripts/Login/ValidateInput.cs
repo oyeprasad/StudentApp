@@ -30,10 +30,35 @@ public class ValidateInput : MonoBehaviour
         validationInfo.text = string.Empty;
     }
 
+    bool wasfocus = false;
+    bool  keepOldTextInField = false;
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape) && gameObject.activeInHierarchy)
+        {
+            if(TouchScreenKeyboard.visible == false && wasfocus)
+            {
+                wasfocus = false;
+                KeyBoardHide();
+            }
+        }
+    }
+
+    void KeyBoardHide()
+    {
+         keepOldTextInField = true;
+    }
+    string oldEditText;
+    string editText;
     private void OnValueChange(string arg0)
     {
+        wasfocus = true;
         //LoginMenu.InputFieldEditStart.Invoke();
         validationInfo.text = string.Empty;
+
+        //--- new logic
+        oldEditText = editText;
+        editText = arg0;
     }
 
     void OnEditStart()
@@ -43,6 +68,19 @@ public class ValidateInput : MonoBehaviour
 
     public void Validate(string arg0)
     {
+
+        // new logic
+        if (keepOldTextInField && !string.IsNullOrEmpty(oldEditText))
+        {
+            print("Keep old "+oldEditText);
+        //IMPORTANT ORDER
+            editText = oldEditText;
+            inputToValidate.text = oldEditText;
+            arg0 = oldEditText;
+            keepOldTextInField = false;
+        }
+        //===========
+
         print("Validate");
         if (arg0.Length <= 0)
         {

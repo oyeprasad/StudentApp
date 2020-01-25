@@ -62,7 +62,7 @@ public class UserData
     public int status = 0;
     public string user_type_id = string.Empty;
     public string access_token = string.Empty;
-    public string profile_pic = string.Empty;
+     public string profile_pic = string.Empty;
 }
 
 
@@ -90,6 +90,7 @@ public class Globals : MonoBehaviour
 
     public static FBLoginResponseData fBLoginResponseData = new FBLoginResponseData();
     public static UserData UserLoginDetails = new UserData();
+ 
 
     public static bool ValidateEmail(string emailString)
     {

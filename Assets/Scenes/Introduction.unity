@@ -530,7 +530,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 250, y: 150}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &125948467
 MonoBehaviour:
@@ -545,7 +545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.084905684, g: 0.08290319, b: 0.08290319, a: 1}
+  m_Color: {r: 0.5647059, g: 0.6431373, b: 0.68235296, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -695,7 +695,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: We are so excited for you to join us! Whizee is a fun and engaging math
-    app for students in grade 1-6.
+    app for students in grades 1-6.
 --- !u!222 &294399677
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1757,8 +1757,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Whezee is an innovative and comprihensive suppliment to the elementary math
-    currilculum. When learning new maths skills becomes overwhelming, Whizee is here
+  m_Text: Whizee is an innovative and comprehensive supplement to the elementary math
+    curriculum. When learning new math skills becomes overwhelming, Whizee is here
     to save the day by simplifying difficult concepts and making it easy to understand!
 --- !u!222 &920559248
 CanvasRenderer:
@@ -3651,9 +3651,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Welcome
-
-'
+  m_Text: WELCOME
 --- !u!222 &1769993830
 CanvasRenderer:
   m_ObjectHideFlags: 0

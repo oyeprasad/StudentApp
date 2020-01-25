@@ -88,7 +88,8 @@ public class Login : MonoBehaviour
             navigationPanelsList.Add(LoginPanel);  
 
             ClearInpuFields();
-            ActivatePanel(PasswordPanel.name);    
+            ActivatePanel(PasswordPanel.name);
+            PasswordPanel.GetComponent<PasswordPanel>().Populate("WHAT'S YOUR PASSWORD?");    
         } 
     }
     public void RegisterClicked()
@@ -310,6 +311,7 @@ public class Login : MonoBehaviour
                 ClearInpuFields();
                 navigationPanelsList.Add(VerificationPanel); 
                 ActivatePanel(PasswordPanel.name);
+                PasswordPanel.GetComponent<PasswordPanel>().Populate("CHOOSE YOUR PASSWORD?");
             }
             else
             {
@@ -331,6 +333,7 @@ public class Login : MonoBehaviour
                 if (oTPInitiator == OTPInitiator.ForgotPassword)
                 {
                     ActivatePanel(PasswordPanel.name);
+                    PasswordPanel.GetComponent<PasswordPanel>().Populate("CHOOSE YOUR PASSWORD?");
                 }
                 else if (oTPInitiator == OTPInitiator.Registration)
                 {
@@ -349,9 +352,13 @@ public class Login : MonoBehaviour
         }
     }
 
-    public void OnValueChangeRegPhone()
+    public void OnValueChangeRegPhone(string _value)
     {
-        
+        // Validate phone number length
+        switch (RegPhoneCode.value)
+        {
+
+        }
     }
     public void SignUpSubmit()
     { 
@@ -371,7 +378,7 @@ public class Login : MonoBehaviour
             print("Signup Validate true");
             emailid = RegEmail.text;
             fullname = RegFullname.text;
-            phonecode = RegPhoneCode.value.ToString();
+            phonecode = RegPhoneCode.options[RegPhoneCode.value].text;
             phonenumber = RegPhomenumber.text;
 
             oTPInitiator = OTPInitiator.Registration;
@@ -429,6 +436,7 @@ public class Login : MonoBehaviour
             ClearInpuFields();
             navigationPanelsList.Add(ChooseUserNamePanel);
             ActivatePanel(PasswordPanel.name);
+            PasswordPanel.GetComponent<PasswordPanel>().Populate("CHOOSE YOUR PASSWORD?");
         }
     }
 
