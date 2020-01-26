@@ -9,7 +9,8 @@ using UnityEngine.Networking;
 public enum QueryType
 {
     Video,
-    Quizzes
+    Quizzes,
+    WorkSheet
 }
 
 public enum PasswordPanelState
@@ -45,6 +46,7 @@ public class HomeMainUIController : MonoBehaviour
     public static UnityEvent EventBackClicked = new UnityEvent();
     public static UnityEvent EventVideoClicked = new UnityEvent();
     public static UnityEvent EventQuizzesClickedFromHome = new UnityEvent();
+    public static UnityEvent EventWorkSheetClickedFromHome = new UnityEvent();
     public static UnityEvent EventProfileClicked = new UnityEvent();
 
     public static BooleanEvent EventShowHideLoader = new BooleanEvent();
@@ -74,7 +76,8 @@ public class HomeMainUIController : MonoBehaviour
     {
         HomeMainUIController.EventBackClicked.AddListener(OnBackClicked);
         HomeMainUIController.EventVideoClicked.AddListener(VideoClicked);
-        HomeMainUIController.EventQuizzesClickedFromHome.AddListener(QuizzesClickedFromHome);
+        HomeMainUIController.EventQuizzesClickedFromHome.AddListener(QuizzesClickedFromHome); //
+        HomeMainUIController.EventWorkSheetClickedFromHome.AddListener(WorkSheetClickedFromHome);
         HomeMainUIController.EventProfileClicked.AddListener(ProfileClicked);
         HomeMainUIController.EventShowHideLoader.AddListener(ShowHideLoader);
         HomeMainUIController.EventCategoryItemClicked.AddListener(CategoryItemClicked);
@@ -112,6 +115,8 @@ public class HomeMainUIController : MonoBehaviour
             confirmationPopup.SetUpPanel("EXIT", "Are you sure you want to exit.", () => Application.Quit(), () => confirmationPopup.gameObject.SetActive(false));
        
         }
+        // Hide loader if working
+        EventShowHideLoader.Invoke(false);
     }
 
     void ProfileClicked()
@@ -138,6 +143,14 @@ public class HomeMainUIController : MonoBehaviour
         CategoryPanel.GetComponent<CategoryManager>().PopulateCategoryPanel(Globals.UserLoginDetails.grade);   
     }
 
+    void WorkSheetClickedFromHome()
+    {
+        queryType = QueryType.WorkSheet;
+        navigationPanelsList.Add(HomePanelObject);
+        ActivatePanel(CategoryPanel.name); 
+        CategoryPanel.GetComponent<CategoryManager>().PopulateCategoryPanel(Globals.UserLoginDetails.grade);  
+    }
+
     void CategoryItemClicked(int catno, string title)
     {
         navigationPanelsList.Add(CategoryPanel);
@@ -146,6 +159,7 @@ public class HomeMainUIController : MonoBehaviour
     }
     void OnSubCatClicked(int subCatId, string subCatName)
     {
+        print(subCatId+ " Name " +subCatName);
         navigationPanelsList.Add(SubCategoryPanel);
         if(queryType == QueryType.Video)
         {
@@ -157,6 +171,10 @@ public class HomeMainUIController : MonoBehaviour
             navigationPanelsList.Add(SubCategoryPanel);
             ActivatePanel(QuizPanel.name);
             QuizPanel.GetComponent<QuizController>().PopulateQuizzesOnSubCat(subCatId);
+        } 
+        else if(queryType == QueryType.WorkSheet)
+        {
+            StartCoroutine(DownloadWorkSheet(subCatId.ToString()));                  
         }
     }
 
@@ -449,6 +467,7 @@ void OnPasswordPanelHide(string panelName)
         } 
      }
 
+    #endregion ChangePassword
     IEnumerator HelpSubmitApi(string _message)
     { 
          WWWForm form = new WWWForm();
@@ -485,5 +504,61 @@ void OnPasswordPanelHide(string panelName)
             }
         }  
     }
-    #endregion ChangePassword
+
+    IEnumerator DownloadWorkSheet(string _subCatId)
+    {
+        string endpoint = WebRequests.Instance.getWorkSheetEndPoint;
+        EventShowHideLoader.Invoke(true);
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(Globals.BASE_URL + endpoint+_subCatId))
+        {
+            print("Requested for worksheet : "+Globals.BASE_URL + endpoint+_subCatId);
+            // Request and wait for the desired page.
+            webRequest.SetRequestHeader("Accept", "application/json");//
+            webRequest.SetRequestHeader("Authorization", "Bearer "+Globals.UserLoginDetails.access_token);
+
+            yield return webRequest.SendWebRequest();
+            while(!webRequest.isDone)
+                yield return webRequest;
+            
+            EventShowHideLoader.Invoke(false);
+            if (webRequest.isNetworkError)
+            { 
+
+                  popup.SetPopup("Some error in download.", () => {
+                                                        popup.gameObject.SetActive(false);
+                                                        
+                                                        });
+            }
+            else
+            {
+                print(webRequest.downloadHandler.text);
+                WorkSheetResponse response = JsonUtility.FromJson<WorkSheetResponse>(webRequest.downloadHandler.text);
+                if(response.status)
+                {
+                    if(response.data.worksheets.Count > 0)
+                    {
+                        foreach (WorkSheetData item in response.data.worksheets)
+                        {
+                            Application.OpenURL(item.worksheet_document);
+                        }
+                    } else
+                    {
+                      popup.SetPopup(" No worksheet found.", () => {
+                                                        popup.gameObject.SetActive(false);
+                                                        });  
+                    }
+                }
+                else
+                {
+                    popup.SetPopup(response.message, () => {
+                                                        popup.gameObject.SetActive(false);
+                                                        
+                                                        });
+
+                } 
+            } 
+        }
+    } 
+
 }

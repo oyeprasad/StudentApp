@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System;
 
 [System.Serializable] public class ProfileData
 {
@@ -37,6 +39,7 @@ public class ProfileController : MonoBehaviour
     [SerializeField] private Text gradeText, editGradeText; 
     [SerializeField] private List<string> phoneCodeList = new List<string>();
      
+    private Sprite profilePicSprite;  
     void OnEnable()
     {
         editProfilePic.sprite = profilePic.sprite;
@@ -45,9 +48,12 @@ public class ProfileController : MonoBehaviour
     void Start()
     {
         HomeMainUIController.EventProfilePicChoose.AddListener(OnProfilePicChoosen);
+        profilePicSprite = profilePic.sprite;
     }
     void OnProfilePicChoosen(Sprite img, float _aspectRatio)
     {
+        print("OnProfilePicChoosen");
+
         profilePic.sprite = img;
         profilePic.GetComponent<AspectRatioFitter>().aspectRatio = _aspectRatio;
         editProfilePic.sprite = img;
@@ -74,18 +80,21 @@ public class ProfileController : MonoBehaviour
 
      public void ChoosePhotoClicked()
      {
-         print("Choose IMage");
          NativeGallery.GetImageFromGallery(OnImageChoose);
      }
 
       
      void OnImageChoose(string imagePath)
      { 
+         print("OnImageChoose "+imagePath);
          if(!string.IsNullOrEmpty(imagePath))
          {
-            Texture2D userpicTexture = NativeGallery.LoadImageAtPath(imagePath, 512); 
-            profilePic.gameObject.GetComponent<AspectRatioFitter>().aspectRatio = (userpicTexture.width * 1.0f)/(userpicTexture.height * 1.0f); 
-            profilePic.sprite = Sprite.Create(userpicTexture, new Rect(0.0f, 0.0f, userpicTexture.width, userpicTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
+            Texture2D userpicTexture = NativeGallery.LoadImageAtPath(imagePath, 512, false, true);   
+
+            editProfilePic.gameObject.GetComponent<AspectRatioFitter>().aspectRatio = (userpicTexture.width * 1.0f)/(userpicTexture.height * 1.0f); 
+            editProfilePic.sprite = Sprite.Create(userpicTexture, new Rect(0.0f, 0.0f, userpicTexture.width, userpicTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
+            print("User pic set "+(userpicTexture.width * 1.0f)/(userpicTexture.height * 1.0f)); 
+            profilePicSprite = editProfilePic.sprite; 
          }
 
 
@@ -119,8 +128,7 @@ public class ProfileController : MonoBehaviour
             StartCoroutine(SubmitEditProfile());
          }
      }
-
-     
+ 
     IEnumerator SubmitEditProfile()
     {
         print("Change user profile info...");
@@ -130,13 +138,15 @@ public class ProfileController : MonoBehaviour
         form.AddField("name",editFullname.text);
         form.AddField("phone",(editPhoencode.options[editPhoencode.value]+" "+editPhone.text));
         form.AddField("email",editEmail.text);
-        form.AddField("profile_pic", profilePic.sprite.texture.EncodeToPNG().ToString());
+        form.AddField("profile_pic",  GetCurrentImageByte(editProfilePic.sprite.texture));
 
         string url = Globals.BASE_URL + WebRequests.Instance.editProfileEndPoint;
 
         using (UnityWebRequest www =  UnityWebRequest.Post(url, form))
         { 
             www.method = "PUT";
+            www.SetRequestHeader("Accept", "application/json");//
+            www.SetRequestHeader("Authorization", "Bearer "+Globals.UserLoginDetails.access_token);
 
             yield return www.SendWebRequest();
             while (!www.isDone)
@@ -153,25 +163,34 @@ public class ProfileController : MonoBehaviour
             {
                 print(www.downloadHandler.text);
                 ProfileResponse _response = JsonUtility.FromJson<ProfileResponse>(www.downloadHandler.text);
-
+                HomeMainUIController.EventShowHideLoader.Invoke(false);
                OnProfileSave(_response);
             }
         }  
 
     }
 
+    string GetCurrentImageByte(Texture2D img)
+    {    
+        byte[] myTextureBytes   = img.EncodeToPNG();
+        String myTextureBytesEncodedAsBase64 = System.Convert.ToBase64String(myTextureBytes);
+        
+        return myTextureBytesEncodedAsBase64;
+    }
     void OnProfileSave(ProfileResponse response)
     {
         if(response != null)
         {
             if(response.status)
             {
+                // Set Profile pic from here as it is already saved to database
+                HomeMainUIController.EventProfilePicChoose.Invoke(profilePicSprite, (profilePicSprite.texture.width * 1.0f)/(profilePicSprite.texture.height * 1.0f));
                 StartCoroutine(DownloadProfilePic(response));   
             } 
             else
             {
                 
-                 HomeMainUIController.EventShowHideLoader.Invoke(false); 
+                HomeMainUIController.EventShowHideLoader.Invoke(false); 
                 HomeMainUIController.ShowPopup.Invoke(response.message, () => print("Error in response from edit profile submit"));
             }
         } 
@@ -184,6 +203,11 @@ public class ProfileController : MonoBehaviour
 
     IEnumerator DownloadProfilePic(ProfileResponse response)
     {
+        HomeMainUIController.EventShowHideLoader.Invoke(false);
+        HomeMainUIController.ShowPopup.Invoke(response.message, () => print("Response from edit profile submit"));
+        HomeMainUIController.EventBackClicked.Invoke();
+
+        print("Url : "+response.data.profile_pic);
          UnityWebRequest www = UnityWebRequestTexture.GetTexture(response.data.profile_pic);   
         yield return www.SendWebRequest();
         while(!www.isDone)
@@ -200,9 +224,6 @@ public class ProfileController : MonoBehaviour
 
             HomeMainUIController.EventProfilePicChoose.Invoke(sprite, (myTexture.width * 1.0f)/(myTexture.height * 1.0f));
              
-            HomeMainUIController.ShowPopup.Invoke(response.message, () => print("Response from edit profile submit"));
-            
-            HomeMainUIController.EventBackClicked.Invoke();
         }
 
         

@@ -27,6 +27,7 @@ public class WebRequests : MonoBehaviour
     [SerializeField] public string getQueOfVideoEndPoint = "";
     [SerializeField] public string getQueOfSubCatEndPoint = "";
     [SerializeField] public string sendMessageEndPoint = "";
+    [SerializeField] public string getWorkSheetEndPoint = "";
 
     Action<ResponseData<UserData>> callback;
 

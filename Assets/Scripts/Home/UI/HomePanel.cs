@@ -50,7 +50,7 @@ public class HomePanel : MonoBehaviour
     }
     public void WorkSheetClicked()
     {
-        HomeMainUIController.ShowPopup.Invoke("COMING SOON!", () => print("No action on worksheet clicked"));
+        HomeMainUIController.EventWorkSheetClickedFromHome.Invoke();
     }
     public void PrizesClicked()
     {

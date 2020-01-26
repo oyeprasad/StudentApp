@@ -67,9 +67,27 @@ public class UserData
 
 
 [Serializable]
-public class UserDetail
-{
-}
+ 
+ public class WorkSheetData 
+ {
+     public int id = 0;
+     public int sub_category_id = 0;
+     public string title = "";
+     public string worksheet_document = "";
+ }
+
+[Serializable]
+ public class WorkSheetResponse : ResponseBase
+ {
+    public WorkSheetList data = new WorkSheetList();
+ }
+ [Serializable]
+ public class WorkSheetList
+ {
+     public List<WorkSheetData> worksheets = new List<WorkSheetData>();
+ }
+
+
 
 public class Globals : MonoBehaviour
 {
