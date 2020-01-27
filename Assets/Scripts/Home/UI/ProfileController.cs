@@ -13,10 +13,11 @@ using System;
     public string name = "";
     public string phone = "";
     public string email = "";
+    public string username = "";
     public string grade = "";
     public int status = 0;
     public int user_type_id = 0;
-    public string profile_pic = "";
+    public string profile_image = "";
      
 }
 
@@ -43,17 +44,19 @@ public class ProfileController : MonoBehaviour
     void OnEnable()
     {
         editProfilePic.sprite = profilePic.sprite;
-
+        PopulatePanel();
     }
     void Start()
     {
         HomeMainUIController.EventProfilePicChoose.AddListener(OnProfilePicChoosen);
         profilePicSprite = profilePic.sprite;
+        PopulatePanel();
     }
-    void OnProfilePicChoosen(Sprite img, float _aspectRatio)
-    {
-        print("OnProfilePicChoosen");
 
+    
+
+    void OnProfilePicChoosen(Sprite img, float _aspectRatio)
+    { 
         profilePic.sprite = img;
         profilePic.GetComponent<AspectRatioFitter>().aspectRatio = _aspectRatio;
         editProfilePic.sprite = img;
@@ -61,16 +64,23 @@ public class ProfileController : MonoBehaviour
     }
 
     public void PopulatePanel()
-    {
-       string[] PhoneNumberArray = Globals.UserLoginDetails.phone.Split(' ');
- 
-       username.text = editUsername.text = Globals.UserLoginDetails.username.ToUpper(); 
+    { 
+       string[] PhoneNumberArray = Globals.UserLoginDetails.phone.Split(' '); 
+       username.text = editUsername.text = Globals.UserLoginDetails.username.ToUpper();
+       fullname.text = editFullname.text = string.Empty; 
        fullname.text = editFullname.text = Globals.UserLoginDetails.name.ToUpper();
+       email.text = editEmail.text = string.Empty;
        email.text = editEmail.text = Globals.UserLoginDetails.email;
        gradeText.text = editGradeText.text = Globals.UserLoginDetails.grade;
-       phone.text = editPhone.text = PhoneNumberArray[1]; 
-         
+       phone.text = editPhone.text = PhoneNumberArray[1];  
        editPhoencode.value = phoencode.value = phoneCodeList.IndexOf(PhoneNumberArray[0]); 
+
+        print("phone.text "+phone.text);
+       print("editPhoencode.value " + editPhoencode.value);
+       if(!string.IsNullOrEmpty(Globals.UserLoginDetails.profile_pic))
+       {
+           StartCoroutine(DownloadProfilePic(Globals.UserLoginDetails.profile_pic));
+       }
     }
 
      public void EditButtonClicked()
@@ -86,14 +96,12 @@ public class ProfileController : MonoBehaviour
       
      void OnImageChoose(string imagePath)
      { 
-         print("OnImageChoose "+imagePath);
          if(!string.IsNullOrEmpty(imagePath))
          {
             Texture2D userpicTexture = NativeGallery.LoadImageAtPath(imagePath, 512, false, true);   
 
             editProfilePic.gameObject.GetComponent<AspectRatioFitter>().aspectRatio = (userpicTexture.width * 1.0f)/(userpicTexture.height * 1.0f); 
             editProfilePic.sprite = Sprite.Create(userpicTexture, new Rect(0.0f, 0.0f, userpicTexture.width, userpicTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
-            print("User pic set "+(userpicTexture.width * 1.0f)/(userpicTexture.height * 1.0f)); 
             profilePicSprite = editProfilePic.sprite; 
          }
 
@@ -125,18 +133,17 @@ public class ProfileController : MonoBehaviour
             editEmail.gameObject.GetComponent<ValidateInput>().isValidInput &&
             editPhone.gameObject.GetComponent<ValidateInput>().isValidInput)
          {
-            StartCoroutine(SubmitEditProfile());
+           StartCoroutine(SubmitEditProfile());
          }
      }
  
     IEnumerator SubmitEditProfile()
     {
-        print("Change user profile info...");
         HomeMainUIController.EventShowHideLoader.Invoke(true); 
 
         WWWForm form = new WWWForm();
         form.AddField("name",editFullname.text);
-        form.AddField("phone",(editPhoencode.options[editPhoencode.value]+" "+editPhone.text));
+        form.AddField("phone",(editPhoencode.options[editPhoencode.value].text+" "+editPhone.text));
         form.AddField("email",editEmail.text);
         form.AddField("profile_pic",  GetCurrentImageByte(editProfilePic.sprite.texture));
 
@@ -183,13 +190,23 @@ public class ProfileController : MonoBehaviour
         {
             if(response.status)
             {
+                Globals.UserLoginDetails.name = response.data.name;
+                Globals.UserLoginDetails.email = response.data.email; 
+                Globals.UserLoginDetails.phone = response.data.phone;
+                Globals.UserLoginDetails.profile_pic = response.data.profile_image;
+                Globals.SaveUserData(Globals.UserLoginDetails);
+
+                PopulatePanel();
                 // Set Profile pic from here as it is already saved to database
                 HomeMainUIController.EventProfilePicChoose.Invoke(profilePicSprite, (profilePicSprite.texture.width * 1.0f)/(profilePicSprite.texture.height * 1.0f));
-                StartCoroutine(DownloadProfilePic(response));   
+                
+                HomeMainUIController.EventShowHideLoader.Invoke(false);
+                HomeMainUIController.ShowPopup.Invoke(response.message, () => print("Response from edit profile submit"));
+                HomeMainUIController.EventBackClicked.Invoke();
+                StartCoroutine(DownloadProfilePic(response.data.profile_image));   
             } 
             else
             {
-                
                 HomeMainUIController.EventShowHideLoader.Invoke(false); 
                 HomeMainUIController.ShowPopup.Invoke(response.message, () => print("Error in response from edit profile submit"));
             }
@@ -201,14 +218,11 @@ public class ProfileController : MonoBehaviour
 
     }   
 
-    IEnumerator DownloadProfilePic(ProfileResponse response)
+    IEnumerator DownloadProfilePic(string imgUrl)
     {
-        HomeMainUIController.EventShowHideLoader.Invoke(false);
-        HomeMainUIController.ShowPopup.Invoke(response.message, () => print("Response from edit profile submit"));
-        HomeMainUIController.EventBackClicked.Invoke();
 
-        print("Url : "+response.data.profile_pic);
-         UnityWebRequest www = UnityWebRequestTexture.GetTexture(response.data.profile_pic);   
+ 
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(imgUrl);   
         yield return www.SendWebRequest();
         while(!www.isDone)
         yield return null;
@@ -217,13 +231,10 @@ public class ProfileController : MonoBehaviour
             Debug.Log(www.error);
         }
         else {
-                
             HomeMainUIController.EventShowHideLoader.Invoke(false); 
             Texture2D myTexture = (Texture2D)((DownloadHandlerTexture)www.downloadHandler).texture;
             Sprite sprite =  Sprite.Create(myTexture, new Rect(0.0f, 0.0f, myTexture.width, myTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
-
             HomeMainUIController.EventProfilePicChoose.Invoke(sprite, (myTexture.width * 1.0f)/(myTexture.height * 1.0f));
-             
         }
 
         

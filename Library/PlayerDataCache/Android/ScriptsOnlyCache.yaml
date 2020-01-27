@@ -252,8 +252,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9976}
     - Class: 114
-      Script: {instanceID: 9978}
-    - Class: 114
       Script: {instanceID: 10018}
     - Class: 114
       Script: {instanceID: 10078}
@@ -336,6 +334,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 84
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 108
@@ -358,6 +358,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 10506}
     - Class: 114
       Script: {instanceID: 10888}
+    - Class: 114
+      Script: {instanceID: 10908}
     - Class: 114
       Script: {instanceID: 11114}
     - Class: 114
@@ -383,6 +385,10 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
+      Script: {instanceID: 0}
+    - Class: 328
+      Script: {instanceID: 0}
+    - Class: 329
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -459,7 +465,7 @@ ScriptsOnlyBuild:
     className: Scrollbar
   - hash:
       serializedVersion: 2
-      Hash: 95b41cf6411887d13783ecc52ab5ca87
+      Hash: a0368706db3f1af9201092d555e90054
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Splash
@@ -975,7 +981,7 @@ ScriptsOnlyBuild:
     className: CategoryItem
   - hash:
       serializedVersion: 2
-      Hash: 4dda8f402ec55047ba933d5d8ef81cdd
+      Hash: 6cce9e0fe4acb775d0a40169ad28895e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: HomePasswordPanel
