@@ -7,13 +7,19 @@ using UnityEngine.UI;
 
 public class ChangePassswordButtons : MonoBehaviour
 {
+ 
     private Button ClickButton; 
 
     [SerializeField] private string id;
     [SerializeField] private Transform highlight;
 
+    void OnEnable()
+    {
+
+    }
     private void Start()
     {
+         HomeMainUIController.EventChangePasswordClicked.AddListener(OnChangePasswordClicked);
         ClickButton = GetComponent<Button>();
         ClickButton.onClick.AddListener(onClick);
     }
@@ -21,10 +27,10 @@ public class ChangePassswordButtons : MonoBehaviour
     private void onClick()
     {
         highlight.position = transform.position;
-        HomeMainUIController.EventPassowrdClicked.Invoke(id);
+     //   HomeMainUIController.EventPassowrdClicked.Invoke(id);
     }
 
-    private void OnDisable()
+    private void OnChangePasswordClicked()
     {
         if (id == "1112121")
         {

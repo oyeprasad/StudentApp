@@ -1210,7 +1210,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 90617707}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 355700900}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112161
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &90617707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2354,7 +2365,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 165571541}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 355700900}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112151
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &165571541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6021,6 +6043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelName: newpassword
+  passwordSelected: 1112121
 --- !u!1 &360757156
 GameObject:
   m_ObjectHideFlags: 0
@@ -6912,7 +6935,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 393649050}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 754480137}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112181
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &393649050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10455,7 +10489,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 551663928}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137659517}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112141
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &551663928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11117,7 +11162,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 578028909}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 754480137}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112131
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &578028909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12873,7 +12929,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 709523435}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137659517}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112171
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &709523435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13928,6 +13995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelName: confirmpassword
+  passwordSelected: 1112121
 --- !u!1 &754593051
 GameObject:
   m_ObjectHideFlags: 0
@@ -14192,7 +14260,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 762839853}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 355700900}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112131
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &762839853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15136,7 +15215,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 829096828}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137659517}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112155
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &829096828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16245,7 +16335,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 894918833}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 754480137}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112171
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &894918833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16832,7 +16933,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 952651829}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 754480137}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112155
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &952651829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17580,7 +17692,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 989914057}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 754480137}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112141
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &989914057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18350,7 +18473,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1022145973}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137659517}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112151
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1022145973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18642,7 +18776,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1037163310}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 355700900}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112181
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1037163310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18963,7 +19108,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1048983644}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137659517}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112161
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1048983644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20451,7 +20607,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1131221389}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 355700900}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112171
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1131221389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20651,6 +20818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panelName: oldpassword
+  passwordSelected: 1112121
 --- !u!1 &1138333597
 GameObject:
   m_ObjectHideFlags: 0
@@ -21193,7 +21361,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1156547220}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 754480137}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112121
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1156547220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26510,7 +26689,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1409193927}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 754480137}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112161
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1409193927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27959,7 +28149,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1455946151}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137659517}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112121
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1455946151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28105,7 +28306,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1465100830}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 754480137}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112151
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1465100830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31615,7 +31827,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1713485200}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 355700900}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112155
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1713485200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32813,7 +33036,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1800899968}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137659517}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112181
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1800899968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35735,7 +35969,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1924054804}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1137659517}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112131
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1924054804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36654,7 +36899,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1956195425}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 355700900}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112121
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1956195425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37782,7 +38038,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2011296226}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 355700900}
+        m_MethodName: PasswordClicked
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 1112141
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2011296226
 MonoBehaviour:
   m_ObjectHideFlags: 0

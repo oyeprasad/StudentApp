@@ -311,7 +311,7 @@ public class Login : MonoBehaviour
                 ClearInpuFields();
                 navigationPanelsList.Add(VerificationPanel); 
                 ActivatePanel(PasswordPanel.name);
-                PasswordPanel.GetComponent<PasswordPanel>().Populate("CHOOSE YOUR PASSWORD?");
+                PasswordPanel.GetComponent<PasswordPanel>().Populate("CHOOSE YOUR PASSWORD");
             }
             else
             {
@@ -333,7 +333,7 @@ public class Login : MonoBehaviour
                 if (oTPInitiator == OTPInitiator.ForgotPassword)
                 {
                     ActivatePanel(PasswordPanel.name);
-                    PasswordPanel.GetComponent<PasswordPanel>().Populate("CHOOSE YOUR PASSWORD?");
+                    PasswordPanel.GetComponent<PasswordPanel>().Populate("CHOOSE YOUR PASSWORD");
                 }
                 else if (oTPInitiator == OTPInitiator.Registration)
                 {
@@ -436,7 +436,7 @@ public class Login : MonoBehaviour
             ClearInpuFields();
             navigationPanelsList.Add(ChooseUserNamePanel);
             ActivatePanel(PasswordPanel.name);
-            PasswordPanel.GetComponent<PasswordPanel>().Populate("CHOOSE YOUR PASSWORD?");
+            PasswordPanel.GetComponent<PasswordPanel>().Populate("CHOOSE YOUR PASSWORD");
         }
     }
 

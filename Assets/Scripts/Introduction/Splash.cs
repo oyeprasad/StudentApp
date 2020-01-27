@@ -1,14 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class Splash : MonoBehaviour
 {
     // Start is called before the first frame update
     
+    [SerializeField] UnityEngine.Video.VideoPlayer _player; 
     [SerializeField] private GameObject popup;
     void Awake()
     { 
+        
+        _player.loopPointReached += VideoPlayerLoopReached;
+        
+    }
+
+    void VideoPlayerLoopReached(UnityEngine.Video.VideoPlayer vp)
+    {
+        ProceedAfterVideoFinished();
+    }
+    void ProceedAfterVideoFinished()
+    {
         if(IsNetworkConnected())
         {
             print("Tutorial "+PlayerPrefs.GetString(Globals.PLAYERKEY_TUTORIALSTATUS));
@@ -36,7 +49,6 @@ public class Splash : MonoBehaviour
             popup.SetActive(true);
         }
     }
-    
     
     
     private bool IsNetworkConnected()

@@ -54,13 +54,14 @@ public class HomeMainUIController : MonoBehaviour
     public static IntStringEvent SubCatClicked = new IntStringEvent(); 
     public static StringActionEvent ShowPopup = new StringActionEvent();
     public static IntEvent EventQuizzesClicked = new IntEvent();
-    public static StringEvent EventPassowrdClicked = new StringEvent();
+    public static IntStringEvent EventPassowrdClicked = new IntStringEvent();
     public static UnityEvent EventMyProfileEditClicked = new UnityEvent();
     public static UnityEvent EventMyProfileSaveClicked = new UnityEvent();
     public static StringEvent EventSubmitHelp = new StringEvent();
     public static StringEvent EventPasswordPanelHide = new StringEvent();
 
     public static SpriteFloatEvent EventProfilePicChoose = new SpriteFloatEvent();
+    public static UnityEvent EventChangePasswordClicked = new UnityEvent();
 
      
     // End Events\\\
@@ -185,21 +186,19 @@ public class HomeMainUIController : MonoBehaviour
         QuizPanel.GetComponent<QuizController>().PopulateQuizzesOnVideo(videoId);
     }
 
-    void PasswordButtonClicked(string _password)
+    void PasswordButtonClicked(int id, string _password)
     {
-        if(passwordPanelState == PasswordPanelState.OLDPASSWORD)
+        if(id == 0) // Set old password
         { 
             oldPasswordChoosen = _password;
         }
-        else if(passwordPanelState == PasswordPanelState.NEWPASSOWRD)
+        else if(id == 1) // set new password
         {
-            newPasswordChoosen = _password;
-            print("New Paasword Choosen");
+            newPasswordChoosen = _password; 
         }
-        else if(passwordPanelState == PasswordPanelState.CONFIRMNEWPASSWORD)
+        else if(id == 2) // set confirm password
         {
-            confirmNewPasswordChoosen = _password;
-            print("Confirm new Password Choosen");
+            confirmNewPasswordChoosen = _password; 
         }
     }
     void MyProfileEditClicked()
@@ -286,6 +285,7 @@ void OnPasswordPanelHide(string panelName)
         passwordPanelState = PasswordPanelState.OLDPASSWORD;
         ActivatePanel(ChangePasswordPanel.name);
         SidePanel.SetActive(false);
+        EventChangePasswordClicked.Invoke();
     }
     public void MenuHelpClicked()
     {
@@ -330,8 +330,8 @@ void OnPasswordPanelHide(string panelName)
     }
 
     public void ChangePasswordSubmit()
-    {
-        print("Request for change password to "+newPassowrdToChange);
+    { 
+        print("change password");
         if(passwordPanelState == PasswordPanelState.OLDPASSWORD)
         {
             navigationPanelsList.Add(ChangePasswordPanel);
@@ -341,12 +341,15 @@ void OnPasswordPanelHide(string panelName)
         else if(passwordPanelState == PasswordPanelState.NEWPASSOWRD)
         {
             navigationPanelsList.Add(NewPasswordPanel);
+            print("confirmNewPasswordChoosen "+confirmNewPasswordChoosen);
             //passwordPanelState = PasswordPanelState.CONFIRMNEWPASSWORD;
             ActivatePanel(ConfirmNewPassPanel.name);
         } 
         else if(passwordPanelState == PasswordPanelState.CONFIRMNEWPASSWORD)
         {
             //Check whether new password and confirm new password is same
+            print("confirmNewPasswordChoosen "+confirmNewPasswordChoosen);
+
             if(newPasswordChoosen.Equals(confirmNewPasswordChoosen))
             {
                // passwordPanelState = PasswordPanelState.PASSWORD;
@@ -433,7 +436,7 @@ void OnPasswordPanelHide(string panelName)
         form.AddField("password", newPasswordChoosen);
         form.AddField("confirm_password", confirmNewPasswordChoosen);
 
-        print("Uer Id for change password "+Globals.UserLoginDetails.user_id);
+        print("User Id for change password "+Globals.UserLoginDetails.user_id);
          using (UnityWebRequest www =  UnityWebRequest.Post(Globals.BASE_URL + WebRequests.Instance.ChangePasswordEndPoint, form))
         {
             HomeMainUIController.EventShowHideLoader.Invoke(true);
@@ -441,7 +444,7 @@ void OnPasswordPanelHide(string panelName)
 
             www.SetRequestHeader("Accept", "application/json");//
             www.SetRequestHeader("Authorization", "Bearer "+Globals.UserLoginDetails.access_token);
-
+            print("Auth token \n"+"Bearer "+Globals.UserLoginDetails.access_token);
             yield return www.SendWebRequest();
             while (!www.isDone)
                 yield return null;
