@@ -11,7 +11,7 @@ public class Splash : MonoBehaviour
     [SerializeField] private GameObject popup;
     void Awake()
     { 
-        
+         
         _player.loopPointReached += VideoPlayerLoopReached;
         
     }

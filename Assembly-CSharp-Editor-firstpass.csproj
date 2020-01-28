@@ -45,6 +45,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Plugins\NativeCamera\Editor\NCPostProcessBuild.cs" />
      <Compile Include="Assets\Plugins\NativeGallery\Editor\NGPostProcessBuild.cs" />
  <Reference Include="UnityEditor.TestRunner">
  <HintPath>E:/Work/Running Projects/Student/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>

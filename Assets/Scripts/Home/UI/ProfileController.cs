@@ -39,12 +39,19 @@ public class ProfileController : MonoBehaviour
     [SerializeField] private Dropdown editPhoencode, editGradeCode;
     [SerializeField] private Text gradeText, editGradeText; 
     [SerializeField] private List<string> phoneCodeList = new List<string>();
+    [SerializeField] private GameObject imageChooseOptionPanel;
      
     private Sprite profilePicSprite;  
     void OnEnable()
     {
         editProfilePic.sprite = profilePic.sprite;
         PopulatePanel();
+    }
+
+    void Awake()
+    {
+        print("Awake is called");
+        //PopulatePanel();
     }
     void Start()
     {
@@ -53,7 +60,14 @@ public class ProfileController : MonoBehaviour
         PopulatePanel();
     }
 
-    
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape) && imageChooseOptionPanel.activeInHierarchy)
+        {
+            imageChooseOptionPanel.SetActive(false);
+            HomeMainUIController.CanUseSystemBack = true;
+        }
+    }
 
     void OnProfilePicChoosen(Sprite img, float _aspectRatio)
     { 
@@ -90,12 +104,25 @@ public class ProfileController : MonoBehaviour
 
      public void ChoosePhotoClicked()
      {
-         NativeGallery.GetImageFromGallery(OnImageChoose);
+         HomeMainUIController.CanUseSystemBack = false;
+        imageChooseOptionPanel.SetActive(true);
      }
 
+    public void OnClickTakePhoto()
+    {
+        imageChooseOptionPanel.SetActive(false);
+        NativeCamera.TakePicture(OnImageChoose, 512, true);
+    }
+
+    public void OnClickChoosePhoto()
+    {
+        imageChooseOptionPanel.SetActive(false);
+        NativeGallery.GetImageFromGallery(OnImageChoose);
+    }
       
      void OnImageChoose(string imagePath)
      { 
+         HomeMainUIController.CanUseSystemBack = true;
          if(!string.IsNullOrEmpty(imagePath))
          {
             Texture2D userpicTexture = NativeGallery.LoadImageAtPath(imagePath, 512, false, true);   

@@ -157,9 +157,7 @@ public class WebRequests : MonoBehaviour
 
     #region Logout
     public void ProcessLogout(int user_id, string password, string confirm_password, Action<ResponseData<UserData>> _callback)
-    {
-        print("password " + password);
-        print("confirm_password " + confirm_password);
+    { 
         WWWForm form = new WWWForm();
         form.AddField("user_id", user_id);
         form.AddField("password", password);

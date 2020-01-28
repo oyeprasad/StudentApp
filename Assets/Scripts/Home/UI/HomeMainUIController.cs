@@ -61,11 +61,11 @@ public class HomeMainUIController : MonoBehaviour
     public static StringEvent EventPasswordPanelHide = new StringEvent();
 
     public static SpriteFloatEvent EventProfilePicChoose = new SpriteFloatEvent();
-    public static UnityEvent EventChangePasswordClicked = new UnityEvent();
-
+    public static UnityEvent EventChangePasswordClicked = new UnityEvent(); 
+    public static IntEvent EventWorkSheetClicked = new IntEvent();
      
     // End Events\\\
-
+    public static bool CanUseSystemBack = true;
 
     public static QueryType queryType; 
     private string newPassowrdToChange = "1112121"; 
@@ -91,10 +91,11 @@ public class HomeMainUIController : MonoBehaviour
         HomeMainUIController.EventSubmitHelp.AddListener(OnHelpSubmit);
         HomeMainUIController.EventPasswordPanelHide.AddListener(OnPasswordPanelHide);
         HomeMainUIController.EventProfilePicChoose.AddListener(OnProfilePicSelected);
+        HomeMainUIController.EventWorkSheetClicked.AddListener(OnWorkSheetClicked);
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && CanUseSystemBack)
         {
             OnBackClicked();
         }
@@ -175,7 +176,8 @@ public class HomeMainUIController : MonoBehaviour
         } 
         else if(queryType == QueryType.WorkSheet)
         {
-            StartCoroutine(DownloadWorkSheet(subCatId.ToString()));                  
+            EventWorkSheetClicked.Invoke(subCatId);
+            //StartCoroutine(DownloadWorkSheet(subCatId.ToString()));                  
         }
     }
 
@@ -367,6 +369,10 @@ void OnPasswordPanelHide(string panelName)
     void OnProfilePicSelected(Sprite image, float aspetRatio)
     {
         
+    }
+    void OnWorkSheetClicked(int subCatId)
+    {
+     StartCoroutine(DownloadWorkSheet(subCatId.ToString()));   
     }
 
     #endregion OtherEvents

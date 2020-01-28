@@ -29,10 +29,12 @@ public class VideoPanelController : MonoBehaviour
     [SerializeField] private Text titleText;
     [SerializeField] GameObject playVideoPanel, rePlayVideoPanel; 
     private int videoId = 0;
+    private int _subCatId;
 
 
     public void PopulatePanel(int subCatId, string subCatName)
     {
+        _subCatId = subCatId;
         titleText.text = subCatName.ToUpper();
         playVideoPanel.SetActive(true);
         rePlayVideoPanel.SetActive(false); 
@@ -81,6 +83,7 @@ public class VideoPanelController : MonoBehaviour
                 break;
             case "worksheet":
                 print("Clicked for worksheet");
+                 HomeMainUIController.EventWorkSheetClicked.Invoke(_subCatId);
                 HomeMainUIController.ShowPopup.Invoke("COMING SOON!", () => print("No action on worksheet clicked"));
                 break;
             case "games":
