@@ -77,7 +77,7 @@ public class Login : MonoBehaviour
     {
         if (string.IsNullOrEmpty(usernameInput.text))
         { 
-            usernameInput.GetComponent<ValidateInput>().Validate(string.Empty);
+            usernameInput.GetComponent<ValidateInput>().Validate(string.Empty); 
             return;
         }
         if (ValidateUserName(usernameInput.text))

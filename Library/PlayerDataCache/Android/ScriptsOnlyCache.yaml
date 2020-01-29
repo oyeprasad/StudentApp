@@ -110,6 +110,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10268}
     - Class: 114
+      Script: {instanceID: 10370}
+    - Class: 114
       Script: {instanceID: 10400}
     - Class: 114
       Script: {instanceID: 10494}
@@ -149,6 +151,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 11382}
     - Class: 114
       Script: {instanceID: 11416}
+    - Class: 114
+      Script: {instanceID: 11682}
     - Class: 114
       Script: {instanceID: 11742}
     - Class: 114
@@ -1237,4 +1241,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/Introduction.unity
   - Assets/Scenes/Login.unity
   - Assets/Scenes/Home.unity
-  playerPath: E:/Work/Running Projects/Student/Build/Android/Whizee_V01_C07.apk
+  playerPath: E:/Work/Running Projects/Student/Build/Android/Whizee_V01_C08.apk

@@ -16,7 +16,7 @@ public class ValidateInput : MonoBehaviour
     [SerializeField] private bool lengthRangeCheck = false;
     [SerializeField] private int minLength, maxLength;
 
-    [SerializeField] Text validationInfo;
+    [SerializeField] public Text validationInfo;
     private void Start()
     {
         inputToValidate = GetComponent<InputField>();
@@ -52,6 +52,7 @@ public class ValidateInput : MonoBehaviour
     string editText;
     private void OnValueChange(string arg0)
     {
+
         wasfocus = true;
         //LoginMenu.InputFieldEditStart.Invoke();
         validationInfo.text = string.Empty;
