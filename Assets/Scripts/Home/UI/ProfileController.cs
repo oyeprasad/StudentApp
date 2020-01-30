@@ -4,37 +4,137 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System;
+
+[System.Serializable] public class ProfileData
+{
+    public int user_id = 0;
+    public string name = "";
+    public string phone = "";
+    public string email = "";
+    public string username = "";
+    public string grade = "";
+    public int status = 0;
+    public int user_type_id = 0;
+    public string profile_image = "";
+     
+}
+
+[System.Serializable] public class ProfileResponse : ResponseBase
+{
+    public ProfileData data = new ProfileData();
+}
 
 public class ProfileController : MonoBehaviour
 {
      [SerializeField] private GameObject ProfilePanel;
      [SerializeField] private GameObject EditProfilePanel;
 
+    [SerializeField] private Image profilePic, editProfilePic;
     [SerializeField] private InputField username, fullname, email, phone;
     [SerializeField] private Dropdown phoencode, gradeCode;
 
     [SerializeField] private InputField editUsername, editFullname, editEmail, editPhone;
     [SerializeField] private Dropdown editPhoencode, editGradeCode;
+    [SerializeField] private Text gradeText, editGradeText; 
+    [SerializeField] private List<string> phoneCodeList = new List<string>();
+    [SerializeField] private GameObject imageChooseOptionPanel;
+     
+    private Sprite profilePicSprite;  
+    void OnEnable()
+    {
+        editProfilePic.sprite = profilePic.sprite;
+        PopulatePanel();
+    }
 
+    void Awake()
+    {
+        print("Awake is called");
+        //PopulatePanel();
+    }
+    void Start()
+    {
+        HomeMainUIController.EventProfilePicChoose.AddListener(OnProfilePicChoosen);
+        profilePicSprite = profilePic.sprite;
+        PopulatePanel();
+    }
 
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape) && imageChooseOptionPanel.activeInHierarchy)
+        {
+            imageChooseOptionPanel.SetActive(false);
+            HomeMainUIController.CanUseSystemBack = true;
+        }
+    }
+
+    void OnProfilePicChoosen(Sprite img, float _aspectRatio)
+    { 
+        profilePic.sprite = img;
+        profilePic.GetComponent<AspectRatioFitter>().aspectRatio = _aspectRatio;
+        editProfilePic.sprite = img;
+        editProfilePic.GetComponent<AspectRatioFitter>().aspectRatio = _aspectRatio;
+    }
 
     public void PopulatePanel()
-    {
-       username.text = editUsername.text = Globals.UserLoginDetails.username.ToUpper(); 
+    { 
+       string[] PhoneNumberArray = Globals.UserLoginDetails.phone.Split(' '); 
+       username.text = editUsername.text = Globals.UserLoginDetails.username.ToUpper();
+       fullname.text = editFullname.text = string.Empty; 
        fullname.text = editFullname.text = Globals.UserLoginDetails.name.ToUpper();
+       email.text = editEmail.text = string.Empty;
        email.text = editEmail.text = Globals.UserLoginDetails.email;
-       phone.text = editPhone.text = Globals.UserLoginDetails.phone; 
-       
-       Dropdown.OptionData option = new Dropdown.OptionData();
-       option.text = Globals.UserLoginDetails.grade;
-       print("Selected grade "+ gradeCode.options.IndexOf(option));
-       gradeCode.SetValueWithoutNotify(gradeCode.options.IndexOf(option));
+       gradeText.text = editGradeText.text = Globals.UserLoginDetails.grade;
+       phone.text = editPhone.text = PhoneNumberArray[1];  
+       editPhoencode.value = phoencode.value = phoneCodeList.IndexOf(PhoneNumberArray[0]); 
+
+        print("phone.text "+phone.text);
+       print("editPhoencode.value " + editPhoencode.value);
+       if(!string.IsNullOrEmpty(Globals.UserLoginDetails.profile_pic))
+       {
+           StartCoroutine(DownloadProfilePic(Globals.UserLoginDetails.profile_pic));
+       }
     }
 
      public void EditButtonClicked()
      { 
          HomeMainUIController.EventMyProfileEditClicked.Invoke();
      }
+
+     public void ChoosePhotoClicked()
+     {
+         HomeMainUIController.CanUseSystemBack = false;
+        imageChooseOptionPanel.SetActive(true);
+     }
+
+    public void OnClickTakePhoto()
+    {
+        imageChooseOptionPanel.SetActive(false);
+        NativeCamera.TakePicture(OnImageChoose, 512, true);
+    }
+
+    public void OnClickChoosePhoto()
+    {
+        imageChooseOptionPanel.SetActive(false);
+        NativeGallery.GetImageFromGallery(OnImageChoose);
+    }
+      
+     void OnImageChoose(string imagePath)
+     { 
+         HomeMainUIController.CanUseSystemBack = true;
+         if(!string.IsNullOrEmpty(imagePath))
+         {
+            Texture2D userpicTexture = NativeGallery.LoadImageAtPath(imagePath, 512, false, true);   
+
+            editProfilePic.gameObject.GetComponent<AspectRatioFitter>().aspectRatio = (userpicTexture.width * 1.0f)/(userpicTexture.height * 1.0f); 
+            editProfilePic.sprite = Sprite.Create(userpicTexture, new Rect(0.0f, 0.0f, userpicTexture.width, userpicTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
+            profilePicSprite = editProfilePic.sprite; 
+         }
+
+
+     }
+ 
      public void SaveButtonClicked()
      {
          if(!editUsername.gameObject.GetComponent<ValidateInput>().isValidInput)
@@ -60,21 +160,115 @@ public class ProfileController : MonoBehaviour
             editEmail.gameObject.GetComponent<ValidateInput>().isValidInput &&
             editPhone.gameObject.GetComponent<ValidateInput>().isValidInput)
          {
-            StartCoroutine(SubmitEditProfile());
+           StartCoroutine(SubmitEditProfile());
          }
      }
-
-     
+ 
     IEnumerator SubmitEditProfile()
     {
-        print("Change user profile info...");
-        HomeMainUIController.EventShowHideLoader.Invoke(true);
-        yield return new WaitForSeconds(2);
-        HomeMainUIController.EventShowHideLoader.Invoke(false);
-        HomeMainUIController.ShowPopup.Invoke("Some error in update, Please try again later.",
-                                                     () =>{ 
-                                                         HomeMainUIController.EventMyProfileSaveClicked.Invoke();
-                                                          });
+        HomeMainUIController.EventShowHideLoader.Invoke(true); 
+
+        WWWForm form = new WWWForm();
+        form.AddField("name",editFullname.text);
+        form.AddField("phone",(editPhoencode.options[editPhoencode.value].text+" "+editPhone.text));
+        form.AddField("email",editEmail.text);
+        form.AddField("profile_pic",  GetCurrentImageByte(editProfilePic.sprite.texture));
+
+        string url = Globals.BASE_URL + WebRequests.Instance.editProfileEndPoint;
+
+        using (UnityWebRequest www =  UnityWebRequest.Post(url, form))
+        { 
+            www.method = "PUT";
+            www.SetRequestHeader("Accept", "application/json");//
+            www.SetRequestHeader("Authorization", "Bearer "+Globals.UserLoginDetails.access_token);
+
+            yield return www.SendWebRequest();
+            while (!www.isDone)
+                yield return null;
+            
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                print(www.error);
+                OnProfileSave(null);
+                HomeMainUIController.EventShowHideLoader.Invoke(false);     
+            }
+            else
+            {
+                print(www.downloadHandler.text);
+                ProfileResponse _response = JsonUtility.FromJson<ProfileResponse>(www.downloadHandler.text);
+                HomeMainUIController.EventShowHideLoader.Invoke(false);
+               OnProfileSave(_response);
+            }
+        }  
+
+    }
+
+    string GetCurrentImageByte(Texture2D img)
+    {    
+        byte[] myTextureBytes   = img.EncodeToPNG();
+        String myTextureBytesEncodedAsBase64 = System.Convert.ToBase64String(myTextureBytes);
+        
+        return myTextureBytesEncodedAsBase64;
+    }
+    void OnProfileSave(ProfileResponse response)
+    {
+        if(response != null)
+        {
+            if(response.status)
+            {
+                Globals.UserLoginDetails.name = response.data.name;
+                Globals.UserLoginDetails.email = response.data.email; 
+                Globals.UserLoginDetails.phone = response.data.phone;
+                Globals.UserLoginDetails.profile_pic = response.data.profile_image;
+                Globals.SaveUserData(Globals.UserLoginDetails);
+
+                PopulatePanel();
+                // Set Profile pic from here as it is already saved to database
+                HomeMainUIController.EventProfilePicChoose.Invoke(profilePicSprite, (profilePicSprite.texture.width * 1.0f)/(profilePicSprite.texture.height * 1.0f));
+                
+                HomeMainUIController.EventShowHideLoader.Invoke(false);
+                HomeMainUIController.ShowPopup.Invoke(response.message, () => print("Response from edit profile submit"));
+                HomeMainUIController.EventBackClicked.Invoke();
+                StartCoroutine(DownloadProfilePic(response.data.profile_image));   
+            } 
+            else
+            {
+                HomeMainUIController.EventShowHideLoader.Invoke(false); 
+                HomeMainUIController.ShowPopup.Invoke(response.message, () => print("Error in response from edit profile submit"));
+            }
+        } 
+        else
+        {
+            HomeMainUIController.ShowPopup.Invoke("Opps! Some error occurs", () => print("Error in response from edit profile submit"));
+        }
+
     }   
+
+    IEnumerator DownloadProfilePic(string imgUrl)
+    {
+
+ 
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(imgUrl);   
+        yield return www.SendWebRequest();
+        while(!www.isDone)
+        yield return null;
+
+        if(www.isNetworkError || www.isHttpError) {
+            Debug.Log(www.error);
+        }
+        else {
+            HomeMainUIController.EventShowHideLoader.Invoke(false); 
+            Texture2D myTexture = (Texture2D)((DownloadHandlerTexture)www.downloadHandler).texture;
+            Sprite sprite =  Sprite.Create(myTexture, new Rect(0.0f, 0.0f, myTexture.width, myTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
+            HomeMainUIController.EventProfilePicChoose.Invoke(sprite, (myTexture.width * 1.0f)/(myTexture.height * 1.0f));
+        }
+
+        
+         
+        
+
+
+    }
 
 }

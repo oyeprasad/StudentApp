@@ -42,7 +42,7 @@ public class SubCategoryItem : MonoBehaviour
         else {
 
             Texture2D myTexture = (Texture2D)((DownloadHandlerTexture)www.downloadHandler).texture;
-            subCatIcon.sprite =  Sprite.Create(myTexture, new Rect(0.0f, 0.0f, 200, 200), new Vector2(0.5f, 0.5f), 100.0f);
+            subCatIcon.sprite =  Sprite.Create(myTexture, new Rect(0.0f, 0.0f, myTexture.width, myTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
         }
 
     }

@@ -3,21 +3,64 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.Networking;
+
 public class HomePanel : MonoBehaviour
 {
-    [SerializeField] private Text userWelcomeText;
+    [SerializeField] private Text userWelcomeText; 
+    [SerializeField] private Image profilePic;
+
+    void Awake()
+    {
+        
+    }
 
     void Start()
     {
        
+       
         if (Globals.LoginType == 0)
         {
-            userWelcomeText.text = string.Format("{0}, {1}", "Hello", Globals.UserLoginDetails.username.ToUpper());
+            userWelcomeText.text = string.Format("{0}, {1}", "HELLO", Globals.UserLoginDetails.username.ToUpper());
         }
         else if (Globals.LoginType == 1)
         {
-            userWelcomeText.text = string.Format("{0}, {1}", "Hello", Globals.fBLoginResponseData.name.ToUpper());
+            userWelcomeText.text = string.Format("{0}, {1}", "HELLO", Globals.fBLoginResponseData.name.ToUpper());
         }
+
+        HomeMainUIController.EventProfilePicChoose.AddListener(ProfilePicChoosen); 
+
+         if(!string.IsNullOrEmpty(Globals.UserLoginDetails.profile_pic))
+        {
+            StartCoroutine(DownloadProfilePic());
+        }
+    }
+
+    IEnumerator DownloadProfilePic()
+    { 
+        
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(Globals.UserLoginDetails.profile_pic);   
+        yield return www.SendWebRequest();
+        while(!www.isDone)
+        yield return null;
+
+        if(www.isNetworkError || www.isHttpError) {
+            Debug.Log(www.error);
+        }
+        else { 
+            Texture2D myTexture = (Texture2D)((DownloadHandlerTexture)www.downloadHandler).texture;
+            Sprite sprite =  Sprite.Create(myTexture, new Rect(0.0f, 0.0f, myTexture.width, myTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
+            HomeMainUIController.EventProfilePicChoose.Invoke(sprite, (myTexture.width * 1.0f)/(myTexture.height * 1.0f));
+        }
+
+        
+         
+    }
+
+    void ProfilePicChoosen(Sprite img, float _aspectRatio)
+    {    
+        profilePic.sprite = img;
+        profilePic.GetComponent<AspectRatioFitter>().aspectRatio = _aspectRatio;
     }
 
     public void VideoClicked()
@@ -38,7 +81,7 @@ public class HomePanel : MonoBehaviour
     }
     public void WorkSheetClicked()
     {
-        HomeMainUIController.ShowPopup.Invoke("COMING SOON!", () => print("No action on worksheet clicked"));
+        HomeMainUIController.EventWorkSheetClickedFromHome.Invoke();
     }
     public void PrizesClicked()
     {

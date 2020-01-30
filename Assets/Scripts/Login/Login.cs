@@ -77,7 +77,7 @@ public class Login : MonoBehaviour
     {
         if (string.IsNullOrEmpty(usernameInput.text))
         { 
-            usernameInput.GetComponent<ValidateInput>().Validate(string.Empty);
+            usernameInput.GetComponent<ValidateInput>().Validate(string.Empty); 
             return;
         }
         if (ValidateUserName(usernameInput.text))
@@ -88,7 +88,8 @@ public class Login : MonoBehaviour
             navigationPanelsList.Add(LoginPanel);  
 
             ClearInpuFields();
-            ActivatePanel(PasswordPanel.name);    
+            ActivatePanel(PasswordPanel.name);
+            PasswordPanel.GetComponent<PasswordPanel>().Populate("WHAT'S YOUR PASSWORD?");    
         } 
     }
     public void RegisterClicked()
@@ -132,15 +133,28 @@ public class Login : MonoBehaviour
     {
         if (string.Equals(usertype ,"student"))
         {
-            loginPopup.SetPopup("DISCLAIMER" + "\n\n" + "Dear Student, please have your parent or and adult help you to create an account", () => {
+            loginPopup.SetPopup("DISCLAIMER" + "\n\n" + "Dear Student, please have your parent or an adult help you to create an account!", () => {
                 ClearInpuFields();
                 navigationPanelsList.Add(WhoAreYouPanel);
                 ActivatePanel(SignUpPanel.name);
             }); 
 
-          //  loginPopup.gameObject.SetActive(true);
-            //loginPopup.SetPopup("DISCLAIMER"+"\n\n"+"Dear Student, please have your parent or and adult help you to create an account", null);
-        }
+          }
+          else if (string.Equals(usertype, "parent"))
+          {
+              loginPopup.SetPopup("Under construction.", () => { 
+                });
+          }
+          else if (string.Equals(usertype, "teacher"))
+          {
+              loginPopup.SetPopup("Under construction.", () => { 
+                });
+          }
+          else if (string.Equals(usertype, "schoolleader"))
+          {
+              loginPopup.SetPopup("Under construction.", () => { 
+                });
+          }
     }
 
     public void ForgotPasswordClick()
@@ -297,6 +311,7 @@ public class Login : MonoBehaviour
                 ClearInpuFields();
                 navigationPanelsList.Add(VerificationPanel); 
                 ActivatePanel(PasswordPanel.name);
+                PasswordPanel.GetComponent<PasswordPanel>().Populate("CHOOSE YOUR PASSWORD");
             }
             else
             {
@@ -318,6 +333,7 @@ public class Login : MonoBehaviour
                 if (oTPInitiator == OTPInitiator.ForgotPassword)
                 {
                     ActivatePanel(PasswordPanel.name);
+                    PasswordPanel.GetComponent<PasswordPanel>().Populate("CHOOSE YOUR PASSWORD");
                 }
                 else if (oTPInitiator == OTPInitiator.Registration)
                 {
@@ -336,6 +352,14 @@ public class Login : MonoBehaviour
         }
     }
 
+    public void OnValueChangeRegPhone(string _value)
+    {
+        // Validate phone number length
+        switch (RegPhoneCode.value)
+        {
+
+        }
+    }
     public void SignUpSubmit()
     { 
         if (string.IsNullOrEmpty(RegFullname.text) || !RegFullname.GetComponent<ValidateInput>().isValidInput)
@@ -354,7 +378,7 @@ public class Login : MonoBehaviour
             print("Signup Validate true");
             emailid = RegEmail.text;
             fullname = RegFullname.text;
-            phonecode = RegPhoneCode.value.ToString();
+            phonecode = RegPhoneCode.options[RegPhoneCode.value].text;
             phonenumber = RegPhomenumber.text;
 
             oTPInitiator = OTPInitiator.Registration;
@@ -412,6 +436,7 @@ public class Login : MonoBehaviour
             ClearInpuFields();
             navigationPanelsList.Add(ChooseUserNamePanel);
             ActivatePanel(PasswordPanel.name);
+            PasswordPanel.GetComponent<PasswordPanel>().Populate("CHOOSE YOUR PASSWORD");
         }
     }
 
@@ -474,11 +499,14 @@ public class Login : MonoBehaviour
 
     public void FbLoginClicked()
     {
-        fbManager.FBLogin();
+         loginPopup.SetPopup("Under construction.", () => { 
+            }); 
+        //fbManager.FBLogin();
     }
     public void GoogleLoginClicked()
     {
-
+        loginPopup.SetPopup("Under construction.", () => { 
+            });
     }
 
     public void PasswordButtonClicked(string _passwordId)

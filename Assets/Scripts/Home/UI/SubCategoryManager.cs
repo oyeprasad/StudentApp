@@ -79,14 +79,13 @@ public class SubCategoryManager : MonoBehaviour
 int itemIndex = 0;
     void SubCategoryCallback(SubCategoryResponseData response)
     {
-        print("All subcategories "+response.data.sub_categories.Count);
-
-        
+          
         if(response != null)
         {
             
             if(response.status)
             {
+                 
                 dataPopulateCount = response.data.sub_categories.Count;
                 itemIndex = 0;
                 print("dataPopulateCount "+dataPopulateCount);

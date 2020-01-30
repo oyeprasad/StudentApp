@@ -27,4 +27,9 @@ public class StringActionEvent : UnityEvent<string, System.Action>
 {
     
 }
+
+public class SpriteFloatEvent : UnityEvent<Sprite, float>
+{
+    
+}
  

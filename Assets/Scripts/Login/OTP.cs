@@ -11,7 +11,7 @@ public class OTP : MonoBehaviour
     [SerializeField] private Text message;
 
 
-
+    Coroutine routine = null;
     private void Start()
     {
         OnValueChangeEvent.AddListener(OnValueChange);
@@ -20,7 +20,9 @@ public class OTP : MonoBehaviour
     {
         print("On value change "+index);
         print("All input field " +allInpufields.Count);
-        StartCoroutine(SetInputFocus(index));
+        if(routine != null)
+        StopCoroutine(routine);
+        routine = StartCoroutine(SetInputFocus(index));
         //message.text = string.Empty;
        
     }

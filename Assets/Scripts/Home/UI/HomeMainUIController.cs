@@ -9,7 +9,8 @@ using UnityEngine.Networking;
 public enum QueryType
 {
     Video,
-    Quizzes
+    Quizzes,
+    WorkSheet
 }
 
 public enum PasswordPanelState
@@ -17,8 +18,7 @@ public enum PasswordPanelState
     PASSWORD,
     OLDPASSWORD,
     NEWPASSOWRD,
-    CONFIRMNEWPASSWORD
-
+    CONFIRMNEWPASSWORD 
 }
 
 [System.Serializable] public class LogoutResponse:ResponseBase
@@ -32,6 +32,7 @@ public enum PasswordPanelState
 public class HomeMainUIController : MonoBehaviour
 {  
     private List<GameObject> navigationPanelsList = new List<GameObject>();
+    private Sprite UserImage;
 
     // Reference to all panels, as gameobject
     public GameObject HomePanelObject, ProfilePanel, ProfilePanelEdit,CategoryPanel, SubCategoryPanel, 
@@ -45,6 +46,7 @@ public class HomeMainUIController : MonoBehaviour
     public static UnityEvent EventBackClicked = new UnityEvent();
     public static UnityEvent EventVideoClicked = new UnityEvent();
     public static UnityEvent EventQuizzesClickedFromHome = new UnityEvent();
+    public static UnityEvent EventWorkSheetClickedFromHome = new UnityEvent();
     public static UnityEvent EventProfileClicked = new UnityEvent();
 
     public static BooleanEvent EventShowHideLoader = new BooleanEvent();
@@ -52,21 +54,31 @@ public class HomeMainUIController : MonoBehaviour
     public static IntStringEvent SubCatClicked = new IntStringEvent(); 
     public static StringActionEvent ShowPopup = new StringActionEvent();
     public static IntEvent EventQuizzesClicked = new IntEvent();
-    public static StringEvent EventPassowrdClicked = new StringEvent();
+    public static IntStringEvent EventPassowrdClicked = new IntStringEvent();
     public static UnityEvent EventMyProfileEditClicked = new UnityEvent();
     public static UnityEvent EventMyProfileSaveClicked = new UnityEvent();
     public static StringEvent EventSubmitHelp = new StringEvent();
-    // End Events\\\
+    public static StringEvent EventPasswordPanelHide = new StringEvent();
 
+    public static SpriteFloatEvent EventProfilePicChoose = new SpriteFloatEvent();
+    public static UnityEvent EventChangePasswordClicked = new UnityEvent(); 
+    public static IntEvent EventWorkSheetClicked = new IntEvent();
+     
+    // End Events\\\
+    public static bool CanUseSystemBack = true;
 
     public static QueryType queryType; 
     private string newPassowrdToChange = "1112121"; 
     private PasswordPanelState passwordPanelState = PasswordPanelState.PASSWORD;
+
+
+     
     void Start()
     {
         HomeMainUIController.EventBackClicked.AddListener(OnBackClicked);
         HomeMainUIController.EventVideoClicked.AddListener(VideoClicked);
-        HomeMainUIController.EventQuizzesClickedFromHome.AddListener(QuizzesClickedFromHome);
+        HomeMainUIController.EventQuizzesClickedFromHome.AddListener(QuizzesClickedFromHome); //
+        HomeMainUIController.EventWorkSheetClickedFromHome.AddListener(WorkSheetClickedFromHome);
         HomeMainUIController.EventProfileClicked.AddListener(ProfileClicked);
         HomeMainUIController.EventShowHideLoader.AddListener(ShowHideLoader);
         HomeMainUIController.EventCategoryItemClicked.AddListener(CategoryItemClicked);
@@ -77,10 +89,13 @@ public class HomeMainUIController : MonoBehaviour
         HomeMainUIController.EventMyProfileEditClicked.AddListener(MyProfileEditClicked);
         HomeMainUIController.EventMyProfileSaveClicked.AddListener(MyProfileSaveClicked);
         HomeMainUIController.EventSubmitHelp.AddListener(OnHelpSubmit);
+        HomeMainUIController.EventPasswordPanelHide.AddListener(OnPasswordPanelHide);
+        HomeMainUIController.EventProfilePicChoose.AddListener(OnProfilePicSelected);
+        HomeMainUIController.EventWorkSheetClicked.AddListener(OnWorkSheetClicked);
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && CanUseSystemBack)
         {
             OnBackClicked();
         }
@@ -102,12 +117,13 @@ public class HomeMainUIController : MonoBehaviour
             confirmationPopup.SetUpPanel("EXIT", "Are you sure you want to exit.", () => Application.Quit(), () => confirmationPopup.gameObject.SetActive(false));
        
         }
+        // Hide loader if working
+        EventShowHideLoader.Invoke(false);
     }
 
     void ProfileClicked()
     {
-        navigationPanelsList.Add(HomePanelObject);
-        ActivatePanel(ProfilePanel.name);
+        MenuMyAccountClicked();
     }
 
     void OnLogoutClicked()
@@ -129,6 +145,14 @@ public class HomeMainUIController : MonoBehaviour
         CategoryPanel.GetComponent<CategoryManager>().PopulateCategoryPanel(Globals.UserLoginDetails.grade);   
     }
 
+    void WorkSheetClickedFromHome()
+    {
+        queryType = QueryType.WorkSheet;
+        navigationPanelsList.Add(HomePanelObject);
+        ActivatePanel(CategoryPanel.name); 
+        CategoryPanel.GetComponent<CategoryManager>().PopulateCategoryPanel(Globals.UserLoginDetails.grade);  
+    }
+
     void CategoryItemClicked(int catno, string title)
     {
         navigationPanelsList.Add(CategoryPanel);
@@ -137,6 +161,7 @@ public class HomeMainUIController : MonoBehaviour
     }
     void OnSubCatClicked(int subCatId, string subCatName)
     {
+        print(subCatId+ " Name " +subCatName);
         navigationPanelsList.Add(SubCategoryPanel);
         if(queryType == QueryType.Video)
         {
@@ -148,6 +173,11 @@ public class HomeMainUIController : MonoBehaviour
             navigationPanelsList.Add(SubCategoryPanel);
             ActivatePanel(QuizPanel.name);
             QuizPanel.GetComponent<QuizController>().PopulateQuizzesOnSubCat(subCatId);
+        } 
+        else if(queryType == QueryType.WorkSheet)
+        {
+            EventWorkSheetClicked.Invoke(subCatId);
+            //StartCoroutine(DownloadWorkSheet(subCatId.ToString()));                  
         }
     }
 
@@ -158,22 +188,19 @@ public class HomeMainUIController : MonoBehaviour
         QuizPanel.GetComponent<QuizController>().PopulateQuizzesOnVideo(videoId);
     }
 
-    void PasswordButtonClicked(string _password)
+    void PasswordButtonClicked(int id, string _password)
     {
-        if(passwordPanelState == PasswordPanelState.OLDPASSWORD)
-        {
-            print("OldPassword Choosen");
+        if(id == 0) // Set old password
+        { 
             oldPasswordChoosen = _password;
         }
-        else if(passwordPanelState == PasswordPanelState.NEWPASSOWRD)
+        else if(id == 1) // set new password
         {
-            newPasswordChoosen = _password;
-            print("New Paasword Choosen");
+            newPasswordChoosen = _password; 
         }
-        else if(passwordPanelState == PasswordPanelState.CONFIRMNEWPASSWORD)
+        else if(id == 2) // set confirm password
         {
-            confirmNewPasswordChoosen = _password;
-            print("Confirm new Password Choosen");
+            confirmNewPasswordChoosen = _password; 
         }
     }
     void MyProfileEditClicked()
@@ -195,6 +222,24 @@ public class HomeMainUIController : MonoBehaviour
     }
     #endregion ClickButtonsEvents
 
+
+//====
+void OnPasswordPanelHide(string panelName)
+{
+    if(panelName == "confirmpassword")
+    {
+        passwordPanelState = PasswordPanelState.CONFIRMNEWPASSWORD;
+    }
+    else if(panelName == "newpassword")
+    {
+        passwordPanelState = PasswordPanelState.NEWPASSOWRD;
+
+    } else if(panelName == "oldpassword")
+    {
+        passwordPanelState = PasswordPanelState.OLDPASSWORD;
+    }
+}
+//=======
     public void ActivatePanel(string panelName)
     {
         if (string.IsNullOrEmpty(panelName))
@@ -242,6 +287,7 @@ public class HomeMainUIController : MonoBehaviour
         passwordPanelState = PasswordPanelState.OLDPASSWORD;
         ActivatePanel(ChangePasswordPanel.name);
         SidePanel.SetActive(false);
+        EventChangePasswordClicked.Invoke();
     }
     public void MenuHelpClicked()
     {
@@ -266,7 +312,7 @@ public class HomeMainUIController : MonoBehaviour
     {
         SidePanel.SetActive(false);
         confirmationPopup.gameObject.SetActive(true);
-        confirmationPopup.SetUpPanel("LOGOUT", "Are you sure that you want to logout", 
+        confirmationPopup.SetUpPanel("LOGOUT", "Are you sure do you want to logout?", 
                                     () => {print("Logout Yes Clicked");confirmationPopup.gameObject.SetActive(false);StartCoroutine(Logout(OnLogoutComplete)); }, 
                                     () => {print("Logout No Clicked");confirmationPopup.gameObject.SetActive(false); });
     }
@@ -286,29 +332,48 @@ public class HomeMainUIController : MonoBehaviour
     }
 
     public void ChangePasswordSubmit()
-    {
-        print("Request for change password to "+newPassowrdToChange);
+    { 
+        print("change password");
         if(passwordPanelState == PasswordPanelState.OLDPASSWORD)
         {
             navigationPanelsList.Add(ChangePasswordPanel);
-            passwordPanelState = PasswordPanelState.NEWPASSOWRD;
+            //passwordPanelState = PasswordPanelState.NEWPASSOWRD;
             ActivatePanel(NewPasswordPanel.name);
         } 
         else if(passwordPanelState == PasswordPanelState.NEWPASSOWRD)
         {
             navigationPanelsList.Add(NewPasswordPanel);
-            passwordPanelState = PasswordPanelState.CONFIRMNEWPASSWORD;
+            print("confirmNewPasswordChoosen "+confirmNewPasswordChoosen);
+            //passwordPanelState = PasswordPanelState.CONFIRMNEWPASSWORD;
             ActivatePanel(ConfirmNewPassPanel.name);
         } 
         else if(passwordPanelState == PasswordPanelState.CONFIRMNEWPASSWORD)
         {
-            passwordPanelState = PasswordPanelState.PASSWORD;
-            StartCoroutine(ProcessChanegPassword());
+            //Check whether new password and confirm new password is same
+            print("confirmNewPasswordChoosen "+confirmNewPasswordChoosen);
+
+            if(newPasswordChoosen.Equals(confirmNewPasswordChoosen))
+            {
+               // passwordPanelState = PasswordPanelState.PASSWORD;
+                StartCoroutine(ProcessChanegPassword());
+            } else{
+                popup.gameObject.SetActive(true);
+                popup.SetPopup("New password and Confirm password do not match", () => print("password does not match"));
+            }
+
             // change users password
         }
 
     }
 
+    void OnProfilePicSelected(Sprite image, float aspetRatio)
+    {
+        
+    }
+    void OnWorkSheetClicked(int subCatId)
+    {
+     StartCoroutine(DownloadWorkSheet(subCatId.ToString()));   
+    }
 
     #endregion OtherEvents
 
@@ -358,6 +423,7 @@ public class HomeMainUIController : MonoBehaviour
                 });
             }
             else{
+                popup.gameObject.SetActive(true);
                 popup.SetPopup(response.message, () => print("logout error"));
             }
         }
@@ -376,7 +442,7 @@ public class HomeMainUIController : MonoBehaviour
         form.AddField("password", newPasswordChoosen);
         form.AddField("confirm_password", confirmNewPasswordChoosen);
 
-        print("Uer Id for change password "+Globals.UserLoginDetails.user_id);
+        print("User Id for change password "+Globals.UserLoginDetails.user_id);
          using (UnityWebRequest www =  UnityWebRequest.Post(Globals.BASE_URL + WebRequests.Instance.ChangePasswordEndPoint, form))
         {
             HomeMainUIController.EventShowHideLoader.Invoke(true);
@@ -384,7 +450,7 @@ public class HomeMainUIController : MonoBehaviour
 
             www.SetRequestHeader("Accept", "application/json");//
             www.SetRequestHeader("Authorization", "Bearer "+Globals.UserLoginDetails.access_token);
-
+            print("Auth token \n"+"Bearer "+Globals.UserLoginDetails.access_token);
             yield return www.SendWebRequest();
             while (!www.isDone)
                 yield return null;
@@ -410,6 +476,7 @@ public class HomeMainUIController : MonoBehaviour
         } 
      }
 
+    #endregion ChangePassword
     IEnumerator HelpSubmitApi(string _message)
     { 
          WWWForm form = new WWWForm();
@@ -446,5 +513,61 @@ public class HomeMainUIController : MonoBehaviour
             }
         }  
     }
-    #endregion ChangePassword
+
+    IEnumerator DownloadWorkSheet(string _subCatId)
+    {
+        string endpoint = WebRequests.Instance.getWorkSheetEndPoint;
+        EventShowHideLoader.Invoke(true);
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(Globals.BASE_URL + endpoint+_subCatId))
+        {
+            print("Requested for worksheet : "+Globals.BASE_URL + endpoint+_subCatId);
+            // Request and wait for the desired page.
+            webRequest.SetRequestHeader("Accept", "application/json");//
+            webRequest.SetRequestHeader("Authorization", "Bearer "+Globals.UserLoginDetails.access_token);
+
+            yield return webRequest.SendWebRequest();
+            while(!webRequest.isDone)
+                yield return webRequest;
+            
+            EventShowHideLoader.Invoke(false);
+            if (webRequest.isNetworkError)
+            { 
+
+                  popup.SetPopup("Some error in download.", () => {
+                                                        popup.gameObject.SetActive(false);
+                                                        
+                                                        });
+            }
+            else
+            {
+                print(webRequest.downloadHandler.text);
+                WorkSheetResponse response = JsonUtility.FromJson<WorkSheetResponse>(webRequest.downloadHandler.text);
+                if(response.status)
+                {
+                    if(response.data.worksheets.Count > 0)
+                    {
+                        foreach (WorkSheetData item in response.data.worksheets)
+                        {
+                            Application.OpenURL(item.worksheet_document);
+                        }
+                    } else
+                    {
+                      popup.SetPopup(" No worksheet found.", () => {
+                                                        popup.gameObject.SetActive(false);
+                                                        });  
+                    }
+                }
+                else
+                {
+                    popup.SetPopup(response.message, () => {
+                                                        popup.gameObject.SetActive(false);
+                                                        
+                                                        });
+
+                } 
+            } 
+        }
+    } 
+
 }

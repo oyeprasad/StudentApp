@@ -11,10 +11,10 @@ public class InputfieldFocused : MonoBehaviour
 
     void Start()
     {
-        slideScreen = GameObject.Find("Login").GetComponent<InputfieldSlideScreen>();
+        slideScreen = GameObject.FindObjectOfType<InputfieldSlideScreen>();
         inputField = transform.GetComponent<InputField>();
 //#if UNITY_IOS
-inputField.shouldHideMobileInput=true;
+        inputField.shouldHideMobileInput=true;
 //#endif
     }
 
