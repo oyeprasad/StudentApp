@@ -432,11 +432,28 @@ public class Login : MonoBehaviour
         }
         else if (ValidateUserName(ChooseUsernameInput.text))
         {
+            
             username = ChooseUsernameInput.text;
+            
+            LoaderPanel.SetActive(true);
+            WebRequests.Instance.ProcessCheckUsernameAvailable(ChooseUsernameInput.text, callbackUsernameAvailable);
+ 
+        }
+    } 
+    void callbackUsernameAvailable(ResponseBase response)
+    {
+            LoaderPanel.SetActive(false);
+        if(response.status)
+        {
             ClearInpuFields();
             navigationPanelsList.Add(ChooseUserNamePanel);
             ActivatePanel(PasswordPanel.name);
             PasswordPanel.GetComponent<PasswordPanel>().Populate("CHOOSE YOUR PASSWORD");
+        }
+        else
+        {
+            loginPopup.gameObject.SetActive(true);
+            loginPopup.SetPopup(response.message, null);
         }
     }
 

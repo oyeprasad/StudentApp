@@ -18,6 +18,7 @@ public class WebRequests : MonoBehaviour
     [SerializeField] private string ForgotPassNewPassEndPoint = "";
     [SerializeField] public string LogoutEndPoint = "";
     [SerializeField] public string ChangePasswordEndPoint = ""; 
+    [SerializeField] public string CheckUsernameAvailable = "";
 
 
     [SerializeField] public string categoryEndPoint = ""; //
@@ -174,6 +175,17 @@ public class WebRequests : MonoBehaviour
     public void ProcessCategoryRequest(int _gradeNo)
     {
 
+    }
+
+
+    public void ProcessCheckUsernameAvailable(string username, System.Action<ResponseBase> callback)
+    { 
+        WWWForm form = new WWWForm(); 
+        form.AddField("username",username); 
+        
+        string url = System.IO.Path.Combine(Globals.BASE_URL, CheckUsernameAvailable);  
+
+        communications.CheckUsernameAvailable(url, form, callback);
     }
 
 }

@@ -10,12 +10,20 @@ public class PassswordButtons : MonoBehaviour
     private Button ClickButton;
 
     [SerializeField] private string id;
+    [SerializeField] private Image image;
     [SerializeField] private Transform highlight;
 
     private void Start()
     {
         ClickButton = GetComponent<Button>();
         ClickButton.onClick.AddListener(onClick);
+    }
+
+    public void Populate(string _id, Sprite _image, Transform _highlight)
+    {
+        id = _id;
+        image.sprite = _image;
+        highlight = _highlight;
     }
 
     private void onClick()
