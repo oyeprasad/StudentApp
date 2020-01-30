@@ -19,6 +19,7 @@ public class WebRequests : MonoBehaviour
     [SerializeField] public string LogoutEndPoint = "";
     [SerializeField] public string ChangePasswordEndPoint = ""; 
     [SerializeField] public string CheckUsernameAvailable = "";
+    [SerializeField] public string passwordIconEndPoint = "";
 
 
     [SerializeField] public string categoryEndPoint = ""; //
@@ -187,5 +188,10 @@ public class WebRequests : MonoBehaviour
 
         communications.CheckUsernameAvailable(url, form, callback);
     }
+
+    #region DownloadPasswordIcon 
+
+
+    #endregion DownloadPasswordIcon
 
 }

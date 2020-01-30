@@ -250,6 +250,7 @@ MonoBehaviour:
   LogoutEndPoint: student-logout
   ChangePasswordEndPoint: student-change-password
   CheckUsernameAvailable: check_username
+  passwordIconEndPoint: password-icons
   categoryEndPoint: categories?grade_id=
   subCategoryEndPoint: sub-categories?category_id=
   getVideoEndPoint: videos?sub_category_id=

@@ -296,6 +296,8 @@ public class Login : MonoBehaviour
             
         }
          else if (oTPInitiator == OTPInitiator.Registration) {
+            print("user_id reg "+ user_id);
+            print("otp_intered reg " + otp_intered);
             WebRequestObject.ProcessOTP(user_id, otp_intered, OTPSubmitCallback);
         }
 
@@ -399,6 +401,7 @@ public class Login : MonoBehaviour
             if (response.status)
             {
                 user_id = response.data.user_id;
+                print("User id after register data "+user_id);
                 navigationPanelsList.Add(SignUpPanel);
                 ClearInpuFields();
                 oTPInitiator = OTPInitiator.Registration;
@@ -642,4 +645,14 @@ public class Login : MonoBehaviour
             loginPopup.gameObject.SetActive(false);
         }
     }
+
+
+    //----------DownloadPassword icons
+    void DownloadPassword()
+    {
+        
+    }
+
+
+    //-----------------------------------
 }
