@@ -20,9 +20,9 @@ public class OTP : MonoBehaviour
     {
         print("On value change "+index);
         print("All input field " +allInpufields.Count);
-        if(routine != null)
-        StopCoroutine(routine);
-        routine = StartCoroutine(SetInputFocus(index));
+        //if(routine != null)
+       // StopCoroutine(routine);
+        //routine = StartCoroutine(SetInputFocus(index));
         //message.text = string.Empty;
        
     }
