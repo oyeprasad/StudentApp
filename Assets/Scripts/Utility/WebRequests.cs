@@ -183,7 +183,7 @@ public class WebRequests : MonoBehaviour
     { 
         WWWForm form = new WWWForm(); 
         form.AddField("username",username); 
-        
+        print("Username to check "+username);
         string url = System.IO.Path.Combine(Globals.BASE_URL, CheckUsernameAvailable);  
 
         communications.CheckUsernameAvailable(url, form, callback);

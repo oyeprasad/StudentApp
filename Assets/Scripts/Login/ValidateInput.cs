@@ -24,6 +24,7 @@ public class ValidateInput : MonoBehaviour
     {
         inputToValidate = GetComponent<InputField>();
         inputToValidate.onValueChanged.AddListener(OnValueChange);
+        inputToValidate.onEndEdit.AddListener(Validate);
        // inputToValidate.onEndEdit.AddListener(Validate); 
     } 
     private void OnEnable()
@@ -47,7 +48,7 @@ public class ValidateInput : MonoBehaviour
                 backPressed = true; 
             } 
         }
-        if(!focusStart && inputToValidate.isFocused)
+       /* if(!focusStart && inputToValidate.isFocused)
         {
            focusStart = true;  
            keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);   
@@ -83,7 +84,7 @@ public class ValidateInput : MonoBehaviour
             IsCancelledKeyboard = false;
             IsLostFocusKeyboard = false;
             IsDoneKeyboard = false; 
-        } 
+        } */
     }
 
     private void EndEdit(string value)
@@ -97,7 +98,7 @@ public class ValidateInput : MonoBehaviour
     private void OnValueChange(string arg0)
     {  
         print("OnValueChange "+oldEditText);
-        if(IsCancelledKeyboard)
+      /*  if(IsCancelledKeyboard)
         {
             inputToValidate.text = oldEditText;
             Validate(oldEditText);
@@ -105,7 +106,7 @@ public class ValidateInput : MonoBehaviour
         {
             oldEditText = editText;
             editText = arg0;  
-        } 
+        } */
         validationInfo.text = string.Empty;
     }
  

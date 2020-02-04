@@ -84,7 +84,7 @@ public class Login : MonoBehaviour
             usernameInput.Select();
             return;
         }
-        if (ValidateUserName(usernameInput.text))
+        else if (ValidateUserName(usernameInput.text))
         {
             username = usernameInput.text;
             usernameInput.text = string.Empty;

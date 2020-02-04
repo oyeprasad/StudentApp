@@ -2065,7 +2065,6 @@ GameObject:
   - component: {fileID: 191589663}
   - component: {fileID: 191589662}
   - component: {fileID: 191589664}
-  - component: {fileID: 191589665}
   m_Layer: 5
   m_Name: Verification
   m_TagString: Untagged
@@ -2150,25 +2149,6 @@ MonoBehaviour:
   - {fileID: 1388302}
   - {fileID: 1834688201}
   message: {fileID: 1080886898}
---- !u!114 &191589665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 191589660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c607a281e94b54cc1b86b9a2b8e23e7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ALLInputFields:
-  - {fileID: 1508405198}
-  - {fileID: 1151729150}
-  - {fileID: 1041708269}
-  - {fileID: 388006302}
-  - {fileID: 1388302}
-  - {fileID: 1834688201}
 --- !u!1 &198264952
 GameObject:
   m_ObjectHideFlags: 0

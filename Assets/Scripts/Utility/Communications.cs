@@ -115,6 +115,7 @@ public class Communications : MonoBehaviour
         { 
             www.method = "GET";
 
+            www.SetRequestHeader("Accept", "application/json");
             yield return www.SendWebRequest();
             while (!www.isDone)
                 yield return null;

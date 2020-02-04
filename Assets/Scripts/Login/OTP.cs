@@ -12,30 +12,33 @@ public class OTP : MonoBehaviour
 
 
     Coroutine routine = null;
+    void OnEnable()
+    {
+        for(int i = 0; i < allInpufields.Count; i++)
+        {
+            allInpufields[i].text = string.Empty;
+        }   
+    }
+
     private void Start()
     {
-       // OnValueChangeEvent.AddListener(OnValueChange);
+       OnValueChangeEvent.AddListener(OnValueChange);
     }
     void OnValueChange(int index)
     {
-        //print("On value change "+index);
-      //  print("All input field " +allInpufields.Count);
-        //if(routine != null)
-       // StopCoroutine(routine);
-        //routine = StartCoroutine(SetInputFocus(index));
-        //message.text = string.Empty;
-       
+        print("On value change "+index);
+        print("All input field " +allInpufields.Count);
+        if(routine != null)
+            StopCoroutine(routine);
+        routine = StartCoroutine(SetInputFocus(index));
+        message.text = string.Empty; 
     }
 
     IEnumerator SetInputFocus(int _index)
     {
         yield return new WaitForEndOfFrame();
          if ((_index + 1) < allInpufields.Count)
-        {
-            print("In the if statement");
-
-            print(allInpufields[_index + 1]);
-            print("Now check this");
+        { 
             //EventSystem.current.SetSelectedGameObject(allInpufields[_index + 1].gameObject, null);
  
             //allInpufields[_index + 1].ActivateInputField();
@@ -65,9 +68,7 @@ public class OTP : MonoBehaviour
         }
 
         if (isValid)
-        {
- 
-
+        { 
             message.text = string.Empty;
             Login.OTPSubmitEvent.Invoke(otpInput);
         }
