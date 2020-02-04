@@ -105,6 +105,32 @@ public class Communications : MonoBehaviour
         }
     }
 
+    public void CheckUsernameAvailable(string path,  WWWForm form, System.Action<ResponseBase> callback)
+    {
+        StartCoroutine(CorCheckUsernameAvailable(path, form, callback));
+    }
+    IEnumerator CorCheckUsernameAvailable(string url ,WWWForm form, System.Action<ResponseBase> callback)
+    {
+         using (UnityWebRequest www =  UnityWebRequest.Post(url, form))
+        { 
+            www.method = "GET";
+
+            yield return www.SendWebRequest();
+            while (!www.isDone)
+                yield return null;
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+               callback(null);
+            }
+            else
+            {
+                print(www.downloadHandler.text); 
+                callback(JsonUtility.FromJson<ResponseBase>(www.downloadHandler.text));
+            }
+        }
+    }
+
     public void Terminate()
     {
         if (routine != null) { 

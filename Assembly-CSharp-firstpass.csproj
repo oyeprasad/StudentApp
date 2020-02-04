@@ -56,9 +56,9 @@
      <Compile Include="Assets\Plugins\NativeGallery\iOS\NGMediaReceiveCallbackiOS.cs" />
      <Compile Include="Assets\Plugins\NativeGallery\iOS\NGMediaSaveCallbackiOS.cs" />
      <Compile Include="Assets\Plugins\NativeGallery\NativeGallery.cs" />
+     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Plugins\NativeCamera\README.txt" />
      <None Include="Assets\Plugins\NativeGallery\README.txt" />
-     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>E:/Work/Running Projects/Student/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>

@@ -14,12 +14,15 @@ public enum OTPInitiator
 public class Login : MonoBehaviour
 {
 
+
     // static events
     public static StringEvent PasswordClickEvent = new StringEvent();
     public static StringEvent OTPSubmitEvent = new StringEvent(); //
     public static IntEvent GradeClickEvent = new IntEvent();
     public static StringEvent FBLoginEvent = new StringEvent();
 
+    [SerializeField] private Color colorRed;
+    [SerializeField] private Color colorGreen;
      // References of Input fields taken from inspector
     [SerializeField] private InputField usernameInput, EmailFPInput, RegFullname, RegEmail, RegPhomenumber, ChooseUsernameInput;
     [SerializeField] private Dropdown RegPhoneCode;
@@ -78,6 +81,7 @@ public class Login : MonoBehaviour
         if (string.IsNullOrEmpty(usernameInput.text))
         { 
             usernameInput.GetComponent<ValidateInput>().Validate(string.Empty); 
+            usernameInput.Select();
             return;
         }
         if (ValidateUserName(usernameInput.text))
@@ -103,6 +107,7 @@ public class Login : MonoBehaviour
     public void ResendOtpClicked()
     {
         LoaderPanel.SetActive(true);
+        print("ResendOtpClicked user id "+user_id);
         WebRequestObject.ProcessResendOTP(user_id, ResendOTPCallback);
     }
 
@@ -113,18 +118,18 @@ public class Login : MonoBehaviour
         {
             if (obj.status)
             {
-                VerificationScreenMessage.color = Color.green;
+                VerificationScreenMessage.color = colorGreen;
                 VerificationScreenMessage.text = obj.message;
             }
             else {
-
-                VerificationScreenMessage.color = Color.red;
+                print("Resend otp response : "+obj.message);
+                VerificationScreenMessage.color = colorRed;
                 VerificationScreenMessage.text = obj.message;
             }
         }
         else
         {
-            VerificationScreenMessage.color = Color.red;
+            VerificationScreenMessage.color = colorRed;
             VerificationScreenMessage.text = "Some error! Please try after some time.";
         }
     }
@@ -296,6 +301,8 @@ public class Login : MonoBehaviour
             
         }
          else if (oTPInitiator == OTPInitiator.Registration) {
+            print("user_id reg "+ user_id);
+            print("otp_intered reg " + otp_intered);
             WebRequestObject.ProcessOTP(user_id, otp_intered, OTPSubmitCallback);
         }
 
@@ -365,14 +372,17 @@ public class Login : MonoBehaviour
         if (string.IsNullOrEmpty(RegFullname.text) || !RegFullname.GetComponent<ValidateInput>().isValidInput)
         {
             RegFullname.GetComponent<ValidateInput>().Validate(RegFullname.text);
+            RegFullname.Select();
         }
         else if (string.IsNullOrEmpty(RegEmail.text) || !RegEmail.GetComponent<ValidateInput>().isValidInput)
         {
             RegEmail.GetComponent<ValidateInput>().Validate(RegEmail.text);
+            RegEmail.Select();
         }
         else if (string.IsNullOrEmpty(RegPhomenumber.text) || !RegPhomenumber.GetComponent<ValidateInput>().isValidInput)
         {
             RegPhomenumber.GetComponent<ValidateInput>().Validate(RegPhomenumber.text);
+            RegPhomenumber.Select();
         } else 
         {
             print("Signup Validate true");
@@ -399,6 +409,7 @@ public class Login : MonoBehaviour
             if (response.status)
             {
                 user_id = response.data.user_id;
+                print("User id after register data "+user_id);
                 navigationPanelsList.Add(SignUpPanel);
                 ClearInpuFields();
                 oTPInitiator = OTPInitiator.Registration;
@@ -432,11 +443,28 @@ public class Login : MonoBehaviour
         }
         else if (ValidateUserName(ChooseUsernameInput.text))
         {
+            
             username = ChooseUsernameInput.text;
+            
+            LoaderPanel.SetActive(true);
+            WebRequests.Instance.ProcessCheckUsernameAvailable(ChooseUsernameInput.text, callbackUsernameAvailable);
+ 
+        }
+    } 
+    void callbackUsernameAvailable(ResponseBase response)
+    {
+            LoaderPanel.SetActive(false);
+        if(response.status)
+        {
             ClearInpuFields();
             navigationPanelsList.Add(ChooseUserNamePanel);
             ActivatePanel(PasswordPanel.name);
             PasswordPanel.GetComponent<PasswordPanel>().Populate("CHOOSE YOUR PASSWORD");
+        }
+        else
+        {
+            loginPopup.gameObject.SetActive(true);
+            loginPopup.SetPopup(response.message, null);
         }
     }
 
@@ -613,6 +641,7 @@ public class Login : MonoBehaviour
         RegPhoneCode.RefreshShownValue();
 
         // Clear all ScrrenMessages;
+        print("Clear");
         LoginScreenMessage.text = "";
         PasswordScreenMessage.text = "";
         RegisScreenMessage.text = "";
@@ -625,4 +654,14 @@ public class Login : MonoBehaviour
             loginPopup.gameObject.SetActive(false);
         }
     }
+
+
+    //----------DownloadPassword icons
+    void DownloadPassword()
+    {
+        
+    }
+
+
+    //-----------------------------------
 }

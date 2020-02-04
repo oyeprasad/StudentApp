@@ -58,8 +58,7 @@ public class HomeMainUIController : MonoBehaviour
     public static UnityEvent EventMyProfileEditClicked = new UnityEvent();
     public static UnityEvent EventMyProfileSaveClicked = new UnityEvent();
     public static StringEvent EventSubmitHelp = new StringEvent();
-    public static StringEvent EventPasswordPanelHide = new StringEvent();
-
+ 
     public static SpriteFloatEvent EventProfilePicChoose = new SpriteFloatEvent();
     public static UnityEvent EventChangePasswordClicked = new UnityEvent(); 
     public static IntEvent EventWorkSheetClicked = new IntEvent();
@@ -88,8 +87,7 @@ public class HomeMainUIController : MonoBehaviour
         HomeMainUIController.EventPassowrdClicked.AddListener(PasswordButtonClicked);
         HomeMainUIController.EventMyProfileEditClicked.AddListener(MyProfileEditClicked);
         HomeMainUIController.EventMyProfileSaveClicked.AddListener(MyProfileSaveClicked);
-        HomeMainUIController.EventSubmitHelp.AddListener(OnHelpSubmit);
-        HomeMainUIController.EventPasswordPanelHide.AddListener(OnPasswordPanelHide);
+        HomeMainUIController.EventSubmitHelp.AddListener(OnHelpSubmit); 
         HomeMainUIController.EventProfilePicChoose.AddListener(OnProfilePicSelected);
         HomeMainUIController.EventWorkSheetClicked.AddListener(OnWorkSheetClicked);
     }
@@ -188,19 +186,23 @@ public class HomeMainUIController : MonoBehaviour
         QuizPanel.GetComponent<QuizController>().PopulateQuizzesOnVideo(videoId);
     }
 
-    void PasswordButtonClicked(int id, string _password)
+    void PasswordButtonClicked(int panelId, string _password)
     {
-        if(id == 0) // Set old password
+        print("Password set for "+panelId.ToString()+"  is "+_password);
+        if(panelId == 0) // Set old password
         { 
+            passwordPanelState = PasswordPanelState.OLDPASSWORD;
             oldPasswordChoosen = _password;
         }
-        else if(id == 1) // set new password
+        else if(panelId == 1) // set new password
         {
+            passwordPanelState = PasswordPanelState.NEWPASSOWRD;
             newPasswordChoosen = _password; 
         }
-        else if(id == 2) // set confirm password
+        else if(panelId == 2) // set confirm password
         {
             confirmNewPasswordChoosen = _password; 
+            passwordPanelState = PasswordPanelState.CONFIRMNEWPASSWORD;
         }
     }
     void MyProfileEditClicked()
@@ -223,22 +225,7 @@ public class HomeMainUIController : MonoBehaviour
     #endregion ClickButtonsEvents
 
 
-//====
-void OnPasswordPanelHide(string panelName)
-{
-    if(panelName == "confirmpassword")
-    {
-        passwordPanelState = PasswordPanelState.CONFIRMNEWPASSWORD;
-    }
-    else if(panelName == "newpassword")
-    {
-        passwordPanelState = PasswordPanelState.NEWPASSOWRD;
-
-    } else if(panelName == "oldpassword")
-    {
-        passwordPanelState = PasswordPanelState.OLDPASSWORD;
-    }
-}
+//==== 
 //=======
     public void ActivatePanel(string panelName)
     {
@@ -331,27 +318,28 @@ void OnPasswordPanelHide(string panelName)
        popup.SetPopup(message, onClickOk); 
     }
 
-    public void ChangePasswordSubmit()
+    public void ChangePasswordSubmit(int Id)
     { 
-        print("change password");
-        if(passwordPanelState == PasswordPanelState.OLDPASSWORD)
+        print("change password ");
+        if(Id == 0)
         {
             navigationPanelsList.Add(ChangePasswordPanel);
-            //passwordPanelState = PasswordPanelState.NEWPASSOWRD;
+            passwordPanelState = PasswordPanelState.NEWPASSOWRD;
             ActivatePanel(NewPasswordPanel.name);
         } 
-        else if(passwordPanelState == PasswordPanelState.NEWPASSOWRD)
+        else if(Id == 1)
         {
             navigationPanelsList.Add(NewPasswordPanel);
             print("confirmNewPasswordChoosen "+confirmNewPasswordChoosen);
-            //passwordPanelState = PasswordPanelState.CONFIRMNEWPASSWORD;
+            passwordPanelState = PasswordPanelState.CONFIRMNEWPASSWORD;
             ActivatePanel(ConfirmNewPassPanel.name);
         } 
-        else if(passwordPanelState == PasswordPanelState.CONFIRMNEWPASSWORD)
+        else if(Id == 2)
         {
             //Check whether new password and confirm new password is same
             print("confirmNewPasswordChoosen "+confirmNewPasswordChoosen);
-
+            print("oldPasswordChoosen "+oldPasswordChoosen);
+            print("newPasswordChoosen "+newPasswordChoosen);
             if(newPasswordChoosen.Equals(confirmNewPasswordChoosen))
             {
                // passwordPanelState = PasswordPanelState.PASSWORD;

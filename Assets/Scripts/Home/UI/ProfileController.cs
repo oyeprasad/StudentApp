@@ -42,6 +42,7 @@ public class ProfileController : MonoBehaviour
     [SerializeField] private GameObject imageChooseOptionPanel;
      
     private Sprite profilePicSprite;  
+    [SerializeField] private Sprite defaultPic;
     void OnEnable()
     {
         editProfilePic.sprite = profilePic.sprite;
@@ -94,6 +95,11 @@ public class ProfileController : MonoBehaviour
        if(!string.IsNullOrEmpty(Globals.UserLoginDetails.profile_pic))
        {
            StartCoroutine(DownloadProfilePic(Globals.UserLoginDetails.profile_pic));
+       } else
+       {
+           profilePic.sprite = editProfilePic.sprite = defaultPic;
+           
+            editProfilePic.GetComponent<AspectRatioFitter>().aspectRatio = editProfilePic.GetComponent<AspectRatioFitter>().aspectRatio = 1;
        }
     }
 
@@ -140,20 +146,22 @@ public class ProfileController : MonoBehaviour
          if(!editUsername.gameObject.GetComponent<ValidateInput>().isValidInput)
          {
              editUsername.gameObject.GetComponent<ValidateInput>().Validate(editUsername.text);
-
+            editUsername.Select();
          } 
           if(!editFullname.gameObject.GetComponent<ValidateInput>().isValidInput)
          {
              editFullname.gameObject.GetComponent<ValidateInput>().Validate(editFullname.text);
-
+            editFullname.Select();
          }
          if(!editEmail.gameObject.GetComponent<ValidateInput>().isValidInput)
          {
              editEmail.gameObject.GetComponent<ValidateInput>().Validate(editEmail.text);
+             editEmail.Select();
          }
           if(!editPhone.gameObject.GetComponent<ValidateInput>().isValidInput)
          {
              editPhone.gameObject.GetComponent<ValidateInput>().Validate(editPhone.text);
+             editPhone.Select();
          } 
          if(editUsername.gameObject.GetComponent<ValidateInput>().isValidInput && 
             editFullname.gameObject.GetComponent<ValidateInput>().isValidInput &&
@@ -190,7 +198,10 @@ public class ProfileController : MonoBehaviour
             if (www.isNetworkError || www.isHttpError)
             {
                 print(www.error);
-                OnProfileSave(null);
+                ProfileResponse response = new ProfileResponse();
+                response.status = false;
+                response.message = www.error;
+                OnProfileSave(response);
                 HomeMainUIController.EventShowHideLoader.Invoke(false);     
             }
             else
@@ -198,7 +209,7 @@ public class ProfileController : MonoBehaviour
                 print(www.downloadHandler.text);
                 ProfileResponse _response = JsonUtility.FromJson<ProfileResponse>(www.downloadHandler.text);
                 HomeMainUIController.EventShowHideLoader.Invoke(false);
-               OnProfileSave(_response);
+                OnProfileSave(_response);
             }
         }  
 
@@ -240,7 +251,7 @@ public class ProfileController : MonoBehaviour
         } 
         else
         {
-            HomeMainUIController.ShowPopup.Invoke("Opps! Some error occurs", () => print("Error in response from edit profile submit"));
+            HomeMainUIController.ShowPopup.Invoke("Opps! Something went wrong. Please try again later.", () => print("Error in response from edit profile submit"));
         }
 
     }   

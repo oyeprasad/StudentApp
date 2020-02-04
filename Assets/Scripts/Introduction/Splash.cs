@@ -58,6 +58,7 @@ public class Splash : MonoBehaviour
     
     public void OnOkClicked()
     {
+        print("On Ok CLicked");
         Application.Quit();
     }
 }

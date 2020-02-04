@@ -87,7 +87,26 @@ public class UserData
      public List<WorkSheetData> worksheets = new List<WorkSheetData>();
  }
 
-
+[System.Serializable] public class PasswordIcon
+{
+    public int icon_id = 0;
+    public string icon_image = "";
+    public string code = "";
+}
+[System.Serializable] public class PasswordIconItem
+{
+    public int icon_id = 0;
+    public Sprite icon_image = null;
+    public string code = "";
+}
+[System.Serializable] public class PasswordIconList
+{
+    public List<PasswordIcon> password_icons = new List<PasswordIcon>();
+}
+[System.Serializable] public class PasswordIconResponse : ResponseBase
+{
+    public PasswordIconList data = new PasswordIconList();
+}
 
 public class Globals : MonoBehaviour
 {
@@ -109,7 +128,7 @@ public class Globals : MonoBehaviour
     public static FBLoginResponseData fBLoginResponseData = new FBLoginResponseData();
     public static UserData UserLoginDetails = new UserData();
  
-
+    public static List<PasswordIconItem> PasswordItems = new List<PasswordIconItem>();
     public static bool ValidateEmail(string emailString)
     {
         return Regex.IsMatch(emailString, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
