@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Test.unity
     guid: 5c9c9fa2f56d14058ad1c58e126a1062
+  - enabled: 0
+    path: Assets/Scenes/MobileInput.unity
+    guid: c54bd4360ae694d8e9375671e7564f20
   m_configObjects: {}

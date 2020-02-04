@@ -46,6 +46,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\ScreenLogger\Editor\ScreenLoggerEditor.cs" />
+     <Compile Include="Assets\Scripts\UnityMobileInput\Editor\MobileInputEditor.cs" />
      <None Include="Assets\FacebookSDK\Plugins\Editor\Dependencies.xml" />
      <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver_v1.2.95.0.txt" />
  <Reference Include="UnityEditor.TestRunner">

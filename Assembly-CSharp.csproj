@@ -94,7 +94,11 @@
      <Compile Include="Assets\Scripts\Login\PasswordPanelManager.cs" />
      <Compile Include="Assets\Scripts\Login\Popup.cs" />
      <Compile Include="Assets\Scripts\Login\ValidateInput.cs" />
+     <Compile Include="Assets\Scripts\NiceJson.cs" />
      <Compile Include="Assets\Scripts\Tutorial\Tutorial.cs" />
+     <Compile Include="Assets\Scripts\UnityMobileInput\MobileInput.cs" />
+     <Compile Include="Assets\Scripts\UnityMobileInput\MobileInputField.cs" />
+     <Compile Include="Assets\Scripts\UnityMobileInput\Plugins.cs" />
      <Compile Include="Assets\Scripts\Utility\Communications.cs" />
      <Compile Include="Assets\Scripts\Utility\UserDefineEvents.cs" />
      <Compile Include="Assets\Scripts\Utility\WebRequests.cs" />

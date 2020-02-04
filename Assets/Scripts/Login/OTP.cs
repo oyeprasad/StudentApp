@@ -14,12 +14,12 @@ public class OTP : MonoBehaviour
     Coroutine routine = null;
     private void Start()
     {
-        OnValueChangeEvent.AddListener(OnValueChange);
+       // OnValueChangeEvent.AddListener(OnValueChange);
     }
     void OnValueChange(int index)
     {
-        print("On value change "+index);
-        print("All input field " +allInpufields.Count);
+        //print("On value change "+index);
+      //  print("All input field " +allInpufields.Count);
         //if(routine != null)
        // StopCoroutine(routine);
         //routine = StartCoroutine(SetInputFocus(index));

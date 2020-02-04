@@ -42,6 +42,7 @@ public class ProfileController : MonoBehaviour
     [SerializeField] private GameObject imageChooseOptionPanel;
      
     private Sprite profilePicSprite;  
+    [SerializeField] private Sprite defaultPic;
     void OnEnable()
     {
         editProfilePic.sprite = profilePic.sprite;
@@ -94,6 +95,11 @@ public class ProfileController : MonoBehaviour
        if(!string.IsNullOrEmpty(Globals.UserLoginDetails.profile_pic))
        {
            StartCoroutine(DownloadProfilePic(Globals.UserLoginDetails.profile_pic));
+       } else
+       {
+           profilePic.sprite = editProfilePic.sprite = defaultPic;
+           
+            editProfilePic.GetComponent<AspectRatioFitter>().aspectRatio = editProfilePic.GetComponent<AspectRatioFitter>().aspectRatio = 1;
        }
     }
 

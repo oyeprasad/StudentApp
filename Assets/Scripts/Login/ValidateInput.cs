@@ -17,72 +17,102 @@ public class ValidateInput : MonoBehaviour
     [SerializeField] private int minLength, maxLength;
 
     [SerializeField] public Text validationInfo;
+
+    private TouchScreenKeyboard keyboard;
+
     private void Start()
     {
         inputToValidate = GetComponent<InputField>();
         inputToValidate.onValueChanged.AddListener(OnValueChange);
-        inputToValidate.onEndEdit.AddListener(Validate);
-       // LoginMenu.InputFieldEditStart.AddListener(OnEditStart);
-    }
-
+       // inputToValidate.onEndEdit.AddListener(Validate); 
+    } 
     private void OnEnable()
     {
         validationInfo.text = string.Empty;
     }
 
-    bool wasfocus = false;
-    bool  keepOldTextInField = false;
+    bool backPressed = false;
+    bool focusStart = false;
+    bool IsCancelledKeyboard = false;
+    bool IsLostFocusKeyboard = false;
+    bool IsDoneKeyboard = false;
+    bool IsVisibleKeyboard = false;
+
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && gameObject.activeInHierarchy)
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if(TouchScreenKeyboard.visible == false && wasfocus)
+            if(TouchScreenKeyboard.visible == false)
             {
-                wasfocus = false;
-                KeyBoardHide();
-            }
+                backPressed = true; 
+            } 
         }
+        if(!focusStart && inputToValidate.isFocused)
+        {
+           focusStart = true;  
+           keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);   
+
+        }
+
+
+        if(keyboard != null && keyboard.status == TouchScreenKeyboard.Status.Canceled && !IsCancelledKeyboard)
+        {
+            IsCancelledKeyboard = true;
+            IsVisibleKeyboard = false;
+            //EndEdit(oldEditText);
+            print("CancelPressed");
+        }
+        if(keyboard != null && keyboard.status == TouchScreenKeyboard.Status.LostFocus && !IsLostFocusKeyboard)
+        {
+            IsLostFocusKeyboard = true;
+            IsVisibleKeyboard = false;
+            EndEdit(editText);
+            print("Loast focus");
+        }
+        if(keyboard != null && keyboard.status == TouchScreenKeyboard.Status.Done && !IsDoneKeyboard)
+        {
+            IsDoneKeyboard = true;
+            IsVisibleKeyboard = false;
+            print("Done pressed");
+            EndEdit(editText);
+        }
+        // new logic
+        if(keyboard != null && keyboard.status == TouchScreenKeyboard.Status.Visible && !IsVisibleKeyboard)
+        {
+            IsVisibleKeyboard = true;
+            IsCancelledKeyboard = false;
+            IsLostFocusKeyboard = false;
+            IsDoneKeyboard = false; 
+        } 
     }
 
-    void KeyBoardHide()
+    private void EndEdit(string value)
     {
-         keepOldTextInField = true;
+        inputToValidate.text = value;
+        Validate(value);
     }
-    string oldEditText;
-    string editText;
+    
+    string oldEditText = "";
+    string editText = "";
     private void OnValueChange(string arg0)
-    {
-
-        wasfocus = true;
-        //LoginMenu.InputFieldEditStart.Invoke();
-        validationInfo.text = string.Empty;
-
-        //--- new logic
-        oldEditText = editText;
-        editText = arg0;
-    }
-
-    void OnEditStart()
-    {
+    {  
+        print("OnValueChange "+oldEditText);
+        if(IsCancelledKeyboard)
+        {
+            inputToValidate.text = oldEditText;
+            Validate(oldEditText);
+        } else
+        {
+            oldEditText = editText;
+            editText = arg0;  
+        } 
         validationInfo.text = string.Empty;
     }
+ 
 
     public void Validate(string arg0)
     {
-
-        // new logic
-        if (keepOldTextInField && !string.IsNullOrEmpty(oldEditText))
-        {
-            print("Keep old "+oldEditText);
-        //IMPORTANT ORDER
-            editText = oldEditText;
-            inputToValidate.text = oldEditText;
-            arg0 = oldEditText;
-            keepOldTextInField = false;
-        }
-        //===========
-
-        print("Validate");
+        print("Validate "+arg0);
         if (arg0.Length <= 0)
         {
             validationInfo.text = blankErrorMessage;

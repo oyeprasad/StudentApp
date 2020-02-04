@@ -22,9 +22,15 @@ public class TabSelect : MonoBehaviour
 
     private void Editing(string currentText)
     {
+        print("Here");
+        print("currentText "+currentText);
         if (!string.IsNullOrEmpty(currentText))
         {
+            print("Hello");
+            print(eventSystem.currentSelectedGameObject.gameObject);
+            print("Hello Again");
             GameObject gobj = eventSystem.currentSelectedGameObject.gameObject;
+            print("currentText "+currentText);
             gobj.GetComponent<InputField>().text = currentText;
             Debug.Log("Inside ");
             MethodA();
@@ -91,7 +97,7 @@ public class TabSelect : MonoBehaviour
         {
             Debug.Log("10");
             ALLInputFields[InputFCount].Select();
-            Debug.Log("" + next.gameObject.name);
+            Debug.Log("" + next.gameObject.name); 
         }
     }
 

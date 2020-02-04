@@ -3,34 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HomePasswordPanel : MonoBehaviour
-{  
-    [SerializeField] private string panelName = ""; 
-    [SerializeField] private string passwordSelected;
-
+{    
+    [SerializeField] private int panelNumber;
+    [SerializeField] private ChangePassswordButtons currentlySelectedPassword;
+    [SerializeField] private List<ChangePassswordButtons> AllButtonsList;
+     
+     void Start()
+     { 
+     }
     void OnEnable()
     {
-        HomeMainUIController.EventPasswordPanelHide.Invoke(panelName);
-        PasswordClicked(passwordSelected);
+        print("currentlySelectedPassword "+currentlySelectedPassword.name);
+        print("OnEnable "+panelNumber+" > "+currentlySelectedPassword.id);
+        OnClick(currentlySelectedPassword);
     }
-
-    public void SubmitClicked()
-    {
-         
+    public void OnClick(ChangePassswordButtons button)
+    { 
+         currentlySelectedPassword = button;
+         HomeMainUIController.EventPassowrdClicked.Invoke(panelNumber, button.id);
     }
-    public void PasswordClicked(string _password)
+    public void UpdateCurrentPassword(ChangePassswordButtons newPasswordButton)
     {
-        passwordSelected = _password;
-        if(panelName == "oldpassword")
-        {
-            HomeMainUIController.EventPassowrdClicked.Invoke(0, passwordSelected);
-        } else if(panelName == "newpassword")
-        {
-            HomeMainUIController.EventPassowrdClicked.Invoke(1, passwordSelected);
-
-        } else if(panelName == "confirmpassword")
-        {
-            HomeMainUIController.EventPassowrdClicked.Invoke(2, passwordSelected);
-        }
-         
+        currentlySelectedPassword = newPasswordButton;
+        OnClick(currentlySelectedPassword);
     }
 }
