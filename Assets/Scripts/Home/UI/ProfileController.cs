@@ -94,7 +94,11 @@ public class ProfileController : MonoBehaviour
        print("editPhoencode.value " + editPhoencode.value);
        if(!string.IsNullOrEmpty(Globals.UserLoginDetails.profile_pic))
        {
-           StartCoroutine(DownloadProfilePic(Globals.UserLoginDetails.profile_pic));
+            if(GSC.Instance.UserProfilePic != null)
+            {
+                OnProfilePicChoosen(GSC.Instance.UserProfilePic,GSC.Instance.userpicAspectRatio);
+            }
+           //StartCoroutine(DownloadProfilePic(Globals.UserLoginDetails.profile_pic));
        } else
        {
            profilePic.sprite = editProfilePic.sprite = defaultPic;
@@ -233,7 +237,7 @@ public class ProfileController : MonoBehaviour
                 Globals.UserLoginDetails.phone = response.data.phone;
                 Globals.UserLoginDetails.profile_pic = response.data.profile_image;
                 Globals.SaveUserData(Globals.UserLoginDetails);
-
+                GSC.Instance.UserProfilePic = editProfilePic.sprite;
                 PopulatePanel();
                 // Set Profile pic from here as it is already saved to database
                 HomeMainUIController.EventProfilePicChoose.Invoke(profilePicSprite, (profilePicSprite.texture.width * 1.0f)/(profilePicSprite.texture.height * 1.0f));

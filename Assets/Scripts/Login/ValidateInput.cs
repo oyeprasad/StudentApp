@@ -12,7 +12,8 @@ public class ValidateInput : MonoBehaviour
     [SerializeField] private string blankErrorMessage;
 
     private InputField inputToValidate;
-    [SerializeField] private bool isEmail;
+    [SerializeField] private bool isEmail; 
+    [SerializeField] private bool isMobileNumber;
     [SerializeField] private bool lengthRangeCheck = false;
     [SerializeField] private int minLength, maxLength;
 
@@ -124,6 +125,11 @@ public class ValidateInput : MonoBehaviour
             validationInfo.text = errorMessage;
             isValidInput = false;
         }
+        else if (isMobileNumber && !GetComponent<MobileNumberValidater>().Validate())
+        {
+            //validationInfo.text = errorMessage;
+            isValidInput = false;
+        }
         else if (lengthRangeCheck && (arg0.Length < minLength || arg0.Length > maxLength))
         {
             validationInfo.text = errorMessage;
@@ -132,7 +138,6 @@ public class ValidateInput : MonoBehaviour
         else
         {
             isValidInput = true;
-        }
-            
+        }     
     }
 }

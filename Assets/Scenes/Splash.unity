@@ -752,6 +752,70 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1574857953}
   m_CullTransparentMesh: 0
+--- !u!1 &1733370732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1733370734}
+  - component: {fileID: 1733370733}
+  m_Layer: 0
+  m_Name: GSC
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1733370733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733370732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23703a772b0ff524ea67e07ce94d4545, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countryCodeMobileDigitPairs:
+  - countryCode: +1
+    mobileNumber: 10
+  - countryCode: +7
+    mobileNumber: 10
+  - countryCode: +34
+    mobileNumber: 9
+  - countryCode: +44
+    mobileNumber: 10
+  - countryCode: +49
+    mobileNumber: 10
+  - countryCode: +81
+    mobileNumber: 11
+  - countryCode: +84
+    mobileNumber: 9
+  - countryCode: +86
+    mobileNumber: 11
+  - countryCode: +91
+    mobileNumber: 10
+  - countryCode: +92
+    mobileNumber: 10
+--- !u!4 &1733370734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733370732}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1768926721
 GameObject:
   m_ObjectHideFlags: 0

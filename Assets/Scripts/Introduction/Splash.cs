@@ -10,10 +10,14 @@ public class Splash : MonoBehaviour
     [SerializeField] UnityEngine.Video.VideoPlayer _player; 
     [SerializeField] private GameObject popup;
     void Awake()
-    { 
-         
+    {    
         _player.loopPointReached += VideoPlayerLoopReached;
-        
+
+    }
+    void Start()
+    {
+        LoadPlayerData();
+        GSC.Instance.DownloadUSerprofilePic();
     }
 
     void VideoPlayerLoopReached(UnityEngine.Video.VideoPlayer vp)
@@ -34,7 +38,6 @@ public class Splash : MonoBehaviour
             else if(PlayerPrefs.GetInt(Globals.PLAYERKEY_LOGINSTATUS) == Globals.LOGGED_IN)
             {
                 print("User already");
-                Globals.LoadUserData();
                 Globals.LoadLevel(Globals.HOME_SCENE);
             }  
             else
@@ -50,7 +53,13 @@ public class Splash : MonoBehaviour
         }
     }
     
-    
+    void LoadPlayerData()
+    {
+         if(PlayerPrefs.GetInt(Globals.PLAYERKEY_LOGINSTATUS) == Globals.LOGGED_IN)
+            {
+                Globals.LoadUserData();
+            }  
+    }
     private bool IsNetworkConnected()
     {
         return !(Application.internetReachability == NetworkReachability.NotReachable);

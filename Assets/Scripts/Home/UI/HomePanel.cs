@@ -30,15 +30,20 @@ public class HomePanel : MonoBehaviour
 
         HomeMainUIController.EventProfilePicChoose.AddListener(ProfilePicChoosen); 
 
+print("Globals.UserLoginDetails.profile_pic "+Globals.UserLoginDetails.profile_pic  );
          if(!string.IsNullOrEmpty(Globals.UserLoginDetails.profile_pic))
         {
-            StartCoroutine(DownloadProfilePic());
+            if(GSC.Instance.UserProfilePic != null)
+            {
+                ProfilePicChoosen(GSC.Instance.UserProfilePic,GSC.Instance.userpicAspectRatio);
+            }
+           // StartCoroutine(DownloadProfilePic());
         }
     }
 
     IEnumerator DownloadProfilePic()
     { 
-        
+        print("Downloading unser image");
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(Globals.UserLoginDetails.profile_pic);   
         yield return www.SendWebRequest();
         while(!www.isDone)
@@ -48,7 +53,9 @@ public class HomePanel : MonoBehaviour
             Debug.Log(www.error);
         }
         else { 
+        print("Downloaded unser image");
             Texture2D myTexture = (Texture2D)((DownloadHandlerTexture)www.downloadHandler).texture;
+          print("Image is " + myTexture);
             Sprite sprite =  Sprite.Create(myTexture, new Rect(0.0f, 0.0f, myTexture.width, myTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
             HomeMainUIController.EventProfilePicChoose.Invoke(sprite, (myTexture.width * 1.0f)/(myTexture.height * 1.0f));
         }

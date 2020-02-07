@@ -6,6 +6,12 @@ using System;
 using UnityEngine.SceneManagement;
 
 [Serializable]
+public class CountryCodeMobileDigitPair
+{
+    public string countryCode = "";
+    public string mobileNumber = "";
+}
+[Serializable]
 public class ResponseBase
 {
     public bool status = false;
@@ -134,6 +140,7 @@ public class Globals : MonoBehaviour
         return Regex.IsMatch(emailString, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
     } 
 
+
     public static void LoadLevel(string levelName)
     {
         SceneManager.LoadScene(levelName);
@@ -143,11 +150,12 @@ public class Globals : MonoBehaviour
     {
         print("Save user data");
         PlayerPrefs.SetInt(Globals.PLAYERKEY_LOGINSTATUS, Globals.LOGGED_IN);
+        print("Save user details : \n"+JsonUtility.ToJson(userdata));
         PlayerPrefs.SetString(Globals.PLAYERKEY_USERDATA, JsonUtility.ToJson(userdata));
     }
     public static void LoadUserData()
     {
-        print("Loaduserdata "+PlayerPrefs.GetString(Globals.PLAYERKEY_USERDATA));
+        print("Loaduserdata \n"+PlayerPrefs.GetString(Globals.PLAYERKEY_USERDATA));
         UserLoginDetails = JsonUtility.FromJson<UserData>(PlayerPrefs.GetString(Globals.PLAYERKEY_USERDATA));
     }
 }

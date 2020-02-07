@@ -345,6 +345,7 @@ MonoBehaviour:
   errorMessage: Username is not valid.
   blankErrorMessage: Username can not be blank.
   isEmail: 1
+  isMobileNumber: 0
   lengthRangeCheck: 0
   minLength: 0
   maxLength: 0
@@ -3627,6 +3628,7 @@ GameObject:
   - component: {fileID: 363937051}
   - component: {fileID: 363937050}
   - component: {fileID: 363937053}
+  - component: {fileID: 363937055}
   - component: {fileID: 363937054}
   m_Layer: 5
   m_Name: InputField
@@ -3793,6 +3795,7 @@ MonoBehaviour:
   errorMessage: Phone number is not valid.
   blankErrorMessage: Phone numbe is not valid.
   isEmail: 0
+  isMobileNumber: 1
   lengthRangeCheck: 1
   minLength: 6
   maxLength: 15
@@ -3809,6 +3812,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92cc9de3ed16c024188c008099cb4178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &363937055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363937048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f312f77357f0f244934bb2fc3c6c763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countryCode: {fileID: 924691008}
+  validateText: {fileID: 382523887}
 --- !u!1 &382523885
 GameObject:
   m_ObjectHideFlags: 0
@@ -3843,8 +3860,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 176.79996, y: -77.4}
-  m_SizeDelta: {x: -403.6, y: 50}
+  m_AnchoredPosition: {x: 99.8, y: -77.4}
+  m_SizeDelta: {x: -249.6, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &382523887
 MonoBehaviour:
@@ -3868,10 +3885,10 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: bdfe93fe69e7e8b4a99c91e9a9383dba, type: 3}
     m_FontSize: 25
     m_FontStyle: 2
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
-    m_MaxSize: 40
-    m_Alignment: 3
+    m_MaxSize: 25
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -5497,6 +5514,7 @@ MonoBehaviour:
   errorMessage: Not a valid email id.
   blankErrorMessage: Email id can not be blank
   isEmail: 1
+  isMobileNumber: 0
   lengthRangeCheck: 0
   minLength: 0
   maxLength: 0
@@ -6453,6 +6471,7 @@ MonoBehaviour:
   errorMessage: Password is not valid.
   blankErrorMessage: Password can not be blank.
   isEmail: 0
+  isMobileNumber: 0
   lengthRangeCheck: 1
   minLength: 6
   maxLength: 15
@@ -8632,6 +8651,7 @@ MonoBehaviour:
   errorMessage: Password is not valid.
   blankErrorMessage: Password can not be blank.
   isEmail: 0
+  isMobileNumber: 0
   lengthRangeCheck: 1
   minLength: 6
   maxLength: 15
@@ -11028,6 +11048,7 @@ MonoBehaviour:
   errorMessage: Username is not valid.
   blankErrorMessage: Username can not be blank.
   isEmail: 0
+  isMobileNumber: 0
   lengthRangeCheck: 0
   minLength: 0
   maxLength: 0
@@ -12860,6 +12881,7 @@ MonoBehaviour:
   errorMessage: Username is not valid.
   blankErrorMessage: Username can not be blank.
   isEmail: 1
+  isMobileNumber: 0
   lengthRangeCheck: 0
   minLength: 0
   maxLength: 0
@@ -14240,6 +14262,7 @@ MonoBehaviour:
   errorMessage: Username is not valid.
   blankErrorMessage: Username can not be blank.
   isEmail: 0
+  isMobileNumber: 0
   lengthRangeCheck: 0
   minLength: 0
   maxLength: 0
@@ -14273,7 +14296,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053f12a21060a4074af5416ef1101ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InputText: {fileID: 0}
 --- !u!4 &1398982321
 Transform:
   m_ObjectHideFlags: 0
@@ -15162,6 +15184,7 @@ MonoBehaviour:
   errorMessage: Email is not valid.
   blankErrorMessage: Email can not be blank.
   isEmail: 1
+  isMobileNumber: 0
   lengthRangeCheck: 0
   minLength: 0
   maxLength: 0
@@ -22100,6 +22123,7 @@ MonoBehaviour:
   errorMessage: Username is not valid.
   blankErrorMessage: Username can not be blank.
   isEmail: 0
+  isMobileNumber: 0
   lengthRangeCheck: 0
   minLength: 0
   maxLength: 0
