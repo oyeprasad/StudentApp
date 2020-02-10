@@ -15,11 +15,13 @@ ScriptsOnlyBuild:
     - HomePanel
     - HomePasswordPanel
     - HomeSceneManager
+    - InputFieldForScreenKeyboardPanelAdjuster
     - InputfieldFocused
     - InputfieldSlideScreen
     - Loader
     - Login
     - LoginMenu
+    - MainVideoPlayer
     - MobileNumberValidater
     - OTP
     - OTPInput
@@ -36,15 +38,16 @@ ScriptsOnlyBuild:
     - Tutorial
     - ValidateInput
     - VideoPanelController
-    - VideoPlayer
     - WebRequests
     Facebook.Unity.Settings.dll:
     - Facebook.Unity.Settings.FacebookSettings
     Unity.TextMeshPro.dll:
     - TMPro.TMP_FontAsset
+    - TMPro.TMP_InputField
     - TMPro.TMP_Settings
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
+    - TMPro.TextMeshProUGUI
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -63,6 +66,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.LayoutElement
     - UnityEngine.UI.Mask
     - UnityEngine.UI.RawImage
+    - UnityEngine.UI.RectMask2D
     - UnityEngine.UI.ScrollRect
     - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Slider
@@ -131,45 +135,45 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10724}
     - Class: 114
-      Script: {instanceID: 10752}
+      Script: {instanceID: 10754}
     - Class: 114
-      Script: {instanceID: 10822}
+      Script: {instanceID: 10788}
     - Class: 114
-      Script: {instanceID: 10904}
+      Script: {instanceID: 10828}
     - Class: 114
-      Script: {instanceID: 10912}
+      Script: {instanceID: 10910}
     - Class: 114
-      Script: {instanceID: 10922}
+      Script: {instanceID: 10918}
     - Class: 114
-      Script: {instanceID: 10942}
+      Script: {instanceID: 10928}
     - Class: 114
-      Script: {instanceID: 11072}
+      Script: {instanceID: 10950}
     - Class: 114
-      Script: {instanceID: 11102}
+      Script: {instanceID: 11080}
     - Class: 114
-      Script: {instanceID: 11118}
+      Script: {instanceID: 11110}
     - Class: 114
-      Script: {instanceID: 11396}
+      Script: {instanceID: 11126}
     - Class: 114
-      Script: {instanceID: 11402}
+      Script: {instanceID: 11404}
     - Class: 114
-      Script: {instanceID: 11436}
+      Script: {instanceID: 11410}
     - Class: 114
-      Script: {instanceID: 11706}
+      Script: {instanceID: 11444}
     - Class: 114
-      Script: {instanceID: 11768}
+      Script: {instanceID: 11714}
     - Class: 114
-      Script: {instanceID: 11780}
+      Script: {instanceID: 11776}
     - Class: 114
-      Script: {instanceID: 11782}
+      Script: {instanceID: 11788}
     - Class: 114
-      Script: {instanceID: 11796}
+      Script: {instanceID: 11790}
     - Class: 114
-      Script: {instanceID: 11800}
+      Script: {instanceID: 11804}
     - Class: 114
-      Script: {instanceID: 11820}
+      Script: {instanceID: 11808}
     - Class: 114
-      Script: {instanceID: 18116}
+      Script: {instanceID: 11828}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -216,13 +220,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10504}
     - Class: 114
-      Script: {instanceID: 10922}
+      Script: {instanceID: 10928}
     - Class: 114
-      Script: {instanceID: 10970}
+      Script: {instanceID: 10978}
     - Class: 114
-      Script: {instanceID: 11402}
+      Script: {instanceID: 11410}
     - Class: 114
-      Script: {instanceID: 11782}
+      Script: {instanceID: 11790}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -263,9 +267,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10032}
     - Class: 114
+      Script: {instanceID: 10062}
+    - Class: 114
       Script: {instanceID: 10092}
     - Class: 114
       Script: {instanceID: 10176}
+    - Class: 114
+      Script: {instanceID: 10300}
     - Class: 114
       Script: {instanceID: 10380}
     - Class: 114
@@ -281,39 +289,45 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10724}
     - Class: 114
-      Script: {instanceID: 10754}
+      Script: {instanceID: 10756}
     - Class: 114
-      Script: {instanceID: 10820}
+      Script: {instanceID: 10788}
     - Class: 114
-      Script: {instanceID: 10904}
+      Script: {instanceID: 10826}
     - Class: 114
-      Script: {instanceID: 10922}
+      Script: {instanceID: 10910}
     - Class: 114
-      Script: {instanceID: 10972}
+      Script: {instanceID: 10928}
     - Class: 114
-      Script: {instanceID: 11118}
+      Script: {instanceID: 10930}
     - Class: 114
-      Script: {instanceID: 11346}
+      Script: {instanceID: 10980}
     - Class: 114
-      Script: {instanceID: 11402}
+      Script: {instanceID: 11126}
     - Class: 114
-      Script: {instanceID: 11590}
+      Script: {instanceID: 11156}
     - Class: 114
-      Script: {instanceID: 11706}
+      Script: {instanceID: 11338}
     - Class: 114
-      Script: {instanceID: 11768}
+      Script: {instanceID: 11354}
     - Class: 114
-      Script: {instanceID: 11770}
+      Script: {instanceID: 11410}
     - Class: 114
-      Script: {instanceID: 11782}
+      Script: {instanceID: 11598}
     - Class: 114
-      Script: {instanceID: 11800}
+      Script: {instanceID: 11714}
     - Class: 114
-      Script: {instanceID: 11856}
+      Script: {instanceID: 11776}
     - Class: 114
-      Script: {instanceID: 15850}
+      Script: {instanceID: 11778}
     - Class: 114
-      Script: {instanceID: 18116}
+      Script: {instanceID: 11790}
+    - Class: 114
+      Script: {instanceID: 11808}
+    - Class: 114
+      Script: {instanceID: 11864}
+    - Class: 114
+      Script: {instanceID: 15782}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -370,25 +384,25 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10530}
     - Class: 114
-      Script: {instanceID: 10922}
+      Script: {instanceID: 10786}
     - Class: 114
-      Script: {instanceID: 10942}
+      Script: {instanceID: 10928}
     - Class: 114
-      Script: {instanceID: 11148}
+      Script: {instanceID: 10950}
     - Class: 114
-      Script: {instanceID: 11162}
+      Script: {instanceID: 11156}
     - Class: 114
-      Script: {instanceID: 11392}
+      Script: {instanceID: 11170}
     - Class: 114
-      Script: {instanceID: 11402}
+      Script: {instanceID: 11400}
     - Class: 114
-      Script: {instanceID: 11562}
+      Script: {instanceID: 11410}
     - Class: 114
-      Script: {instanceID: 11782}
+      Script: {instanceID: 11570}
     - Class: 114
-      Script: {instanceID: 11816}
+      Script: {instanceID: 11790}
     - Class: 114
-      Script: {instanceID: 33542}
+      Script: {instanceID: 11824}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -572,7 +586,7 @@ ScriptsOnlyBuild:
     className: PhysicsRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 70c3bf5a61f3b9ab93f8cf62b81a4a1d
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: OTPInput
@@ -926,6 +940,18 @@ ScriptsOnlyBuild:
     className: Plugins
   - hash:
       serializedVersion: 2
+      Hash: b9d9562a3243119f06a4b1783ca30f8d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GSC
+  - hash:
+      serializedVersion: 2
+      Hash: 8499f294320019bd906739a7d141b1b8
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MobileNumberValidater
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -972,6 +998,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Button
+  - hash:
+      serializedVersion: 2
+      Hash: 235a1e8275c5d1ab2a1c0f017d90e1b5
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: InputFieldForScreenKeyboardPanelAdjuster
   - hash:
       serializedVersion: 2
       Hash: feb9a5a121d15fa3654d4e50a5233045
@@ -1088,10 +1120,10 @@ ScriptsOnlyBuild:
     className: FacebookSettings
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: afc945a438e6834f18a6aa8d56218272
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: VideoPlayer
+    className: MainVideoPlayer
   - hash:
       serializedVersion: 2
       Hash: ae83e830e7a90c0aff918c4c2e520825
@@ -1130,7 +1162,7 @@ ScriptsOnlyBuild:
     className: MobileInputField
   - hash:
       serializedVersion: 2
-      Hash: 5a0bb4a492a57e52dbfd05c7e6eb4d9f
+      Hash: f079a1918e2f2a92e681b278804c4349
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: OTP
@@ -1278,22 +1310,10 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PassswordButtons
-  - hash:
-      serializedVersion: 2
-      Hash: 8499f294320019bd906739a7d141b1b8
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: MobileNumberValidater
-  - hash:
-      serializedVersion: 2
-      Hash: b9d9562a3243119f06a4b1783ca30f8d
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: GSC
   platform: 13
   scenePathNames:
   - Assets/Scenes/Splash.unity
   - Assets/Scenes/Introduction.unity
   - Assets/Scenes/Login.unity
   - Assets/Scenes/Home.unity
-  playerPath: E:/Work/Running Projects/Student/Build/Android/Whizee_V01_C10.apk
+  playerPath: E:/Work/Running Projects/Student/Build/Android/Whizee_V01_C11.apk

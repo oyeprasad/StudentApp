@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class OTPInput : MonoBehaviour
 {
-    [SerializeField] private OTP otp;
-    [SerializeField] private int index;
-    InputField input;
+    TMPro.TMP_InputField input;
 
     private void OnDisable()
     {
@@ -15,11 +14,26 @@ public class OTPInput : MonoBehaviour
     }
     private void Start()
     {
-        input = GetComponent<InputField>(); 
-        input.onValueChanged.AddListener(onValueChangeMethod);
+        input = GetComponent<TMPro.TMP_InputField>();
+        input.onValueChanged.AddListener((value) =>ValueChanged(value));
+        input.onSelect.AddListener((value) => OnSelected(value));
     }
-    void onValueChangeMethod(string value)
+    private void Update()
     {
-        otp.OnValueChangeEvent.Invoke(index);
+       //input.textComponent.rectTransform.anchoredPosition = Vector2.zero;
+       //transform.GetChild(0).GetChild(0).gameObject.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+    }
+    void ValueChanged(string value) {
+        if (input.text.Length > 5) {
+            input.OnDeselect(new BaseEventData(EventSystem.current));
+            Login.OTPSubmitEvent.Invoke(input.text);
+        }
+    }
+
+    void OnSelected(string value)
+    {
+        value = "";
+        input.text = value;
+        transform.GetChild(0).GetChild(1).gameObject.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
     }
 }

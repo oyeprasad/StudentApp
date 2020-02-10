@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using System.IO;
+using UnityEngine.Events;
 
 [System.Serializable] public class VideoResponseData : ResponseBase
 {
@@ -24,14 +26,19 @@ using UnityEngine.Networking;
 
 
 public class VideoPanelController : MonoBehaviour
-{
-    // Start is called before the first frame update
+{ 
+    public static UnityEvent EventVideoFinish = new UnityEvent();
     [SerializeField] private Text titleText;
     [SerializeField] GameObject playVideoPanel, rePlayVideoPanel; 
     private int videoId = 0;
     private int _subCatId;
+    private List<string> videosLocalPath = new List<string>();
+    private int currentVideoIndex = -1;
 
-
+    void Start()
+    {
+        EventVideoFinish.AddListener(OnVideoFinished);
+    }
     public void PopulatePanel(int subCatId, string subCatName)
     {
         _subCatId = subCatId;
@@ -44,7 +51,7 @@ public class VideoPanelController : MonoBehaviour
 
     IEnumerator LoadVideoDetails(int _subCatId, System.Action<VideoResponseData> callback)
     {
-         string endpoint = WebRequests.Instance.getVideoEndPoint;
+        string endpoint = WebRequests.Instance.getVideoEndPoint;
         print("request video for subcat id "+_subCatId);
         using (UnityWebRequest webRequest = UnityWebRequest.Get(Globals.BASE_URL + endpoint+_subCatId))
         {
@@ -69,7 +76,21 @@ public class VideoPanelController : MonoBehaviour
         } 
     }
     private void OnCompleteVideoLoad(VideoResponseData videoData)
-    {    
+    {     
+        if (videoData.status)
+        {
+            for(int i = 0; i < videoData.data.videos.Count; i++)
+            {
+                if(!File.Exists(Path.Combine(Application.persistentDataPath, videoData.data.videos[i].video_id + ".mp4")))
+                {
+                    StartCoroutine(DownloadVideo(/*videoData.data.videos[i].video_path*/"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_5mb.mp4", videoData.data.videos[i].video_id+".mp4", OnVideoDownloaded));  
+                } 
+                else
+                {
+                    OnVideoDownloaded(Path.Combine(Application.persistentDataPath, videoData.data.videos[i].video_id + ".mp4"));
+                }
+            }
+        }
         HomeMainUIController.EventShowHideLoader.Invoke(false); 
 
     }
@@ -96,5 +117,48 @@ public class VideoPanelController : MonoBehaviour
                 break;
         }
     }
+
+    IEnumerator DownloadVideo(string path, string videoname, System.Action<string> callback)
+    {
+        yield return null;
+         UnityWebRequest www = UnityWebRequest.Get(path);
+            yield return www.SendWebRequest();
+
+            if(www.isNetworkError || www.isHttpError) {
+                Debug.Log(www.error);
+                callback(string.Empty);
+            } else {
+                File.WriteAllBytes(Path.Combine(Application.persistentDataPath, videoname) , www.downloadHandler.data);
+                callback(Path.Combine(Application.persistentDataPath, videoname));
+            }
+    }
+
+    void OnVideoDownloaded(string path)
+    {
+        
+        if(!string.IsNullOrEmpty(path))
+        {
+            print("videosLocalPath downloaded at "+ path);
+            videosLocalPath.Add(path);
+            if(currentVideoIndex == -1)
+            {
+                currentVideoIndex += 1;
+                playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(path);
+            }
+        }
+    }
+
+    void OnVideoFinished()
+    {
+        currentVideoIndex += 1;
+        if(currentVideoIndex < videosLocalPath.Count)
+        {
+           playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(videosLocalPath[currentVideoIndex]);
+        } else
+        {
+            rePlayVideoPanel.SetActive(true);
+        }
+    }
+ 
 
 }

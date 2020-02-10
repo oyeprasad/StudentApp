@@ -236,6 +236,7 @@ public class Login : MonoBehaviour
                 navigationPanelsList.Clear();
                 Globals.UserLoginDetails = obj.data; 
                 Globals.SaveUserData(obj.data);
+                GSC.Instance.DownloadUSerprofilePic();
                 Globals.LoadLevel(Globals.HOME_SCENE);
             }
             else
@@ -446,8 +447,15 @@ public class Login : MonoBehaviour
             
             username = ChooseUsernameInput.text;
             
+            
+            ClearInpuFields();
+            navigationPanelsList.Add(ChooseUserNamePanel);
+            ActivatePanel(PasswordPanel.name);
+            PasswordPanel.GetComponent<PasswordPanel>().Populate("CHOOSE YOUR PASSWORD");
+            
+            /*
             LoaderPanel.SetActive(true);
-            WebRequests.Instance.ProcessCheckUsernameAvailable(ChooseUsernameInput.text, callbackUsernameAvailable);
+            WebRequests.Instance.ProcessCheckUsernameAvailable(ChooseUsernameInput.text, callbackUsernameAvailable);*/
  
         }
     } 

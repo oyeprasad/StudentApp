@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
- 
+using UnityEngine.UI; 
+using TMPro;
+
 public class OTP : MonoBehaviour
 {
     public IntEvent OnValueChangeEvent = new IntEvent();
     [SerializeField] private List<InputField> allInpufields;
-    [SerializeField] private Text message;
-
+    [SerializeField] private TMP_InputField tmp_InputField;
+    [SerializeField] private Text message; 
 
     Coroutine routine = null;
     void OnEnable()
@@ -55,7 +56,7 @@ public class OTP : MonoBehaviour
     {
         string otpInput = string.Empty;
         bool isValid = true;
-        for (int i = 0; i < allInpufields.Count; i++)
+        /*for (int i = 0; i < allInpufields.Count; i++)
         {
             if (string.IsNullOrEmpty(allInpufields[i].text))
             {
@@ -65,8 +66,8 @@ public class OTP : MonoBehaviour
                 break;
             }
             otpInput += allInpufields[i].text;
-        }
-
+        }*/
+        otpInput = tmp_InputField.text;
         if (isValid)
         { 
             message.text = string.Empty;

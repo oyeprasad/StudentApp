@@ -72,11 +72,13 @@
      <Compile Include="Assets\Scripts\Home\UI\HomePanel.cs" />
      <Compile Include="Assets\Scripts\Home\UI\HomePasswordPanel.cs" />
      <Compile Include="Assets\Scripts\Home\UI\HomeSceneManager.cs" />
+     <Compile Include="Assets\Scripts\Home\UI\InputFieldForScreenKeyboardPanelAdjuster.cs" />
+     <Compile Include="Assets\Scripts\Home\UI\MobileUtilities.cs" />
      <Compile Include="Assets\Scripts\Home\UI\ProfileController.cs" />
      <Compile Include="Assets\Scripts\Home\UI\SubCategoryItem.cs" />
      <Compile Include="Assets\Scripts\Home\UI\SubCategoryManager.cs" />
+     <Compile Include="Assets\Scripts\Home\Video\MainVideoPlayer.cs" />
      <Compile Include="Assets\Scripts\Home\Video\VideoPanelController.cs" />
-     <Compile Include="Assets\Scripts\Home\Video\VideoPlayer.cs" />
      <Compile Include="Assets\Scripts\Input\InputfieldFocused.cs" />
      <Compile Include="Assets\Scripts\Input\InputfieldSlideScreen.cs" />
      <Compile Include="Assets\Scripts\Input\ScrollSnapRect.cs" />

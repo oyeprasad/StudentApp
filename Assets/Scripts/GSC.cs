@@ -27,7 +27,9 @@ public class GSC : MonoBehaviour
 
     public void DownloadUSerprofilePic()
     {
+        print("Download profile pic ");
         string url = Globals.UserLoginDetails.profile_pic;
+        print("Profile pic url "+url);
         if(!string.IsNullOrEmpty(url))
             StartCoroutine(DownloadUserprofilePic(url));
     }
