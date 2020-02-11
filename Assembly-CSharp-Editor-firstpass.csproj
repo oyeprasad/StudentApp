@@ -302,6 +302,9 @@
  <Reference Include="Google.VersionHandlerImpl_v1.2.95.0">
  <HintPath>E:/Work/Running Projects/Student/Assets/PlayServicesResolver/Editor/Google.VersionHandlerImpl_v1.2.95.0.dll</HintPath>
  </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>E:/Work/Running Projects/Student/Assets/YoutubePlayerMain/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+ </Reference>
  <Reference Include="nunit.framework">
  <HintPath>E:/Work/Running Projects/Student/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
@@ -664,6 +667,18 @@
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{B161B5C5-D974-4B3C-D7E1-F5F755DF1DB0}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
+    <ProjectReference Include="YoutubeExplode.csproj">
+      <Project>{5EE3EF9C-EE15-1CDC-4AD5-828B139C1948}</Project>
+      <Name>YoutubeExplode</Name>
+    </ProjectReference>
+    <ProjectReference Include="YoutubePlayer.csproj">
+      <Project>{72ABC8AB-3398-E567-CCB3-0BE21C1699EA}</Project>
+      <Name>YoutubePlayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="AngleSharp.csproj">
+      <Project>{DA582897-782A-D8B0-5A6A-7E9AACC2180F}</Project>
+      <Name>AngleSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

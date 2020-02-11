@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.IO;
 using UnityEngine.Events;
-
+ 
 [System.Serializable] public class VideoResponseData : ResponseBase
 {
     public VideoDataList data = new VideoDataList();
@@ -81,9 +81,17 @@ public class VideoPanelController : MonoBehaviour
         {
             for(int i = 0; i < videoData.data.videos.Count; i++)
             {
+              // videoData.data.videos[i].video_path = "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_5mb.mp4";
                 if(!File.Exists(Path.Combine(Application.persistentDataPath, videoData.data.videos[i].video_id + ".mp4")))
                 {
-                    StartCoroutine(DownloadVideo(/*videoData.data.videos[i].video_path*/"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_5mb.mp4", videoData.data.videos[i].video_id+".mp4", OnVideoDownloaded));  
+                    if(videoData.data.videos[i].video_path.Contains("youtube"))
+                    {
+                        ResolveYoutubeUrl(videoData.data.videos[i].video_path, videoData.data.videos[i].video_id + ".mp4");
+                    }
+                    else
+                    {
+                        StartCoroutine(DownloadVideo(videoData.data.videos[i].video_path, videoData.data.videos[i].video_id+".mp4", OnVideoDownloaded));  
+                    }
                 } 
                 else
                 {
@@ -118,27 +126,44 @@ public class VideoPanelController : MonoBehaviour
         }
     }
 
-    IEnumerator DownloadVideo(string path, string videoname, System.Action<string> callback)
+    void ResolveYoutubeUrl(string YoutubeUrl, string videoname)
     {
-        yield return null;
-         UnityWebRequest www = UnityWebRequest.Get(path);
-            yield return www.SendWebRequest();
+        print("Youtube URL to resolve "+YoutubeUrl);
+        YoutubePlayer.YoutubePlayer youtubePlayer = new YoutubePlayer.YoutubePlayer();
+        
+        print("video name "+videoname);
+        youtubePlayer.GetVideoResolvedUrl(YoutubeUrl, videoname,OnYoutubeUrlResolved);
+    }
 
-            if(www.isNetworkError || www.isHttpError) {
-                Debug.Log(www.error);
-                callback(string.Empty);
-            } else {
-                File.WriteAllBytes(Path.Combine(Application.persistentDataPath, videoname) , www.downloadHandler.data);
-                callback(Path.Combine(Application.persistentDataPath, videoname));
-            }
+    void OnYoutubeUrlResolved(string resolvedUrl, string videoName)
+    {  
+        OnVideoDownloaded(resolvedUrl);
+        //StartCoroutine(DownloadVideo(resolvedUrl, videoName, OnVideoDownloaded));
+    }
+
+    IEnumerator DownloadVideo(string path, string videoname, System.Action<string> callback)
+    {  
+        print("path "+path);
+        print("videoname "+videoname);
+
+        UnityWebRequest www = UnityWebRequest.Get(path);
+        yield return www.SendWebRequest();
+
+        if(www.isNetworkError || www.isHttpError) {
+            callback(string.Empty);
+        } else {
+            print("Writing...  "+videoname);
+            File.WriteAllBytes(Path.Combine(Application.persistentDataPath, videoname), www.downloadHandler.data);
+            callback(Path.Combine(Application.persistentDataPath, videoname));
+        }
     }
 
     void OnVideoDownloaded(string path)
     {
+        print("videosLocalPath downloaded at "+ path);
         
         if(!string.IsNullOrEmpty(path))
         {
-            print("videosLocalPath downloaded at "+ path);
             videosLocalPath.Add(path);
             if(currentVideoIndex == -1)
             {
