@@ -98,7 +98,7 @@ public class ValidateInput : MonoBehaviour
     string editText = "";
     private void OnValueChange(string arg0)
     {  
-        print("OnValueChange "+oldEditText);
+//        print("OnValueChange "+oldEditText);
       /*  if(IsCancelledKeyboard)
         {
             inputToValidate.text = oldEditText;

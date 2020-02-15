@@ -77,7 +77,7 @@ public class VideoList : MonoBehaviour
     {
         for (int i = 0; i < _parent.childCount; i++)
         {
-            Destroy(_parent.GetChild(0).gameObject);
+            Destroy(_parent.GetChild(i).gameObject);
         }
     }
 }

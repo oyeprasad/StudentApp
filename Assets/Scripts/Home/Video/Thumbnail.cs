@@ -12,6 +12,7 @@ public class Thumbnail : MonoBehaviour
     private string videoPath;
     private int videoId;
     private Button button;
+    VideoData videoData;
 
     void Start()
     {
@@ -20,6 +21,7 @@ public class Thumbnail : MonoBehaviour
     }
     public void Populate(VideoData data, Sprite _thumbnail)
     {
+        videoData = data;
         videoId = data.video_id;
         title.text = data.video_title;
         videoPath = data.video_path;
@@ -31,7 +33,7 @@ public class Thumbnail : MonoBehaviour
     }
     void OnClick()
     {
-        HomeMainUIController.EventThumbnailClicked.Invoke(videoPath);
+        HomeMainUIController.EventThumbnailClicked.Invoke(videoData);
     }
  
 }

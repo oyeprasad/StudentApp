@@ -34,45 +34,29 @@ public class VideoPanelController : MonoBehaviour
     private int videoId = 0;
     private int _subCatId;
     private List<string> videosLocalPath = new List<string>();
-    private int currentVideoIndex = -1;
 
+    private VideoData currentvideoData;
     void Start()
     {
         EventVideoFinish.AddListener(OnVideoFinished);
-    }
-    void OnDisable()
+    } 
+    public void PlayNewVideo(VideoData data)
     {
-        currentVideoIndex = -1;
-    }
-    public void PlayNewVideo(string videopath)
-    {
-        if(videopath.Contains("youtube"))
+        currentvideoData = data;
+        videoId = data.video_id;
+        rePlayVideoPanel.SetActive(false);
+        playVideoPanel.SetActive(true);
+        
+        if(data.video_path.Contains("youtube"))
         {
             YoutubePlayer.YoutubePlayer youtubePlayer = new YoutubePlayer.YoutubePlayer();
-            youtubePlayer.GetVideoResolvedUrl(videopath, "",OnYoutubeUrlResolved);
+            youtubePlayer.GetVideoResolvedUrl(data.video_path, "",OnYoutubeUrlResolved);
         } 
         else
         {
-            playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(videopath);
+            playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(data.video_path);
         }
-    }
-
-   /* void OnYoutubeUrlResolved(string Path)
-    {
-        print("Youtube video resolved "+Path);
-        playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(Path);
-    }*/
-
-    /*public void PopulatePanel(int subCatId, string subCatName)
-    {
-        _subCatId = subCatId;
-        titleText.text = subCatName.ToUpper();
-        playVideoPanel.SetActive(true);
-        rePlayVideoPanel.SetActive(false); 
-        HomeMainUIController.EventShowHideLoader.Invoke(true); 
-        StartCoroutine(LoadVideoDetails(subCatId, OnCompleteVideoLoad));
-    }*/
-
+    } 
     IEnumerator LoadVideoDetails(int _subCatId, System.Action<VideoResponseData> callback)
     {
         string endpoint = WebRequests.Instance.getVideoEndPoint;
@@ -132,7 +116,7 @@ public class VideoPanelController : MonoBehaviour
         switch(buttonName)
         {
             case "quizzes":
-                HomeMainUIController.EventQuizzesClicked.Invoke(videoId);
+                HomeMainUIController.EventQuizzesClicked.Invoke(currentvideoData.video_id);
                 playVideoPanel.GetComponent<MainVideoPlayer>()._isPlaying = true;
                 break;
             case "worksheet":
@@ -201,14 +185,18 @@ public class VideoPanelController : MonoBehaviour
 
     void OnVideoFinished()
     {
-        /*currentVideoIndex += 1;
-        if(currentVideoIndex < videosLocalPath.Count)
-        {
-           playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(videosLocalPath[currentVideoIndex]);
-        } else
-        {
-            rePlayVideoPanel.SetActive(true);
-        }*/
+         rePlayVideoPanel.SetActive(true);
+         playVideoPanel.SetActive(false);
+    }
+    public void ReplayClicked()
+    {
+        rePlayVideoPanel.SetActive(false);
+        playVideoPanel.SetActive(true);
+        playVideoPanel.GetComponent<MainVideoPlayer>().Replay();
+    }
+    public void QuizClicked()
+    {
+        HomeMainUIController.EventQuizzesClicked.Invoke(currentvideoData.video_id);
     }
  
 

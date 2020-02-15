@@ -62,7 +62,7 @@ public class HomeMainUIController : MonoBehaviour
     public static SpriteFloatEvent EventProfilePicChoose = new SpriteFloatEvent();
     public static UnityEvent EventChangePasswordClicked = new UnityEvent(); 
     public static IntEvent EventWorkSheetClicked = new IntEvent();
-    public static StringEvent EventThumbnailClicked = new StringEvent();
+    public static TEvent<VideoData> EventThumbnailClicked = new TEvent<VideoData>();
      
     // End Events\\\
     public static bool CanUseSystemBack = true;
@@ -180,11 +180,11 @@ public class HomeMainUIController : MonoBehaviour
             //StartCoroutine(DownloadWorkSheet(subCatId.ToString()));                  
         }
     }
-    void OnThumbnailClicked(string videoPath)
+    void OnThumbnailClicked(VideoData videodata)
     {
         navigationPanelsList.Add(VideoListPanel);
         ActivatePanel(VideoPanel.name);
-        VideoPanel.GetComponent<VideoPanelController>().PlayNewVideo(videoPath);
+        VideoPanel.GetComponent<VideoPanelController>().PlayNewVideo(videodata);
     }
     void QuizzesClicked(int videoId)
     {

@@ -89,6 +89,11 @@ public class MainVideoPlayer : MonoBehaviour
          _videoState = VideoState.Preparing;
          loadingScreen.SetActive(true);
      }
+
+     public void Replay()
+     {
+         m_VideoPlayer.Play();
+     }
      void OnPlayPuaseClicked()
      {
          switch(_videoState)
@@ -128,6 +133,7 @@ public class MainVideoPlayer : MonoBehaviour
      }
      void VideoFinished(VideoPlayer player)
      {
+         _isPlaying = false;
          MinimiseClicked();
          coverScreen.SetActive(true);
          VideoPanelController.EventVideoFinish.Invoke();

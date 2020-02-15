@@ -32,4 +32,8 @@ public class SpriteFloatEvent : UnityEvent<Sprite, float>
 {
     
 }
+public class TEvent<T> : UnityEvent<T>
+{
+    
+}
  
