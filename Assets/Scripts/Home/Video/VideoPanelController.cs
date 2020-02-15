@@ -15,6 +15,7 @@ using UnityEngine.Events;
     public int video_id = 0;
     public int sub_category_id = 0;
     public string video_title = "";
+    public string thumbnail_path = "";
     public string video_path = "";
     public string sub_category_name = "";
 }
@@ -39,6 +40,28 @@ public class VideoPanelController : MonoBehaviour
     {
         EventVideoFinish.AddListener(OnVideoFinished);
     }
+    void OnDisable()
+    {
+        currentVideoIndex = -1;
+    }
+    public void PlayNewVideo(string videopath)
+    {
+        if(videopath.Contains("youtube"))
+        {
+            YoutubePlayer.YoutubePlayer youtubePlayer = new YoutubePlayer.YoutubePlayer();
+            youtubePlayer.GetVideoResolvedUrl(videopath, "",OnYoutubeUrlResolved);
+        } 
+        else
+        {
+            playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(videopath);
+        }
+    }
+
+    void OnYoutubeUrlResolved(string Path)
+    {
+        playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(Path);
+    }
+
     public void PopulatePanel(int subCatId, string subCatName)
     {
         _subCatId = subCatId;
@@ -162,7 +185,7 @@ public class VideoPanelController : MonoBehaviour
     {
         print("videosLocalPath downloaded at "+ path);
         
-        if(!string.IsNullOrEmpty(path))
+       /* if(!string.IsNullOrEmpty(path))
         {
             videosLocalPath.Add(path);
             if(currentVideoIndex == -1)
@@ -170,19 +193,19 @@ public class VideoPanelController : MonoBehaviour
                 currentVideoIndex += 1;
                 playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(path);
             }
-        }
+        }*/
     }
 
     void OnVideoFinished()
     {
-        currentVideoIndex += 1;
+        /*currentVideoIndex += 1;
         if(currentVideoIndex < videosLocalPath.Count)
         {
            playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(videosLocalPath[currentVideoIndex]);
         } else
         {
             rePlayVideoPanel.SetActive(true);
-        }
+        }*/
     }
  
 
