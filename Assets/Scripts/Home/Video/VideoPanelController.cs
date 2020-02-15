@@ -57,12 +57,13 @@ public class VideoPanelController : MonoBehaviour
         }
     }
 
-    void OnYoutubeUrlResolved(string Path)
+   /* void OnYoutubeUrlResolved(string Path)
     {
+        print("Youtube video resolved "+Path);
         playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(Path);
-    }
+    }*/
 
-    public void PopulatePanel(int subCatId, string subCatName)
+    /*public void PopulatePanel(int subCatId, string subCatName)
     {
         _subCatId = subCatId;
         titleText.text = subCatName.ToUpper();
@@ -70,7 +71,7 @@ public class VideoPanelController : MonoBehaviour
         rePlayVideoPanel.SetActive(false); 
         HomeMainUIController.EventShowHideLoader.Invoke(true); 
         StartCoroutine(LoadVideoDetails(subCatId, OnCompleteVideoLoad));
-    }
+    }*/
 
     IEnumerator LoadVideoDetails(int _subCatId, System.Action<VideoResponseData> callback)
     {
@@ -160,7 +161,8 @@ public class VideoPanelController : MonoBehaviour
 
     void OnYoutubeUrlResolved(string resolvedUrl, string videoName)
     {  
-        OnVideoDownloaded(resolvedUrl);
+        print("Youtube video resolved "+resolvedUrl);
+        playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(resolvedUrl);
         //StartCoroutine(DownloadVideo(resolvedUrl, videoName, OnVideoDownloaded));
     }
 

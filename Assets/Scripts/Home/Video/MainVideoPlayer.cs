@@ -67,6 +67,7 @@ public class MainVideoPlayer : MonoBehaviour
 
      public void PlayNewVideo(string url)
      {
+         print("Play new video");
          coverScreen.SetActive(true);
          m_VideoPlayer.url = url;
          m_VideoPlayer.Prepare();

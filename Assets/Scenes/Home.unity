@@ -8584,7 +8584,7 @@ VideoPlayer:
   m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
   m_PlayOnAwake: 0
-  m_SkipOnDrop: 1
+  m_SkipOnDrop: 0
   m_Looping: 0
   m_WaitForFirstFrame: 0
   m_FrameReadyEventEnabled: 0
@@ -27844,7 +27844,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 00>00
+  m_Text: 00:00
 --- !u!222 &1375298529
 CanvasRenderer:
   m_ObjectHideFlags: 0

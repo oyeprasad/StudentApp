@@ -13,7 +13,6 @@ public class VideoList : MonoBehaviour
     [SerializeField] private GameObject thumbnailPrefab;
     [SerializeField] private Transform _parent;
     private int subCatId;
-    private Dictionary<int ,string> videosLocalPath = new Dictionary<int ,string>();
     public void Populate(int _subCatId, string _subCatName)
     {
         Clear();
@@ -57,41 +56,7 @@ public class VideoList : MonoBehaviour
         HomeMainUIController.EventShowHideLoader.Invoke(false); 
 
     }
-    void ResolveYoutubeUrl(string YoutubeUrl, string videoname)
-    {
-        print("Youtube URL to resolve "+YoutubeUrl);
-        YoutubePlayer.YoutubePlayer youtubePlayer = new YoutubePlayer.YoutubePlayer();
-        
-        print("video name "+videoname);
-        youtubePlayer.GetVideoResolvedUrl(YoutubeUrl, videoname,OnYoutubeUrlResolved);
-    }
-
-    void OnYoutubeUrlResolved(string resolvedUrl, string videoName)
-    {  
-        OnVideoDownloaded(resolvedUrl);
-         // StartCoroutine(DownloadVideo(resolvedUrl, videoName, OnVideoDownloaded));
-    }
-    IEnumerator DownloadVideo(string path, string videoname, System.Action<string> callback)
-    {  
-        print("path "+path);
-        print("videoname "+videoname);
-
-        UnityWebRequest www = UnityWebRequest.Get(path);
-        yield return www.SendWebRequest();
-
-        if(www.isNetworkError || www.isHttpError) {
-            callback(string.Empty);
-        } else {
-            print("Writing...  "+videoname);
-            File.WriteAllBytes(Path.Combine(Application.persistentDataPath, videoname), www.downloadHandler.data);
-            callback(Path.Combine(Application.persistentDataPath, videoname));
-        }
-    }
-
-    void OnVideoDownloaded(string path)
-    {
-        VideoDownLaoded.Invoke(path);
-    }
+    
     private void PopulatePanel(List<VideoData> allVideosData)
     {   
         foreach(VideoData item in allVideosData)
