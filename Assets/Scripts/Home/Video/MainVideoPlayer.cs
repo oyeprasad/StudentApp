@@ -16,17 +16,32 @@ public class MainVideoPlayer : MonoBehaviour
      [SerializeField] private VideoPlayer m_VideoPlayer;
      [SerializeField] private Sprite playSprite;
      [SerializeField] private Sprite pauseSprite;
+     [SerializeField] private Sprite fullVideoSprite;
+     [SerializeField] private Sprite minVideoSprite;
      [SerializeField] private Button PlayPuaseBtn;
     [SerializeField] private Button fullscreenButtonBtn;
+
+    [SerializeField] private GameObject fullScrrenPanel;
+    [SerializeField] private Button fullScrrenPlyPauseBtn;
     [SerializeField] private Button minimiseButton;
     [SerializeField] private GameObject loadingScreen;
+    [SerializeField] private GameObject outerLaoding;
     [SerializeField] private GameObject coverScreen;
     [SerializeField] private Text currentSeekTime;
     [SerializeField] private Text totalDuration;
+    [SerializeField] private Text currentSeekTimeFS;
+    [SerializeField] private Text totalDurationFS;
     [SerializeField] private Slider seekSlider;
+    [SerializeField] private Slider fullScrrenSeekSlider;
     private bool _isPlaying = false;
     private VideoState _videoState = VideoState.Preparing;
-    private bool isSliding = false;
+    private bool isSliding = false; 
+
+    void OnEnable()
+    {
+         loadingScreen.SetActive(true);
+         outerLaoding.SetActive(true);
+    }
     void Start()
     {
         m_VideoPlayer.prepareCompleted += PrepareCompleted;
@@ -34,7 +49,22 @@ public class MainVideoPlayer : MonoBehaviour
         m_VideoPlayer.loopPointReached += VideoFinished;
  
         PlayPuaseBtn.onClick.AddListener(OnPlayPuaseClicked);
+        fullScrrenPlyPauseBtn.onClick.AddListener(OnPlayPuaseClicked);
+        fullscreenButtonBtn.onClick.AddListener(FullScreenClicked);
+        minimiseButton.onClick.AddListener(MinimiseClicked);
     }
+
+    void FullScreenClicked()
+    {
+        HomeMainUIController.CanUseSystemBack = false;
+        fullScrrenPanel.SetActive(true);
+    }
+    void MinimiseClicked()
+    {
+        HomeMainUIController.CanUseSystemBack = true;
+        fullScrrenPanel.SetActive(false);
+    }
+
      public void PlayNewVideo(string url)
      {
          coverScreen.SetActive(true);
@@ -53,11 +83,13 @@ public class MainVideoPlayer : MonoBehaviour
                 m_VideoPlayer.Pause();
                 _videoState = VideoState.Paused;
                 PlayPuaseBtn.GetComponent<Image>().sprite = playSprite;
+                fullScrrenPlyPauseBtn.GetComponent<Image>().sprite = playSprite;
                 break;
              case VideoState.Paused:
                 m_VideoPlayer.Play();
                 _videoState = VideoState.Playing;
                 PlayPuaseBtn.GetComponent<Image>().sprite = pauseSprite;
+                fullScrrenPlyPauseBtn.GetComponent<Image>().sprite = pauseSprite;
                 break;
              case VideoState.Finished:
              break;
@@ -68,6 +100,7 @@ public class MainVideoPlayer : MonoBehaviour
      {
          coverScreen.SetActive(false);
          loadingScreen.SetActive(false);
+         outerLaoding.SetActive(false);
         m_VideoPlayer.Play(); 
         _videoState = VideoState.Playing;
      }
@@ -79,6 +112,7 @@ public class MainVideoPlayer : MonoBehaviour
      }
      void VideoFinished(VideoPlayer player)
      {
+         MinimiseClicked();
          coverScreen.SetActive(true);
          VideoPanelController.EventVideoFinish.Invoke();
      }
@@ -95,19 +129,41 @@ public class MainVideoPlayer : MonoBehaviour
          _videoState = VideoState.Preparing;
          isSliding = false;
      }
+     public void FullScreenOnPointerDownSlider()
+     {
+         isSliding = true;
+     }
+     public void FullScreenOnPointerUpSlider()
+     {
+        float frame = (float) fullScrrenSeekSlider.value * (float)m_VideoPlayer.frameCount;
+
+         m_VideoPlayer.frame = (long) frame;
+         loadingScreen.SetActive(true);
+         _videoState = VideoState.Preparing;
+         isSliding = false;   
+     }
      private void Update()
      {
         if(!isSliding && _videoState == VideoState.Playing)
         {
             seekSlider.value = (float)m_VideoPlayer.frame/(float)m_VideoPlayer.frameCount; 
+            fullScrrenSeekSlider.value = (float)m_VideoPlayer.frame/(float)m_VideoPlayer.frameCount; 
             SetVideoTime();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(fullScrrenPanel.activeInHierarchy)
+            {
+                MinimiseClicked();
+            }
         }
      }
      
      void SetVideoTime()
      {
-        currentSeekTime.text = string.Format("{0}:{1}", Mathf.FloorToInt((float)m_VideoPlayer.time/60).ToString("00"), Mathf.FloorToInt((float)m_VideoPlayer.time%60).ToString("00"));
-        totalDuration.text = string.Format("{0}:{1}", Mathf.FloorToInt((float)m_VideoPlayer.length/60).ToString("00"), Mathf.FloorToInt((float)m_VideoPlayer.length%60).ToString("00"));
+        currentSeekTimeFS.text = currentSeekTime.text = string.Format("{0}:{1}", Mathf.FloorToInt((float)m_VideoPlayer.time/60).ToString("00"), Mathf.FloorToInt((float)m_VideoPlayer.time%60).ToString("00"));
+        totalDurationFS.text = totalDuration.text = string.Format("{0}:{1}", Mathf.FloorToInt((float)m_VideoPlayer.length/60).ToString("00"), Mathf.FloorToInt((float)m_VideoPlayer.length%60).ToString("00"));
      }
 
 }

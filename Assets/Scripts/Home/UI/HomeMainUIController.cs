@@ -35,7 +35,7 @@ public class HomeMainUIController : MonoBehaviour
     private Sprite UserImage;
 
     // Reference to all panels, as gameobject
-    public GameObject HomePanelObject, ProfilePanel, ProfilePanelEdit,CategoryPanel, SubCategoryPanel, 
+    public GameObject HomePanelObject, ProfilePanel, ProfilePanelEdit,CategoryPanel, SubCategoryPanel, VideoListPanel,
                       VideoPanel, QuizPanel, ChangePasswordPanel, NewPasswordPanel,ConfirmNewPassPanel,HelpPanel, AboutUsPanel, TermsConditionsPanel;
     public GameObject LoaderObject;
     public GameObject SidePanel; 
@@ -62,6 +62,7 @@ public class HomeMainUIController : MonoBehaviour
     public static SpriteFloatEvent EventProfilePicChoose = new SpriteFloatEvent();
     public static UnityEvent EventChangePasswordClicked = new UnityEvent(); 
     public static IntEvent EventWorkSheetClicked = new IntEvent();
+    public static StringEvent EventThumbnailClicked = new StringEvent();
      
     // End Events\\\
     public static bool CanUseSystemBack = true;
@@ -90,6 +91,7 @@ public class HomeMainUIController : MonoBehaviour
         HomeMainUIController.EventSubmitHelp.AddListener(OnHelpSubmit); 
         HomeMainUIController.EventProfilePicChoose.AddListener(OnProfilePicSelected);
         HomeMainUIController.EventWorkSheetClicked.AddListener(OnWorkSheetClicked);
+        HomeMainUIController.EventThumbnailClicked.AddListener(OnThumbnailClicked);
     }
     private void Update()
     {
@@ -135,6 +137,7 @@ public class HomeMainUIController : MonoBehaviour
         ActivatePanel(CategoryPanel.name); 
         CategoryPanel.GetComponent<CategoryManager>().PopulateCategoryPanel(Globals.UserLoginDetails.grade);   
     }
+    
     void QuizzesClickedFromHome()
     {
         queryType = QueryType.Quizzes;
@@ -159,16 +162,15 @@ public class HomeMainUIController : MonoBehaviour
     }
     void OnSubCatClicked(int subCatId, string subCatName)
     {
-        print(subCatId+ " Name " +subCatName);
         navigationPanelsList.Add(SubCategoryPanel);
         if(queryType == QueryType.Video)
         {
-            navigationPanelsList.Add(VideoPanel);
-            ActivatePanel(VideoPanel.name);
-            VideoPanel.GetComponent<VideoPanelController>().PopulatePanel(subCatId, subCatName);
+            ActivatePanel(VideoListPanel.name);
+           VideoListPanel.GetComponent<VideoList>().Populate(subCatId, subCatName);
+
         } else if(queryType == QueryType.Quizzes)
         {
-            navigationPanelsList.Add(SubCategoryPanel);
+           // navigationPanelsList.Add(SubCategoryPanel);
             ActivatePanel(QuizPanel.name);
             QuizPanel.GetComponent<QuizController>().PopulateQuizzesOnSubCat(subCatId);
         } 
@@ -178,7 +180,12 @@ public class HomeMainUIController : MonoBehaviour
             //StartCoroutine(DownloadWorkSheet(subCatId.ToString()));                  
         }
     }
-
+    void OnThumbnailClicked(string videoPath)
+    {
+        navigationPanelsList.Add(VideoListPanel);
+        ActivatePanel(VideoPanel.name);
+        VideoPanel.GetComponent<VideoPanelController>().PlayNewVideo(videoPath);
+    }
     void QuizzesClicked(int videoId)
     {
         navigationPanelsList.Add(VideoPanel);
@@ -188,7 +195,6 @@ public class HomeMainUIController : MonoBehaviour
 
     void PasswordButtonClicked(int panelId, string _password)
     {
-        print("Password set for "+panelId.ToString()+"  is "+_password);
         if(panelId == 0) // Set old password
         { 
             passwordPanelState = PasswordPanelState.OLDPASSWORD;
@@ -237,7 +243,8 @@ public class HomeMainUIController : MonoBehaviour
         ProfilePanelEdit.SetActive(string.Equals(ProfilePanelEdit.name, panelName));
         CategoryPanel.SetActive(string.Equals(CategoryPanel.name, panelName));
         SubCategoryPanel.SetActive(string.Equals(SubCategoryPanel.name, panelName));
-        VideoPanel.SetActive(string.Equals(VideoPanel.name, panelName));
+        VideoListPanel.SetActive(string.Equals(VideoListPanel.name, panelName)); //
+        VideoPanel.SetActive(string.Equals(VideoPanel.name, panelName)); 
         QuizPanel.SetActive(string.Equals(QuizPanel.name, panelName));
         ChangePasswordPanel.SetActive(string.Equals(ChangePasswordPanel.name, panelName));
         NewPasswordPanel.SetActive(string.Equals(NewPasswordPanel.name, panelName));

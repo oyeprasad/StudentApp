@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngleSharp", "AngleSharp.csproj", "{80C50F5A-B8C5-3A16-2C70-C11D39BAAA6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YoutubeExplode", "YoutubeExplode.csproj", "{56C3A1A2-6966-6AF0-3A68-28AA8D6883F5}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{2CC1468A-0C2E-6662-0368-4D25DC23F94C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{FDE97D24-DED7-5526-0EAD-158281740DF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YoutubePlayer", "YoutubePlayer.csproj", "{404653B3-4C6A-29EF-7639-8CC2FD2F1BB7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor-firstpass", "Assembly-CSharp-Editor-firstpass.csproj", "{BC5F3563-13AF-370C-480E-83F59EF15225}"
 EndProject
@@ -15,6 +21,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{80C50F5A-B8C5-3A16-2C70-C11D39BAAA6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80C50F5A-B8C5-3A16-2C70-C11D39BAAA6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80C50F5A-B8C5-3A16-2C70-C11D39BAAA6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80C50F5A-B8C5-3A16-2C70-C11D39BAAA6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56C3A1A2-6966-6AF0-3A68-28AA8D6883F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56C3A1A2-6966-6AF0-3A68-28AA8D6883F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56C3A1A2-6966-6AF0-3A68-28AA8D6883F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56C3A1A2-6966-6AF0-3A68-28AA8D6883F5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2CC1468A-0C2E-6662-0368-4D25DC23F94C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2CC1468A-0C2E-6662-0368-4D25DC23F94C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CC1468A-0C2E-6662-0368-4D25DC23F94C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -23,6 +37,10 @@ Global
 		{FDE97D24-DED7-5526-0EAD-158281740DF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDE97D24-DED7-5526-0EAD-158281740DF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDE97D24-DED7-5526-0EAD-158281740DF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{404653B3-4C6A-29EF-7639-8CC2FD2F1BB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{404653B3-4C6A-29EF-7639-8CC2FD2F1BB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{404653B3-4C6A-29EF-7639-8CC2FD2F1BB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{404653B3-4C6A-29EF-7639-8CC2FD2F1BB7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BC5F3563-13AF-370C-480E-83F59EF15225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BC5F3563-13AF-370C-480E-83F59EF15225}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC5F3563-13AF-370C-480E-83F59EF15225}.Release|Any CPU.ActiveCfg = Release|Any CPU

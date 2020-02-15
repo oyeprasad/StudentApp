@@ -78,6 +78,8 @@
      <Compile Include="Assets\Scripts\Home\UI\SubCategoryItem.cs" />
      <Compile Include="Assets\Scripts\Home\UI\SubCategoryManager.cs" />
      <Compile Include="Assets\Scripts\Home\Video\MainVideoPlayer.cs" />
+     <Compile Include="Assets\Scripts\Home\Video\Thumbnail.cs" />
+     <Compile Include="Assets\Scripts\Home\Video\VideoList.cs" />
      <Compile Include="Assets\Scripts\Home\Video\VideoPanelController.cs" />
      <Compile Include="Assets\Scripts\Input\InputfieldFocused.cs" />
      <Compile Include="Assets\Scripts\Input\InputfieldSlideScreen.cs" />
@@ -107,6 +109,7 @@
      <Compile Include="Assets\Scripts\Utility\UserDefineEvents.cs" />
      <Compile Include="Assets\Scripts\Utility\WebRequests.cs" />
      <Compile Include="Assets\TabSelect.cs" />
+     <Compile Include="Assets\YoutubePlayerMain\Demo.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
@@ -343,6 +346,9 @@
  </Reference>
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>E:/Work/Running Projects/Student/Assets/FacebookSDK/Plugins/Settings/Facebook.Unity.Settings.dll</HintPath>
+ </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>E:/Work/Running Projects/Student/Assets/YoutubePlayerMain/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.16f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -703,6 +709,18 @@
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{B161B5C5-D974-4B3C-D7E1-F5F755DF1DB0}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
+    <ProjectReference Include="YoutubeExplode.csproj">
+      <Project>{5EE3EF9C-EE15-1CDC-4AD5-828B139C1948}</Project>
+      <Name>YoutubeExplode</Name>
+    </ProjectReference>
+    <ProjectReference Include="YoutubePlayer.csproj">
+      <Project>{72ABC8AB-3398-E567-CCB3-0BE21C1699EA}</Project>
+      <Name>YoutubePlayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="AngleSharp.csproj">
+      <Project>{DA582897-782A-D8B0-5A6A-7E9AACC2180F}</Project>
+      <Name>AngleSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

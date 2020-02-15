@@ -19,6 +19,7 @@ public class OTP : MonoBehaviour
         {
             allInpufields[i].text = string.Empty;
         }   
+        tmp_InputField.text = string.Empty;
     }
 
     private void Start()
