@@ -133,6 +133,7 @@ public class VideoPanelController : MonoBehaviour
         {
             case "quizzes":
                 HomeMainUIController.EventQuizzesClicked.Invoke(videoId);
+                playVideoPanel.GetComponent<MainVideoPlayer>()._isPlaying = true;
                 break;
             case "worksheet":
                 print("Clicked for worksheet");

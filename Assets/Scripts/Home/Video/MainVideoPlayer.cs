@@ -33,14 +33,28 @@ public class MainVideoPlayer : MonoBehaviour
     [SerializeField] private Text totalDurationFS;
     [SerializeField] private Slider seekSlider;
     [SerializeField] private Slider fullScrrenSeekSlider;
-    private bool _isPlaying = false;
+    public bool _isPlaying = false;
     private VideoState _videoState = VideoState.Preparing;
     private bool isSliding = false; 
+
 
     void OnEnable()
     {
          loadingScreen.SetActive(true);
          outerLaoding.SetActive(true);
+        if(_isPlaying )
+        {
+            m_VideoPlayer.Play();
+            _isPlaying = false;
+            print("Play video on enable as it was previously playing");
+        }
+    }
+    void OnDisable()
+    {
+        if(m_VideoPlayer.isPlaying)
+        {
+            m_VideoPlayer.Pause();
+        }
     }
     void Start()
     {
@@ -66,7 +80,8 @@ public class MainVideoPlayer : MonoBehaviour
     }
 
      public void PlayNewVideo(string url)
-     {
+     { 
+          
          print("Play new video");
          coverScreen.SetActive(true);
          m_VideoPlayer.url = url;
