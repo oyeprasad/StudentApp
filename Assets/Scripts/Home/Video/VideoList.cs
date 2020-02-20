@@ -52,6 +52,9 @@ public class VideoList : MonoBehaviour
         if (videoData.status)
         {
             PopulatePanel(videoData.data.videos);
+        } else
+        {
+            HomeMainUIController.ShowPopup.Invoke(videoData.message, () => HomeMainUIController.EventBackClicked.Invoke());
         }
         HomeMainUIController.EventShowHideLoader.Invoke(false); 
 
