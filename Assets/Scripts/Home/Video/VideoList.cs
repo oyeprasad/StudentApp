@@ -68,9 +68,26 @@ public class VideoList : MonoBehaviour
     IEnumerator DownloadThumbnail(VideoData videoData)
     {
         // code for DownloadThumbnail
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(videoData.video_thumbnail);
+        yield return www.SendWebRequest();
+        while(!www.isDone)
         yield return null;
-        GameObject newItem = Instantiate(thumbnailPrefab, _parent);
-        newItem.GetComponent<Thumbnail>().Populate(videoData, null);
+
+        if(www.isNetworkError || www.isHttpError) {
+            Debug.Log(www.error);
+        }
+        else {
+            float height = 0;
+            float width = 0;
+            Texture2D myTexture = (Texture2D)((DownloadHandlerTexture)www.downloadHandler).texture;
+            Sprite sprite =  Sprite.Create(myTexture, new Rect(0.0f, 0.0f, myTexture.width, myTexture.height), new Vector2(0.5f, 0.5f), 100.0f);
+            width = myTexture.width;
+            height = myTexture.height;
+            GameObject newItem = Instantiate(thumbnailPrefab, _parent);
+            newItem.GetComponent<Thumbnail>().Populate(videoData, sprite, width, height);
+ 
+        }
+ 
     }
     
     void Clear()

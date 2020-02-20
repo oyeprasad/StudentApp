@@ -14,9 +14,10 @@ using UnityEngine.Events;
 {
     public int video_id = 0;
     public int sub_category_id = 0;
+    public string video_type = "local_disk";
     public string video_title = "";
-    public string thumbnail_path = "";
     public string video_path = "";
+    public string video_thumbnail = ""; 
     public string sub_category_name = "";
 }
 
@@ -42,12 +43,15 @@ public class VideoPanelController : MonoBehaviour
     } 
     public void PlayNewVideo(VideoData data)
     {
+        print("Play new video at "+data.video_path);
+         titleText.text = data.video_title;
         currentvideoData = data;
         videoId = data.video_id;
+
         rePlayVideoPanel.SetActive(false);
         playVideoPanel.SetActive(true);
         
-        if(data.video_path.Contains("youtube"))
+        if(!string.Equals(data.video_type, "local_disk"))
         {
             YoutubePlayer.YoutubePlayer youtubePlayer = new YoutubePlayer.YoutubePlayer();
             youtubePlayer.GetVideoResolvedUrl(data.video_path, "",OnYoutubeUrlResolved);
@@ -89,7 +93,6 @@ public class VideoPanelController : MonoBehaviour
         {
             for(int i = 0; i < videoData.data.videos.Count; i++)
             {
-              // videoData.data.videos[i].video_path = "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_5mb.mp4";
                 if(!File.Exists(Path.Combine(Application.persistentDataPath, videoData.data.videos[i].video_id + ".mp4")))
                 {
                     if(videoData.data.videos[i].video_path.Contains("youtube"))

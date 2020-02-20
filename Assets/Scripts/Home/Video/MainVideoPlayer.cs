@@ -61,6 +61,7 @@ public class MainVideoPlayer : MonoBehaviour
         m_VideoPlayer.prepareCompleted += PrepareCompleted;
         m_VideoPlayer.seekCompleted += SeekCompleted;
         m_VideoPlayer.loopPointReached += VideoFinished;
+        m_VideoPlayer.errorReceived += ErrorRecieved;
  
         PlayPuaseBtn.onClick.AddListener(OnPlayPuaseClicked);
         fullScrrenPlyPauseBtn.onClick.AddListener(OnPlayPuaseClicked);
@@ -82,7 +83,7 @@ public class MainVideoPlayer : MonoBehaviour
      public void PlayNewVideo(string url)
      { 
           
-         print("Play new video");
+         print("MainVideoPlayer Play new video "+url);
          coverScreen.SetActive(true);
          m_VideoPlayer.url = url;
          m_VideoPlayer.Prepare();
@@ -119,6 +120,7 @@ public class MainVideoPlayer : MonoBehaviour
 
      void PrepareCompleted(VideoPlayer player)
      {
+         print("Video prepare completed");
          coverScreen.SetActive(false);
          loadingScreen.SetActive(false);
          outerLaoding.SetActive(false);
@@ -138,6 +140,10 @@ public class MainVideoPlayer : MonoBehaviour
          coverScreen.SetActive(true);
          VideoPanelController.EventVideoFinish.Invoke();
      }
+    void ErrorRecieved(VideoPlayer source, string msg)
+    {
+       print("ErrorRecieved "+msg);
+    }
      public void OnPointerDownSlider()
      {
          isSliding = true;
