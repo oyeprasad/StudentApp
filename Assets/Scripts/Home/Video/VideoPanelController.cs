@@ -32,6 +32,8 @@ public class VideoPanelController : MonoBehaviour
     public static UnityEvent EventVideoFinish = new UnityEvent();
     [SerializeField] private Text titleText;
     [SerializeField] GameObject playVideoPanel, rePlayVideoPanel; 
+    [SerializeField] private Slider videoDownloadProgress;
+    [SerializeField] private Text progressText;
     private int videoId = 0;
     private int _subCatId;
     private List<string> videosLocalPath = new List<string>();
@@ -54,66 +56,16 @@ public class VideoPanelController : MonoBehaviour
         if(!string.Equals(data.video_type, "local_disk"))
         {
             YoutubePlayer.YoutubePlayer youtubePlayer = new YoutubePlayer.YoutubePlayer();
-            youtubePlayer.GetVideoResolvedUrl(data.video_path, "",OnYoutubeUrlResolved);
+            youtubePlayer.GetVideoResolvedUrl(data.video_path, OnYoutubeUrlResolved);
         } 
         else
         {
-            playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(data.video_path);
+            print("Download Video");
+         StartCoroutine(DownloadVideo(currentvideoData.video_path, currentvideoData.video_id+"_video.mp4",OnVideoDownloaded));   
+          //  playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(data.video_path);
         }
     } 
-    IEnumerator LoadVideoDetails(int _subCatId, System.Action<VideoResponseData> callback)
-    {
-        string endpoint = WebRequests.Instance.getVideoEndPoint;
-        print("request video for subcat id "+_subCatId);
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(Globals.BASE_URL + endpoint+_subCatId))
-        {
-            // Request and wait for the desired page.
-            print("URL "+webRequest.url);
-            webRequest.SetRequestHeader("Accept", "application/json");//
-            webRequest.SetRequestHeader("Authorization", "Bearer "+Globals.UserLoginDetails.access_token);
-
-            yield return webRequest.SendWebRequest();
-            while(!webRequest.isDone)
-                yield return webRequest;
-            if (webRequest.isNetworkError)
-            {
-              callback(null);
-              print("Error! " + webRequest.responseCode);  
-            }
-            else
-            {
-                print(webRequest.downloadHandler.text);
-                callback(JsonUtility.FromJson<VideoResponseData> (webRequest.downloadHandler.text));
-            }
-        } 
-    }
-    private void OnCompleteVideoLoad(VideoResponseData videoData)
-    {     
-        if (videoData.status)
-        {
-            for(int i = 0; i < videoData.data.videos.Count; i++)
-            {
-                if(!File.Exists(Path.Combine(Application.persistentDataPath, videoData.data.videos[i].video_id + ".mp4")))
-                {
-                    if(videoData.data.videos[i].video_path.Contains("youtube"))
-                    {
-                        ResolveYoutubeUrl(videoData.data.videos[i].video_path, videoData.data.videos[i].video_id + ".mp4");
-                    }
-                    else
-                    {
-                        StartCoroutine(DownloadVideo(videoData.data.videos[i].video_path, videoData.data.videos[i].video_id+".mp4", OnVideoDownloaded));  
-                    }
-                } 
-                else
-                {
-                    OnVideoDownloaded(Path.Combine(Application.persistentDataPath, videoData.data.videos[i].video_id + ".mp4"));
-                }
-            }
-        }
-        HomeMainUIController.EventShowHideLoader.Invoke(false); 
-
-    }
-
+   
     public void LowerButtonClicked(string buttonName)
     {
         switch(buttonName)
@@ -138,52 +90,61 @@ public class VideoPanelController : MonoBehaviour
         }
     }
 
-    void ResolveYoutubeUrl(string YoutubeUrl, string videoname)
+    /*void ResolveYoutubeUrl(string YoutubeUrl, string videoname)
     {
         print("Youtube URL to resolve "+YoutubeUrl);
         YoutubePlayer.YoutubePlayer youtubePlayer = new YoutubePlayer.YoutubePlayer();
         
         print("video name "+videoname);
         youtubePlayer.GetVideoResolvedUrl(YoutubeUrl, videoname,OnYoutubeUrlResolved);
-    }
+    }*/
 
-    void OnYoutubeUrlResolved(string resolvedUrl, string videoName)
+    void OnYoutubeUrlResolved(string resolvedUrl)
     {  
-        print("Youtube video resolved "+resolvedUrl);
-        playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(resolvedUrl);
-        //StartCoroutine(DownloadVideo(resolvedUrl, videoName, OnVideoDownloaded));
+        //print("Youtube video resolved "+resolvedUrl);
+        //playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(resolvedUrl);
+        StartCoroutine(DownloadVideo(resolvedUrl, currentvideoData.video_id+"_video.mp4",OnVideoDownloaded));
     }
 
     IEnumerator DownloadVideo(string path, string videoname, System.Action<string> callback)
     {  
-        print("path "+path);
-        print("videoname "+videoname);
-
+        print("Trying video download at "+path);
+        string destinationPath = Path.Combine(Application.persistentDataPath, videoname);
+        if(File.Exists(Path.Combine(Application.persistentDataPath, videoname)))
+        {
+            print("Already Downlaoded");
+            callback(destinationPath);
+        }
         UnityWebRequest www = UnityWebRequest.Get(path);
+        print("Downloading");
+        StartCoroutine(ShowProgress(www));
         yield return www.SendWebRequest();
-
+        
         if(www.isNetworkError || www.isHttpError) {
+            print(www.responseCode);
+            print(www.error);
             callback(string.Empty);
         } else {
             print("Writing...  "+videoname);
-            File.WriteAllBytes(Path.Combine(Application.persistentDataPath, videoname), www.downloadHandler.data);
-            callback(Path.Combine(Application.persistentDataPath, videoname));
+            File.WriteAllBytes(destinationPath, www.downloadHandler.data);
+            callback(destinationPath);
+        }
+    }
+    
+    IEnumerator ShowProgress(UnityWebRequest www)
+    {
+        while(!www.isDone)
+        {
+            yield return new WaitForSeconds(0.1f);
+            progressText.text = ""+Mathf.CeilToInt(www.downloadProgress * 100)  +" %";
+            videoDownloadProgress.value = www.downloadProgress;
         }
     }
 
     void OnVideoDownloaded(string path)
     {
         print("videosLocalPath downloaded at "+ path);
-        
-       /* if(!string.IsNullOrEmpty(path))
-        {
-            videosLocalPath.Add(path);
-            if(currentVideoIndex == -1)
-            {
-                currentVideoIndex += 1;
-                playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(path);
-            }
-        }*/
+        playVideoPanel.GetComponent<MainVideoPlayer>().PlayNewVideo(path);
     }
 
     void OnVideoFinished()

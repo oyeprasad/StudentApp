@@ -107,6 +107,7 @@
      <Compile Include="Assets\Scripts\UnityMobileInput\Plugins.cs" />
      <Compile Include="Assets\Scripts\Utility\Communications.cs" />
      <Compile Include="Assets\Scripts\Utility\UserDefineEvents.cs" />
+     <Compile Include="Assets\Scripts\Utility\VideoDownloader.cs" />
      <Compile Include="Assets\Scripts\Utility\WebRequests.cs" />
      <Compile Include="Assets\TabSelect.cs" />
      <Compile Include="Assets\YoutubePlayerMain\Demo.cs" />

@@ -39,12 +39,10 @@ namespace YoutubePlayer
             youtubeClient = new YoutubeClient(); 
         }
 
-        System.Action<string, string> _callback;
-        string videoName = "";
-        public async void GetVideoResolvedUrl(string youtubeUrl, string videoname,System.Action<string, string> callback)
+        System.Action<string> _callback; 
+        public async void GetVideoResolvedUrl(string youtubeUrl, System.Action<string> callback)
         {
             _callback = callback;
-            videoName = videoname;
             await PlayVideoAsync(youtubeUrl);
         }
  
@@ -65,14 +63,14 @@ namespace YoutubePlayer
                 var streamInfo = streamInfoSet.WithHighestVideoQualitySupported();
                 if (streamInfo == null)
                 {
-                    _callback(null, videoName);
+                    _callback(null);
                     return;
                 } 
-                _callback(streamInfo.Url, videoName);
+                _callback(streamInfo.Url);
             }
             catch (Exception ex)
             {
-                _callback(null, videoName);
+                _callback(null);
                 Debug.LogException(ex);
             }
         }
